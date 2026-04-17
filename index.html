@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETH/BTC Rotator | Web Server Compatible</title>
+    <title>ETH/BTC Rotator v8.5 | License Protected</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -15,6 +15,7 @@
         }
         .container { max-width: 1500px; margin: 0 auto; }
         
+        /* License Overlay (blocks dashboard until activated) */
         .license-overlay {
             position: fixed;
             top: 0;
@@ -69,6 +70,12 @@
             width: 100%;
             font-size: 1rem;
         }
+        .trial-btn {
+            background: transparent;
+            border: 1px solid #FFD700;
+            color: #FFD700;
+            margin-top: 10px;
+        }
         .expired-message {
             color: #ff6666;
             margin-top: 20px;
@@ -83,28 +90,8 @@
             color: #aaa;
         }
         .hidden { display: none !important; }
-        .warning-text {
-            color: #ffaa00;
-            font-size: 0.8rem;
-            margin-top: 10px;
-        }
-        .test-license {
-            background: #2a2a3e;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 0.8rem;
-        }
-        .error-banner {
-            background: #ff4444;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 0.8rem;
-            text-align: center;
-        }
         
+        /* Rest of original dashboard styles */
         .header { text-align: center; margin-bottom: 30px; }
         .header h1 { font-size: 2.5rem; background: linear-gradient(90deg, #FFD700, #FF6B6B, #4ECDC4); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .header p { color: #888; font-size: 0.9rem; }
@@ -169,10 +156,12 @@
         .peak-track { font-size: 0.7rem; background: #111; padding: 6px; border-radius: 8px; margin-top: 8px; }
         .license-badge { background: #333; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; }
         .license-active { background: #00aa44; }
+        .license-expired { background: #ff4444; }
     </style>
 </head>
 <body>
 
+<!-- LICENSE OVERLAY (blocks dashboard until activated) -->
 <div id="licenseOverlay" class="license-overlay">
     <div class="license-card">
         <h1>🔐 ETH/BTC Rotator</h1>
@@ -180,8 +169,7 @@
         
         <div id="trialPanel">
             <p style="margin: 15px 0;">🎁 <strong>14 Days Free Trial</strong></p>
-            <p class="warning-text">⚠️ One trial per device. After expiry, license required.</p>
-            <button id="startTrialBtn" onclick="startTrial()" style="background: #00aa44;">🚀 Start 14-Day Trial</button>
+            <button onclick="startTrial()" style="background: #00aa44;">🚀 Start 14-Day Trial</button>
             <p style="margin: 15px 0; color: #888;">- OR -</p>
         </div>
         
@@ -189,48 +177,42 @@
             <p>Enter your license code:</p>
             <input type="text" id="licenseInput" placeholder="ETHBTC-XXXX-XXXX-XXXX">
             <button onclick="activateLicense()">✅ Activate License</button>
-            <div class="test-license">
-                🔧 <strong>Test License (always works):</strong><br>
-                <code style="font-size:1rem;">ETHBTC-TEST-0000-0000</code><br>
-                <span style="font-size:0.7rem;">Valid for 30 days</span>
-            </div>
         </div>
         
         <div id="expiredPanel" class="hidden">
             <div class="expired-message">
-                ⚠️ ACCESS PERMANENTLY LOCKED ⚠️<br>
-                Your trial or license has expired and cannot be restarted.
+                ⚠️ Your trial has expired<br>
+                ⚠️ Your license has expired
             </div>
             <div class="contact-info">
-                📧 <strong>Purchase a New License:</strong><br>
-                Email: <span id="developerEmail">your-email@example.com</span><br>
-                Telegram: <span id="developerTelegram">@yourusername</span><br>
-                WhatsApp: <span id="developerWhatsapp">+1234567890</span>
+                📧 <strong>Contact Developer to Purchase:</strong><br>
+                Email: <span id="developerEmail">ukdesigner62@gmail.com</span><br>
+                Telegram: <span id="developerTelegram">@Mprimo</span><br>
+                WhatsApp: <span id="developerWhatsapp">+447492166072</span>
             </div>
-            <button onclick="showActivation()" style="margin-top: 15px; background: #FFD700; color:#000;">Enter New License Code</button>
+            <button onclick="showActivation()" style="margin-top: 15px; background: #FFD700; color:#000;">Enter License Code</button>
         </div>
         
-        <p style="margin-top: 20px; font-size: 0.7rem; color: #555;">License valid for 30 days | One license per device</p>
+        <p style="margin-top: 20px; font-size: 0.7rem; color: #555;">License valid for 30 days after activation</p>
     </div>
 </div>
 
+<!-- MAIN DASHBOARD (hidden until licensed) -->
 <div id="mainDashboard" class="hidden">
     <div class="container">
         <div class="header">
             <h1>🔥 ETH/BTC ROTATOR v8.5 🔥</h1>
             <p>TRIO Enforcement | 2-Candle Exit | Volume Proxy | License Protected</p>
         </div>
-        <div id="dataErrorMsg" class="error-banner hidden">
-            ⚠️ Data connection issue. Retrying...
-        </div>
         <div class="status-bar">
             <div class="status-item"><span class="status-label">Data:</span><span class="status-value">Binance Live</span></div>
             <div class="status-item"><span class="status-label">Engine:</span><span class="status-value">TRIO + 2-Candle Exit + Volume</span></div>
             <div class="status-item"><span class="live-badge" id="liveBadge">🟢 LIVE</span></div>
             <div class="status-item"><button class="refresh-btn" onclick="fetchData()">⟳ Refresh</button></div>
-            <div class="status-item"><span id="licenseStatusBadge" class="license-badge">✅ Active</span></div>
+            <div class="status-item"><span id="licenseStatusBadge" class="license-badge">✅ Licensed</span></div>
         </div>
 
+        <!-- Rest of dashboard content (same as v8.5) -->
         <div class="grid">
             <div class="card">
                 <div class="card-title">📊 ETH/BTC RATIO + PEAK TRACKING</div>
@@ -255,120 +237,46 @@
         <div class="grid">
             <div class="card"><div class="card-title">📈 DUAL RSI + RUNWAY PHASE</div><div class="rsi-dual"><div class="rsi-item"><span class="tooltip" title="Fast momentum (7d)">RSI (7)</span><br><span id="rsiFastVal" class="rsi-value">--</span></div><div class="rsi-item"><span class="tooltip" title="Trend confirmation (14d)">RSI (14)</span><br><span id="rsiSlowVal" class="rsi-value">--</span></div></div><div id="momentumSignal" style="text-align:center; margin-top:6px;"></div><div id="phaseDescription" style="font-size:0.75rem; text-align:center; margin-top:8px; background:#111; padding:6px; border-radius:8px;"></div></div>
             <div class="card"><div class="card-title">🔄 DIVERGENCE + VOLUME</div><div id="divergenceAlert" class="divergence-warning" style="display:none;"></div><div id="momentumAdvice" style="margin-top:12px; font-size:0.8rem; background:#111; padding:8px; border-radius:8px;"></div><div id="overrideAlert" style="margin-top:8px; font-size:0.75rem; color:#ffaa00;"></div></div>
-            <div class="card"><div class="card-title">📋 RULES</div><ul class="rules-list"><li><strong>🔥 TRIO ENTRY</strong>: Z extreme + RSI early zone + Trend = ENTRY</li><li><strong>🚀 EXIT</strong>: 2 red candles OR drawdown >3%</li><li><strong>📊 VOLUME</strong>: ETH/BTC volume > 1.3x MA = confirmation</li><li><strong>🔒 LICENSE</strong>: One trial + One license per device</li></ul></div>
+            <div class="card"><div class="card-title">📋 v8.5 RULES (FINAL)</div><ul class="rules-list"><li><strong>🔥 TRIO ENTRY</strong>: Z extreme + RSI early zone + Trend aligned = ENTRY</li><li><strong>🚀 EXIT RULE 1</strong>: 2 consecutive red candles from peak → EXIT</li><li><strong>📉 EXIT RULE 2</strong>: Drawdown &gt;3% from peak → EXIT</li><li><strong>📊 VOLUME</strong>: ETH/BTC volume ratio &gt; 1.3x MA = confirmation</li><li><strong>⚡ PRE-EARLY</strong>: Extreme but RSI not ready → wait</li><li><strong>🛑 EXHAUSTED</strong>: Neutral zone → exit</li></ul></div>
         </div>
-        <div class="grid"><div class="card"><div class="card-title">🕐 RECENT SIGNALS</div><div style="max-height:260px; overflow-y:auto;"><table class="signals-table"><thead><tr><th>Time</th><th>Signal</th><th>Z</th><th>Phase</th><th>TRIO%</th></tr></thead><tbody id="signalsBody"><tr><td colspan="5">Waiting for data...</tr</tbody>}</div></div></div>
-        <div class="footer"><p>One trial per device | License required after expiry | No restarts</p></div>
+        <div class="grid"><div class="card"><div class="card-title">🕐 RECENT SIGNALS</div><div style="max-height:260px; overflow-y:auto;"><table class="signals-table"><thead><tr><th>Time</th><th>Signal</th><th>Z</th><th>Phase</th><th>TRIO%</th><th>Exit Reason</th></tr></thead><tbody id="signalsBody"><tr><td colspan="6">Waiting for data...</td></tr></tbody></table></div></div></div>
+        <div class="footer"><p>v8.5 FINAL | TRIO: Z + RSI(30-45) + Trend | 2-Candle Exit | Volume Proxy | License Protected</p><p>⚠️ Educational. Not financial advice.</p></div>
     </div>
 </div>
 
 <script>
-    // ========== CORS PROXY CONFIGURATION ==========
-    // Use a public CORS proxy to avoid web server restrictions
-    // If this fails, you can also use: https://api.allorigins.win/raw?url=
-    const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
-    const USE_PROXY = true; // Set to false if your server allows direct API calls
-    
-    async function fetchWithProxy(url) {
-        if (USE_PROXY) {
-            try {
-                const proxyUrl = CORS_PROXY + url;
-                const response = await fetch(proxyUrl);
-                return await response.json();
-            } catch (e) {
-                console.warn('Proxy failed, trying direct:', e);
-                const response = await fetch(url);
-                return await response.json();
-            }
-        } else {
-            const response = await fetch(url);
-            return await response.json();
-        }
-    }
-    
-    // ========== LICENSE STATE MANAGEMENT ==========
+    // ------------------ LICENSE SYSTEM ------------------
     let isLicensed = false;
-    let expiryCheckInterval = null;
+    let licenseExpiry = null;
+    let trialStartDate = null;
     
-    const DEVELOPER_EMAIL = "your-email@gmail.com";
-    const DEVELOPER_TELEGRAM = "@yourusername";
-    const DEVELOPER_WHATSAPP = "+1234567890";
+    // YOUR CONTACT DETAILS (CHANGE THESE)
+    const DEVELOPER_EMAIL = "ukdesigner62@gmail.com";
+    const DEVELOPER_TELEGRAM = "@Mprimo";
+    const DEVELOPER_WHATSAPP = "+447492166072";
     
+    // Set your contact info in the UI
     document.getElementById('developerEmail').innerText = DEVELOPER_EMAIL;
     document.getElementById('developerTelegram').innerText = DEVELOPER_TELEGRAM;
     document.getElementById('developerWhatsapp').innerText = DEVELOPER_WHATSAPP;
     
-    function isDevicePermanentlyLocked() {
-        const locked = localStorage.getItem('ethbtc_permanent_lock');
-        if (locked === 'true') return true;
-        
-        const trialUsed = localStorage.getItem('ethbtc_trial_used');
-        const trialStart = localStorage.getItem('ethbtc_trial_start');
-        if (trialUsed === 'true' && trialStart) {
-            const start = new Date(trialStart);
-            const end = new Date(start);
-            end.setDate(end.getDate() + 14);
-            if (end <= new Date()) {
-                localStorage.setItem('ethbtc_permanent_lock', 'true');
-                return true;
-            }
-        }
-        
-        const licenseExpiry = localStorage.getItem('ethbtc_license_expiry');
-        if (licenseExpiry) {
-            const expiryDate = new Date(licenseExpiry);
-            if (expiryDate <= new Date()) {
-                localStorage.setItem('ethbtc_permanent_lock', 'true');
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    function initTestLicense() {
-        const licenses = JSON.parse(localStorage.getItem('ethbtc_valid_licenses') || '{}');
-        const testCode = 'ETHBTC-TEST-0000-0000';
-        if (!licenses[testCode]) {
-            const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + 30);
-            licenses[testCode] = expiryDate.toISOString();
-            localStorage.setItem('ethbtc_valid_licenses', JSON.stringify(licenses));
-        }
-    }
-    
+    // Load saved license from localStorage
     function loadLicenseStatus() {
-        initTestLicense();
-        
-        if (isDevicePermanentlyLocked()) {
-            showExpiredScreen();
-            return false;
-        }
-        
         const savedLicense = localStorage.getItem('ethbtc_license_code');
         const savedExpiry = localStorage.getItem('ethbtc_license_expiry');
+        const savedTrial = localStorage.getItem('ethbtc_trial_start');
         
         if (savedLicense && savedExpiry) {
             const expiryDate = new Date(savedExpiry);
             if (expiryDate > new Date()) {
                 isLicensed = true;
-                const daysLeft = Math.ceil((expiryDate - new Date()) / (1000 * 60 * 60 * 24));
-                document.getElementById('licenseStatusBadge').innerHTML = `✅ License: ${daysLeft} days left`;
+                licenseExpiry = expiryDate;
+                document.getElementById('licenseStatusBadge').innerHTML = `✅ Licensed until ${expiryDate.toLocaleDateString()}`;
                 document.getElementById('licenseStatusBadge').classList.add('license-active');
                 showDashboard();
-                
-                const msLeft = expiryDate - new Date();
-                if (expiryCheckInterval) clearTimeout(expiryCheckInterval);
-                expiryCheckInterval = setTimeout(function() {
-                    localStorage.setItem('ethbtc_permanent_lock', 'true');
-                    localStorage.removeItem('ethbtc_license_code');
-                    localStorage.removeItem('ethbtc_license_expiry');
-                    alert('Your license has permanently expired. Purchase a new license to continue.');
-                    location.reload();
-                }, msLeft + 1000);
                 return true;
             } else {
-                localStorage.setItem('ethbtc_permanent_lock', 'true');
+                // License expired
                 localStorage.removeItem('ethbtc_license_code');
                 localStorage.removeItem('ethbtc_license_expiry');
                 showExpiredScreen();
@@ -376,32 +284,21 @@
             }
         }
         
-        const trialStart = localStorage.getItem('ethbtc_trial_start');
-        const trialUsed = localStorage.getItem('ethbtc_trial_used');
-        
-        if (trialStart && trialUsed === 'true') {
-            const start = new Date(trialStart);
-            const end = new Date(start);
-            end.setDate(end.getDate() + 14);
+        if (savedTrial) {
+            const trialStart = new Date(savedTrial);
+            const trialEnd = new Date(trialStart);
+            trialEnd.setDate(trialEnd.getDate() + 14);
             
-            if (end > new Date()) {
+            if (trialEnd > new Date()) {
+                // Trial still active
                 isLicensed = true;
-                const daysLeft = Math.ceil((end - new Date()) / (1000 * 60 * 60 * 24));
+                const daysLeft = Math.ceil((trialEnd - new Date()) / (1000 * 60 * 60 * 24));
                 document.getElementById('licenseStatusBadge').innerHTML = `🎁 Trial: ${daysLeft} days left`;
                 document.getElementById('licenseStatusBadge').classList.add('license-active');
                 showDashboard();
-                
-                const msLeft = end - new Date();
-                if (expiryCheckInterval) clearTimeout(expiryCheckInterval);
-                expiryCheckInterval = setTimeout(function() {
-                    localStorage.setItem('ethbtc_permanent_lock', 'true');
-                    localStorage.removeItem('ethbtc_trial_start');
-                    alert('Your trial has permanently expired. Purchase a license to continue.');
-                    location.reload();
-                }, msLeft + 1000);
                 return true;
             } else {
-                localStorage.setItem('ethbtc_permanent_lock', 'true');
+                // Trial expired
                 localStorage.removeItem('ethbtc_trial_start');
                 showExpiredScreen();
                 return false;
@@ -413,56 +310,45 @@
     }
     
     function startTrial() {
-        if (localStorage.getItem('ethbtc_trial_used') === 'true') {
-            alert('Trial already used on this device. Purchase a license.');
-            showExpiredScreen();
-            return;
-        }
-        
-        if (localStorage.getItem('ethbtc_permanent_lock') === 'true') {
-            alert('Access permanently locked. Purchase a license.');
-            showExpiredScreen();
-            return;
-        }
-        
-        localStorage.setItem('ethbtc_trial_start', new Date().toISOString());
-        localStorage.setItem('ethbtc_trial_used', 'true');
+        const trialStart = new Date();
+        localStorage.setItem('ethbtc_trial_start', trialStart.toISOString());
         location.reload();
     }
     
     function activateLicense() {
         const licenseInput = document.getElementById('licenseInput').value.toUpperCase().trim();
+        
+        // Validate license format: ETHBTC-XXXX-XXXX-XXXX
         const licensePattern = /^ETHBTC-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
         
         if (!licensePattern.test(licenseInput)) {
-            alert('Invalid license format. Use: ETHBTC-XXXX-XXXX-XXXX');
+            alert('Invalid license format. Use format: ETHBTC-XXXX-XXXX-XXXX');
             return;
         }
         
+        // Verify license exists in storage (licenses stored by admin)
         const savedLicenses = JSON.parse(localStorage.getItem('ethbtc_valid_licenses') || '{}');
         
         if (savedLicenses[licenseInput]) {
             const expiryDate = new Date(savedLicenses[licenseInput]);
             if (expiryDate > new Date()) {
-                localStorage.removeItem('ethbtc_trial_start');
-                localStorage.removeItem('ethbtc_trial_used');
-                localStorage.removeItem('ethbtc_permanent_lock');
                 localStorage.setItem('ethbtc_license_code', licenseInput);
                 localStorage.setItem('ethbtc_license_expiry', expiryDate.toISOString());
                 location.reload();
             } else {
-                alert('License expired. Purchase a new license.');
+                alert('This license has expired. Please purchase a new one.');
                 delete savedLicenses[licenseInput];
                 localStorage.setItem('ethbtc_valid_licenses', JSON.stringify(savedLicenses));
             }
         } else {
-            alert('Invalid license code.\n\nTest license: ETHBTC-TEST-0000-0000');
+            alert('Invalid license code. Please check and try again, or contact support.');
         }
     }
     
     function showDashboard() {
         document.getElementById('licenseOverlay').classList.add('hidden');
         document.getElementById('mainDashboard').classList.remove('hidden');
+        // Start dashboard data fetch
         fetchData();
         setInterval(fetchData, 60000);
     }
@@ -489,8 +375,10 @@
         document.getElementById('expiredPanel').classList.add('hidden');
     }
     
-    // ========== ADMIN PANEL ==========
+    // ------------------ ADMIN LICENSE GENERATOR (Hidden but accessible) ------------------
+    // To access admin panel, add ?admin to URL
     if (window.location.search.includes('admin')) {
+        // Show admin panel
         const adminHTML = `
         <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0a0a0a; z-index:2000; padding:40px; overflow:auto;">
             <div style="max-width:600px; margin:0 auto; background:#1a1a2e; padding:30px; border-radius:20px;">
@@ -498,16 +386,18 @@
                 <button onclick="closeAdmin()" style="background:#ff4444; margin-bottom:20px;">✖ Close Admin</button>
                 <label>License Type:</label>
                 <select id="adminLicenseType">
-                    <option value="30">30 Days</option>
-                    <option value="90">90 Days</option>
-                    <option value="365">365 Days</option>
+                    <option value="30">30 Days - $49</option>
+                    <option value="90">90 Days - $99</option>
+                    <option value="365">365 Days - $199</option>
                 </select>
-                <label>Customer Name:</label>
-                <input type="text" id="adminCustomerName" placeholder="Customer name">
+                <label>Customer Name/ID:</label>
+                <input type="text" id="adminCustomerName" placeholder="e.g., JohnDoe">
                 <button onclick="adminGenerateLicense()" style="background:#FFD700; color:#000;">🔑 Generate License</button>
                 <div id="adminLicenseResult" style="background:#000; padding:15px; border-radius:10px; margin-top:20px;"></div>
-                <div style="margin-top:20px;"><strong>📋 Existing Licenses:</strong><div id="existingLicenses"></div></div>
-                <button onclick="resetAllData()" style="background:#ff4444; margin-top:20px;">⚠️ RESET ALL DATA (Admin Only)</button>
+                <div style="margin-top:20px; font-size:0.8rem; color:#888;">
+                    <strong>📋 Existing Licenses:</strong>
+                    <div id="existingLicenses"></div>
+                </div>
             </div>
         </div>`;
         document.body.insertAdjacentHTML('beforeend', adminHTML);
@@ -521,9 +411,11 @@
                 if (i > 0 && i % 4 === 0) code += '-';
                 code += chars.charAt(Math.floor(Math.random() * chars.length));
             }
+            const days = parseInt(type);
             const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + parseInt(type));
+            expiryDate.setDate(expiryDate.getDate() + days);
             
+            // Save license to localStorage
             const savedLicenses = JSON.parse(localStorage.getItem('ethbtc_valid_licenses') || '{}');
             savedLicenses[code] = expiryDate.toISOString();
             localStorage.setItem('ethbtc_valid_licenses', JSON.stringify(savedLicenses));
@@ -532,25 +424,18 @@
                 <strong>✅ License Generated</strong><br>
                 <code style="font-size:1.2rem;">${code}</code><br>
                 Customer: ${customer}<br>
+                Valid: ${days} days<br>
                 Expires: ${expiryDate.toLocaleDateString()}<br>
-                <button onclick="navigator.clipboard.writeText('${code}')">📋 Copy</button>
+                <button onclick="navigator.clipboard.writeText('${code}')" style="margin-top:10px;">📋 Copy</button>
             `;
             displayExistingLicenses();
-        };
-        
-        window.resetAllData = function() {
-            if(confirm('⚠️ THIS WILL RESET ALL TRIAL AND LICENSE DATA. Continue?')) {
-                localStorage.clear();
-                alert('All data cleared. Refresh the page.');
-                location.reload();
-            }
         };
         
         function displayExistingLicenses() {
             const licenses = JSON.parse(localStorage.getItem('ethbtc_valid_licenses') || '{}');
             const container = document.getElementById('existingLicenses');
             if (Object.keys(licenses).length === 0) {
-                container.innerHTML = '<p>No licenses yet.</p>';
+                container.innerHTML = '<p>No licenses generated yet.</p>';
                 return;
             }
             let html = '<ul style="list-style:none;">';
@@ -558,8 +443,9 @@
                 const expiryDate = new Date(expiry);
                 const isValid = expiryDate > new Date();
                 html += `<li style="margin:5px 0; padding:5px; background:#222; border-radius:5px;">
-                    <code>${code}</code> - ${expiryDate.toLocaleDateString()} ${isValid ? '✅' : '❌'}
-                    <button onclick="navigator.clipboard.writeText('${code}')">📋</button>
+                    <code>${code}</code> - Expires: ${expiryDate.toLocaleDateString()} 
+                    ${isValid ? '✅ Active' : '❌ Expired'}
+                    <button onclick="navigator.clipboard.writeText('${code}')" style="margin-left:10px; padding:2px 8px;">📋</button>
                 </li>`;
             }
             html += '</ul>';
@@ -573,114 +459,338 @@
         displayExistingLicenses();
     }
     
+    // Initialize license check
     loadLicenseStatus();
     
-    // ========== DASHBOARD DATA FETCH (with CORS handling) ==========
+    // ------------------ DASHBOARD CODE (v8.5 - same as before) ------------------
     let historicalSignals = [];
-    let maPeriod = 50, zPeriod = 90, baseZEntry = 1.5, zExit = 0.45;
-    let persistentRatios = [], signalCooldown = 0;
+    let maPeriod = 50;
+    let zPeriod = 90;
+    let baseZEntry = 1.5;
+    let zExit = 0.45;
+    let zStop = 3.0;
+    let rsiFastPeriod = 7;
+    let rsiSlowPeriod = 14;
+    
+    let persistentRatios = [];
+    let lastSignalType = "";
+    let signalCooldown = 0;
+    let activePosition = null;
+    let consecutiveRedCandles = 0;
+    let lastRatio = null;
     let volumeRatios = [];
-    let dataErrorCount = 0;
+    let rsiFastState = null;
+    let rsiSlowState = null;
+    let cachedRSIFast = 50;
+    let cachedRSISlow = 50;
     
-    function getDynamicZEntry(v) { return baseZEntry + Math.min(0.8, v * 15); }
-    function calculateVolatility(r, p=14) { if(r.length<p+1) return 0.02; let c=[]; for(let i=r.length-p;i<r.length;i++) c.push(Math.abs(r[i]-r[i-1])/r[i-1]); return c.reduce((a,b)=>a+b,0)/c.length; }
-    function calculateSMA(d,p) { if(d.length<p) return null; return d.slice(-p).reduce((a,b)=>a+b,0)/p; }
-    function calculateZScore(r,c) { if(r.length<zPeriod) return 0; let re=r.slice(-zPeriod), m=re.reduce((a,b)=>a+b,0)/re.length, v=re.reduce((s,val)=>s+Math.pow(val-m,2),0)/re.length, s=Math.sqrt(v); return s===0?0:(c-m)/s; }
-    
-    async function fetchCurrentPrices() {
-        try {
-            const url = 'https://api.binance.com/api/v3/ticker/24hr?symbols=["ETHUSDT","BTCUSDT"]';
-            const data = await fetchWithProxy(url);
-            return { 
-                eth: parseFloat(data.find(x=>x.symbol==='ETHUSDT').lastPrice), 
-                btc: parseFloat(data.find(x=>x.symbol==='BTCUSDT').lastPrice) 
-            };
-        } catch(e) { 
-            console.error('Price fetch error:', e);
-            return null; 
+    function updateWilderRSI(newRatio, prevRatio, period, cachedState) {
+        if (!cachedState || cachedState.avgGain === undefined) return { rsi: 50, state: null };
+        let diff = newRatio - prevRatio;
+        let avgGain = cachedState.avgGain;
+        let avgLoss = cachedState.avgLoss;
+        if (diff >= 0) {
+            avgGain = (avgGain * (period - 1) + diff) / period;
+            avgLoss = (avgLoss * (period - 1) + 0) / period;
+        } else {
+            avgGain = (avgGain * (period - 1) + 0) / period;
+            avgLoss = (avgLoss * (period - 1) + Math.abs(diff)) / period;
         }
+        let rsi = avgLoss === 0 ? 100 : 100 - (100 / (1 + (avgGain / avgLoss)));
+        return { rsi, state: { avgGain, avgLoss } };
     }
     
-    async function fetchHistoricalData() {
-        try {
-            const ethUrl = 'https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=150';
-            const btcUrl = 'https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=150';
-            
-            const ethData = await fetchWithProxy(ethUrl);
-            const btcData = await fetchWithProxy(btcUrl);
-            
-            let ratios = [];
-            for (let i = 0; i < ethData.length; i++) {
-                let ec = parseFloat(ethData[i][4]);
-                let bc = parseFloat(btcData[i][4]);
-                if (bc > 0) ratios.push(ec / bc);
-            }
-            return ratios;
-        } catch(e) {
-            console.error('Historical data fetch error:', e);
-            return [];
+    function initWilderRSI(ratios, period) {
+        if (ratios.length < period + 1) return { rsi: 50, state: null };
+        let gains = 0, losses = 0;
+        for (let i = 1; i <= period; i++) {
+            let diff = ratios[i] - ratios[i-1];
+            if (diff >= 0) gains += diff;
+            else losses += Math.abs(diff);
         }
+        let avgGain = gains / period;
+        let avgLoss = losses / period;
+        for (let i = period + 1; i < ratios.length; i++) {
+            let diff = ratios[i] - ratios[i-1];
+            if (diff >= 0) {
+                avgGain = (avgGain * (period - 1) + diff) / period;
+                avgLoss = (avgLoss * (period - 1) + 0) / period;
+            } else {
+                avgGain = (avgGain * (period - 1) + 0) / period;
+                avgLoss = (avgLoss * (period - 1) + Math.abs(diff)) / period;
+            }
+        }
+        let rsi = avgLoss === 0 ? 100 : 100 - (100 / (1 + (avgGain / avgLoss)));
+        return { rsi, state: { avgGain, avgLoss } };
+    }
+    
+    function buildRSISeries(ratios, period) {
+        let series = [];
+        if (ratios.length < period + 1) return series;
+        let state = null;
+        for (let i = period + 1; i <= ratios.length; i++) {
+            if (!state) {
+                let init = initWilderRSI(ratios.slice(0, i), period);
+                series.push(init.rsi);
+                state = init.state;
+            } else {
+                let update = updateWilderRSI(ratios[i-1], ratios[i-2], period, state);
+                series.push(update.rsi);
+                state = update.state;
+            }
+        }
+        return series;
+    }
+    
+    function getDynamicZEntry(volatility) {
+        let adjustment = Math.min(0.8, volatility * 15);
+        return baseZEntry + adjustment;
+    }
+    
+    function detectRunwayPhase(z, rsiFast, isEthTrend, volatility) {
+        let absZ = Math.abs(z);
+        let dynamicEntry = getDynamicZEntry(volatility);
+        if (absZ > dynamicEntry) {
+            if ((z < 0 && rsiFast >= 30 && rsiFast <= 45) || (z > 0 && rsiFast >= 55 && rsiFast <= 70)) {
+                return { phase: "EARLY_RUNWAY", name: "🚀 EARLY", color: "phase-early", action: "TRIO READY", priority: 5 };
+            } else if ((z < 0 && rsiFast > 45 && rsiFast < 60) || (z > 0 && rsiFast > 45 && rsiFast < 55)) {
+                return { phase: "PRE_EARLY", name: "⏳ PRE-EARLY", color: "phase-pre-early", action: "Z extreme, wait for RSI", priority: 3 };
+            } else {
+                return { phase: "LATE_RUNWAY", name: "⚠️ LATE", color: "phase-late", action: "RSI not aligned", priority: 2 };
+            }
+        } else if (absZ < zExit) {
+            return { phase: "EXHAUSTED", name: "🛑 EXHAUSTED", color: "phase-exhausted", action: "Neutral zone", priority: 1 };
+        }
+        return { phase: "MID_RUNWAY", name: "⚡ MID", color: "phase-mid", action: "Monitoring", priority: 3 };
+    }
+    
+    function detectDivergence(ratioSeries, rsiSeries, lookback = 25, tolerance = 2, minMovePercent = 0.008) {
+        if (ratioSeries.length < lookback || rsiSeries.length < lookback) return null;
+        let recentRatios = ratioSeries.slice(-lookback);
+        let recentRSI = rsiSeries.slice(-lookback);
+        let pivots = [];
+        for (let i = 3; i < recentRatios.length - 3; i++) {
+            let isLow = true, isHigh = true;
+            for (let j = -3; j <= 3; j++) {
+                if (j === 0) continue;
+                if (recentRatios[i] >= recentRatios[i+j]) isLow = false;
+                if (recentRatios[i] <= recentRatios[i+j]) isHigh = false;
+            }
+            if (isLow) pivots.push({ idx: i, val: recentRatios[i], type: 'low' });
+            if (isHigh) pivots.push({ idx: i, val: recentRatios[i], type: 'high' });
+        }
+        let lows = pivots.filter(p => p.type === 'low');
+        if (lows.length >= 2) {
+            let lastLow = lows[lows.length-1];
+            let prevLow = lows[lows.length-2];
+            let movePercent = Math.abs(lastLow.val - prevLow.val) / prevLow.val;
+            if (lastLow.val > prevLow.val && movePercent > minMovePercent) {
+                let rsiLast = null, rsiPrev = null;
+                for (let off = -tolerance; off <= tolerance; off++) {
+                    let idxLast = lastLow.idx + off;
+                    let idxPrev = prevLow.idx + off;
+                    if (idxLast >= 0 && idxLast < recentRSI.length) rsiLast = recentRSI[idxLast];
+                    if (idxPrev >= 0 && idxPrev < recentRSI.length) rsiPrev = recentRSI[idxPrev];
+                }
+                if (rsiLast !== null && rsiPrev !== null && rsiLast < rsiPrev) {
+                    let strength = Math.min(90, 60 + movePercent * 200);
+                    return { type: "BULLISH", message: `✅ Bullish divergence (${Math.round(strength)}%)`, strength, score: strength / 100, direction: "bullish" };
+                }
+            }
+        }
+        let highs = pivots.filter(p => p.type === 'high');
+        if (highs.length >= 2) {
+            let lastHigh = highs[highs.length-1];
+            let prevHigh = highs[highs.length-2];
+            let movePercent = Math.abs(lastHigh.val - prevHigh.val) / prevHigh.val;
+            if (lastHigh.val < prevHigh.val && movePercent > minMovePercent) {
+                let rsiLast = null, rsiPrev = null;
+                for (let off = -tolerance; off <= tolerance; off++) {
+                    let idxLast = lastHigh.idx + off;
+                    let idxPrev = prevHigh.idx + off;
+                    if (idxLast >= 0 && idxLast < recentRSI.length) rsiLast = recentRSI[idxLast];
+                    if (idxPrev >= 0 && idxPrev < recentRSI.length) rsiPrev = recentRSI[idxPrev];
+                }
+                if (rsiLast !== null && rsiPrev !== null && rsiLast > rsiPrev) {
+                    let strength = Math.min(90, 60 + movePercent * 200);
+                    return { type: "BEARISH", message: `⚠️ Bearish divergence (${Math.round(strength)}%)`, strength, score: strength / 100, direction: "bearish" };
+                }
+            }
+        }
+        return null;
+    }
+    
+    function calculateVolatility(ratios, period = 14) {
+        if (ratios.length < period + 1) return 0.02;
+        let changes = [];
+        for (let i = ratios.length - period; i < ratios.length; i++) {
+            changes.push(Math.abs(ratios[i] - ratios[i-1]) / ratios[i-1]);
+        }
+        return changes.reduce((a,b) => a+b, 0) / changes.length;
     }
     
     async function fetchVolumeRatio() {
         try {
-            const url = 'https://api.binance.com/api/v3/ticker/24hr?symbols=["ETHUSDT","BTCUSDT"]';
-            const data = await fetchWithProxy(url);
-            let ethVolume = parseFloat(data.find(x=>x.symbol==='ETHUSDT').quoteVolume);
-            let btcVolume = parseFloat(data.find(x=>x.symbol==='BTCUSDT').quoteVolume);
+            const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["ETHUSDT","BTCUSDT"]');
+            const data = await res.json();
+            let ethVolume = parseFloat(data.find(d=>d.symbol==='ETHUSDT').quoteVolume);
+            let btcVolume = parseFloat(data.find(d=>d.symbol==='BTCUSDT').quoteVolume);
             return ethVolume / btcVolume;
-        } catch(e) { 
-            console.error('Volume fetch error:', e);
-            return 1.0; 
+        } catch(e) { return 1.0; }
+    }
+    
+    function computeTRIOQuality(z, rsiFast, isEthTrend, divergence, volumeConfirmed) {
+        let score = 0;
+        let dynamicEntry = getDynamicZEntry(0.02);
+        if (Math.abs(z) > dynamicEntry) score += 33;
+        else if (Math.abs(z) > dynamicEntry * 0.7) score += 20;
+        if ((z < 0 && rsiFast >= 30 && rsiFast <= 45) || (z > 0 && rsiFast >= 55 && rsiFast <= 70)) score += 34;
+        else if ((z < 0 && rsiFast > 45 && rsiFast < 55) || (z > 0 && rsiFast > 45 && rsiFast < 55)) score += 17;
+        if ((z < 0 && isEthTrend) || (z > 0 && !isEthTrend)) score += 33;
+        if (divergence) {
+            if ((z < 0 && divergence.direction === 'bullish') || (z > 0 && divergence.direction === 'bearish')) score += 15;
+            if ((z < 0 && divergence.direction === 'bearish')) score -= 30;
         }
+        if (volumeConfirmed) score += 10;
+        return Math.min(100, Math.max(0, score));
+    }
+    
+    function updatePeakTracking(currentRatio, signalType, isEntrySignal) {
+        if (isEntrySignal && signalType !== 'EXIT') {
+            activePosition = { type: signalType, entryRatio: currentRatio, peakRatio: currentRatio, redCandles: 0 };
+            consecutiveRedCandles = 0;
+            return null;
+        }
+        if (!activePosition) return null;
+        if (lastRatio !== null && currentRatio < lastRatio) {
+            consecutiveRedCandles++;
+        } else if (lastRatio !== null && currentRatio > lastRatio) {
+            consecutiveRedCandles = 0;
+        }
+        if (currentRatio > activePosition.peakRatio) {
+            activePosition.peakRatio = currentRatio;
+            consecutiveRedCandles = 0;
+        }
+        let drawdown = (activePosition.peakRatio - currentRatio) / activePosition.peakRatio;
+        if (consecutiveRedCandles >= 2 && drawdown > 0.01) {
+            return { exit: true, reason: `2 red candles (drawdown ${(drawdown*100).toFixed(1)}%)`, drawdown };
+        }
+        if (drawdown > 0.03) {
+            return { exit: true, reason: `Peak drawdown ${(drawdown*100).toFixed(1)}%`, drawdown };
+        }
+        return { exit: false, drawdown, peak: activePosition.peakRatio, redCandles: consecutiveRedCandles };
+    }
+    
+    async function fetchCurrentPrices() {
+        try {
+            const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["ETHUSDT","BTCUSDT"]');
+            const data = await res.json();
+            return { eth: parseFloat(data.find(d=>d.symbol==='ETHUSDT').lastPrice), btc: parseFloat(data.find(d=>d.symbol==='BTCUSDT').lastPrice) };
+        } catch(e) { console.error(e); return null; }
+    }
+    
+    async function updatePersistentHistory() {
+        try {
+            const ethK = await fetch('https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=150');
+            const btcK = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=150');
+            const ethData = await ethK.json();
+            const btcData = await btcK.json();
+            let newRatios = [];
+            for (let i=0; i<ethData.length; i++) {
+                let ethClose = parseFloat(ethData[i][4]);
+                let btcClose = parseFloat(btcData[i][4]);
+                if (btcClose>0) newRatios.push(ethClose/btcClose);
+            }
+            if (newRatios.length > 0) persistentRatios = newRatios;
+        } catch(e) { console.error(e); }
+    }
+    
+    function calculateSMA(data, period) {
+        if (data.length < period) return null;
+        return data.slice(-period).reduce((a,b)=>a+b,0)/period;
+    }
+    
+    function calculateZScore(ratios, current) {
+        if (ratios.length < zPeriod) return 0;
+        let recent = ratios.slice(-zPeriod);
+        let mean = recent.reduce((a,b)=>a+b,0)/recent.length;
+        let variance = recent.reduce((s,v)=>s+Math.pow(v-mean,2),0)/recent.length;
+        let std = Math.sqrt(variance);
+        return std===0 ? 0 : (current-mean)/std;
     }
     
     async function fetchData() {
-        if(!isLicensed) return;
-        
-        const errorDiv = document.getElementById('dataErrorMsg');
-        
+        if (!isLicensed) return;
         try {
-            let newRatios = await fetchHistoricalData();
-            if (newRatios.length > 0) persistentRatios = newRatios;
-            
+            await updatePersistentHistory();
             const prices = await fetchCurrentPrices();
-            if (!prices || !persistentRatios.length) {
-                if (dataErrorCount++ > 3) {
-                    errorDiv.classList.remove('hidden');
-                }
-                return;
-            }
-            
-            dataErrorCount = 0;
-            errorDiv.classList.add('hidden');
-            
+            if (!prices || persistentRatios.length === 0) return;
             const currentRatio = prices.eth / prices.btc;
             persistentRatios.push(currentRatio);
-            if(persistentRatios.length > 200) persistentRatios.shift();
-            
+            if (persistentRatios.length > 200) persistentRatios.shift();
             const ma = calculateSMA(persistentRatios, maPeriod);
-            if(!ma) return;
-            
+            if (!ma) return;
             const z = calculateZScore(persistentRatios, currentRatio);
-            const vol = calculateVolatility(persistentRatios, 14);
-            const dynEntry = getDynamicZEntry(vol);
-            
-            let volRatio = await fetchVolumeRatio();
-            volumeRatios.push(volRatio);
-            if(volumeRatios.length > 20) volumeRatios.shift();
-            let volMA = volumeRatios.reduce((a,b)=>a+b,0) / volumeRatios.length;
-            let volConfirmed = volRatio > volMA * 1.3;
-            
+            const volatility = calculateVolatility(persistentRatios, 14);
+            const dynamicEntry = getDynamicZEntry(volatility);
+            let volumeRatio = await fetchVolumeRatio();
+            volumeRatios.push(volumeRatio);
+            if (volumeRatios.length > 20) volumeRatios.shift();
+            let volumeMA = volumeRatios.reduce((a,b)=>a+b,0) / volumeRatios.length;
+            let volumeConfirmed = volumeRatio > volumeMA * 1.3;
+            if (!rsiFastState || persistentRatios.length < rsiFastPeriod + 2) {
+                let initFast = initWilderRSI(persistentRatios, rsiFastPeriod);
+                cachedRSIFast = initFast.rsi;
+                rsiFastState = initFast.state;
+                let initSlow = initWilderRSI(persistentRatios, rsiSlowPeriod);
+                cachedRSISlow = initSlow.rsi;
+                rsiSlowState = initSlow.state;
+            } else {
+                let newFast = updateWilderRSI(currentRatio, persistentRatios[persistentRatios.length-2], rsiFastPeriod, rsiFastState);
+                cachedRSIFast = newFast.rsi;
+                rsiFastState = newFast.state;
+                let newSlow = updateWilderRSI(currentRatio, persistentRatios[persistentRatios.length-2], rsiSlowPeriod, rsiSlowState);
+                cachedRSISlow = newSlow.rsi;
+                rsiSlowState = newSlow.state;
+            }
+            const rsiFast = cachedRSIFast;
+            const rsiSlow = cachedRSISlow;
             const isEthTrend = currentRatio > ma;
-            const trioReady = (z < -dynEntry && isEthTrend) || (z > dynEntry && !isEthTrend);
-            let trioQuality = 50;
-            if(Math.abs(z) > dynEntry) trioQuality += 25;
-            if(trioReady) trioQuality += 35;
-            if(volConfirmed) trioQuality += 15;
-            trioQuality = Math.min(95, Math.max(5, trioQuality));
-            
-            // Update UI
+            const rsiSeries = buildRSISeries(persistentRatios, rsiSlowPeriod);
+            const divergence = detectDivergence(persistentRatios, rsiSeries, 25, 2, 0.008);
+            const runway = detectRunwayPhase(z, rsiFast, isEthTrend, volatility);
+            let trioReady = false;
+            let trioReason = "";
+            if (z < -dynamicEntry && rsiFast >= 30 && rsiFast <= 45 && isEthTrend) {
+                trioReady = true;
+                trioReason = "ETH TRIO: Z extreme + RSI early zone + Trend up";
+            } else if (z > dynamicEntry && rsiFast >= 55 && rsiFast <= 70 && !isEthTrend) {
+                trioReady = true;
+                trioReason = "BTC TRIO: Z extreme + RSI early zone + Trend down";
+            }
+            let peakResult = updatePeakTracking(currentRatio, null, false);
+            let exitTriggered = peakResult && peakResult.exit;
+            let signalObj = { signal:'WAIT', action:'⚪ NO ACTION', color:'signal-neutral', detail:'No clear signal', type:'WAIT', exitReason: '' };
+            if (z < -zStop || z > zStop) {
+                signalObj = { signal:'STOP', action:'🛑 EMERGENCY EXIT', color:'signal-stop', detail:'Z extreme', type:'EXIT' };
+                activePosition = null;
+            } else if (exitTriggered) {
+                signalObj = { signal:'EXIT', action:'📤 EXIT', color:'signal-exit', detail:peakResult.reason, type:'EXIT', exitReason: peakResult.reason };
+                activePosition = null;
+            } else if (Math.abs(z) < zExit || runway.phase === 'EXHAUSTED') {
+                signalObj = { signal:'EXIT', action:'📤 TAKE PROFITS', color:'signal-exit', detail:runway.action, type:'EXIT' };
+                activePosition = null;
+            } else if (trioReady) {
+                let divergenceBlock = (divergence && divergence.direction === 'bearish' && z < 0);
+                if (!divergenceBlock) {
+                    let entryType = z < 0 ? 'BUY ETH' : 'BUY BTC';
+                    signalObj = { signal:entryType, action:entryType === 'BUY ETH' ? '🟢 BUY ETH / SELL BTC' : '🔴 SELL ETH / BUY BTC', color: entryType === 'BUY ETH' ? 'signal-buy-eth' : 'signal-buy-btc', detail:`TRIO: ${trioReason}`, type:entryType, exitReason: '' };
+                    updatePeakTracking(currentRatio, entryType, true);
+                } else {
+                    signalObj = { signal:'WAIT', action:'⚪ BLOCKED', color:'signal-neutral', detail:`Divergence blocks entry: ${divergence.message}`, type:'WAIT' };
+                }
+            }
+            let trioQuality = computeTRIOQuality(z, rsiFast, isEthTrend, divergence, volumeConfirmed);
             document.getElementById('ratioValue').innerHTML = currentRatio.toFixed(8);
             document.getElementById('ratioChange').innerHTML = `MA50: ${ma.toFixed(8)}`;
             document.getElementById('ethPrice').innerHTML = prices.eth.toFixed(2);
@@ -688,67 +798,62 @@
             document.getElementById('zValue').innerHTML = z.toFixed(2);
             let pos = ((z+3)/6)*100;
             document.getElementById('meterIndicator').style.left = `${Math.min(100,Math.max(0,pos))}%`;
-            document.getElementById('dynamicLowerLabel').innerHTML = `-${dynEntry.toFixed(1)}`;
-            document.getElementById('dynamicUpperLabel').innerHTML = `+${dynEntry.toFixed(1)}`;
-            document.getElementById('rsiFastVal').innerHTML = "--";
-            document.getElementById('rsiSlowVal').innerHTML = "--";
-            document.getElementById('volatilityBadge').innerHTML = `📊 Vol: ${(vol*100).toFixed(1)}%`;
-            document.getElementById('volumeDisplay').innerHTML = `📊 Volume ratio: ${volRatio.toFixed(2)} | MA: ${volMA.toFixed(2)} ${volConfirmed?'✅':''}`;
-            document.getElementById('phaseDescription').innerHTML = `TRIO Quality: ${trioQuality}%`;
+            document.getElementById('dynamicLowerLabel').innerHTML = `-${dynamicEntry.toFixed(1)}`;
+            document.getElementById('dynamicUpperLabel').innerHTML = `+${dynamicEntry.toFixed(1)}`;
+            document.getElementById('dynamicHint').innerHTML = `Entry: ${dynamicEntry.toFixed(2)} | Vol: ${(volatility*100).toFixed(1)}%`;
+            document.getElementById('rsiFastVal').innerHTML = rsiFast.toFixed(1);
+            document.getElementById('rsiSlowVal').innerHTML = rsiSlow.toFixed(1);
+            document.getElementById('volatilityBadge').innerHTML = `📊 Vol: ${(volatility*100).toFixed(1)}%`;
+            document.getElementById('volumeDisplay').innerHTML = `📊 Volume ratio (ETH/BTC): ${volumeRatio.toFixed(2)} | MA: ${volumeMA.toFixed(2)} ${volumeConfirmed ? '✅ Confirmed' : ''}`;
+            let phaseElem = document.getElementById('phaseBadge');
+            phaseElem.className = `phase-badge ${runway.color}`;
+            phaseElem.innerHTML = `${runway.name} PHASE`;
+            document.getElementById('phaseDescription').innerHTML = `${runway.action} | TRIO Quality: ${trioQuality}%`;
+            let momClass = rsiFast > 50 ? "bullish-mom" : "bearish-mom";
+            document.getElementById('momentumSignal').innerHTML = `<span class="momentum-badge ${momClass}">${rsiFast>50?'ETH momentum':'BTC momentum'}</span>`;
+            const divBox = document.getElementById('divergenceAlert');
+            if (divergence && divergence.strength > 35) {
+                divBox.style.display = 'block';
+                divBox.innerHTML = `🔄 <strong>${divergence.type}</strong><br>${divergence.message}`;
+            } else { divBox.style.display = 'none'; }
+            let advice = `${runway.action}`;
+            if (divergence) advice += ` | ${divergence.message}`;
+            if (volumeConfirmed) advice += ` | Volume confirmed`;
+            document.getElementById('momentumAdvice').innerHTML = `📌 ${advice}`;
+            if (peakResult) {
+                document.getElementById('peakTrackDisplay').innerHTML = `📈 Peak: ${peakResult.peak?.toFixed(8) || '--'} | Red candles: ${peakResult.redCandles || 0} | Drawdown: ${((peakResult.drawdown || 0)*100).toFixed(1)}%`;
+            } else {
+                document.getElementById('peakTrackDisplay').innerHTML = `📈 No active position | 2 red candles from peak = exit`;
+            }
+            const box = document.getElementById('signalBox');
+            box.className = `signal-box ${signalObj.color}`;
+            document.getElementById('signalText').innerHTML = signalObj.action;
+            document.getElementById('signalSubtext').innerHTML = signalObj.detail;
             document.getElementById('confidenceFill').style.width = `${trioQuality}%`;
             document.getElementById('confidenceText').innerHTML = `TRIO Quality: ${Math.round(trioQuality)}%`;
             document.getElementById('runwayStrengthDisplay').innerHTML = `💪 TRIO Quality: ${Math.round(trioQuality)}%`;
-            
-            let signalText = "⚪ WAIT", signalColor = "signal-neutral", signalDetail = "No clear signal";
-            if(trioReady && trioQuality > 60) {
-                if(z < 0) { 
-                    signalText = "🟢 BUY ETH / SELL BTC"; 
-                    signalColor = "signal-buy-eth"; 
-                    signalDetail = "TRIO confirmed - ETH entry"; 
-                } else { 
-                    signalText = "🔴 SELL ETH / BUY BTC"; 
-                    signalColor = "signal-buy-btc"; 
-                    signalDetail = "TRIO confirmed - BTC entry"; 
+            if (signalCooldown <= 0 || (lastSignalType !== signalObj.type && Math.abs(z) > 0.3)) {
+                if (lastSignalType !== signalObj.type || Math.abs(z) > 0.5) {
+                    historicalSignals.unshift({
+                        time: new Date().toLocaleTimeString(),
+                        signal: signalObj.signal,
+                        z: z.toFixed(2),
+                        phase: runway.name,
+                        quality: Math.round(trioQuality),
+                        exitReason: signalObj.exitReason || (exitTriggered ? peakResult?.reason : '')
+                    });
+                    if (historicalSignals.length > 15) historicalSignals.pop();
+                    lastSignalType = signalObj.type;
+                    signalCooldown = 2;
                 }
-            } else if(Math.abs(z) < zExit) {
-                signalText = "📤 TAKE PROFITS"; 
-                signalColor = "signal-exit"; 
-                signalDetail = "Exit signal";
-            }
-            
-            const box = document.getElementById('signalBox');
-            box.className = `signal-box ${signalColor}`;
-            document.getElementById('signalText').innerHTML = signalText;
-            document.getElementById('signalSubtext').innerHTML = signalDetail;
-            
-            if(signalCooldown <= 0 && signalText != "⚪ WAIT") {
-                historicalSignals.unshift({
-                    time: new Date().toLocaleTimeString(), 
-                    signal: signalText, 
-                    z: z.toFixed(2), 
-                    phase: "ACTIVE", 
-                    quality: Math.round(trioQuality)
-                });
-                if(historicalSignals.length > 15) historicalSignals.pop();
-                const tbody = document.getElementById('signalsBody');
-                tbody.innerHTML = historicalSignals.map(s => `<tr>
-                    <td>${s.time}</td>
-                    <td><strong>${s.signal}</strong></td>
-                    <td>${s.z}</td>
-                    <td>${s.phase}</td>
-                    <td>${s.quality}%</td>
-                </tr>`).join('');
-                signalCooldown = 2;
-            } else { 
-                if(signalCooldown > 0) signalCooldown--; 
-            }
-            
-        } catch(e) {
-            console.error('Fetch error:', e);
-            if (dataErrorCount++ > 3) {
-                errorDiv.classList.remove('hidden');
-            }
-        }
+            } else { signalCooldown--; }
+            const tbody = document.getElementById('signalsBody');
+            tbody.innerHTML = historicalSignals.map(s => `<tr><td>${s.time}</td><td><strong>${s.signal}</strong></td><td>${s.z}</td><td>${s.phase}</td><td>${s.quality}%</td><td>${s.exitReason || '-'}</td></tr>`).join('');
+            lastRatio = currentRatio;
+            const badge = document.getElementById('liveBadge');
+            badge.style.animation = 'none';
+            setTimeout(()=> badge.style.animation = 'pulse 1.5s infinite', 50);
+        } catch(err) { console.error(err); }
     }
 </script>
 </body>
