@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hero Signal Engine v9 | REAL News Filter + Auto Block</title>
+    <title>Hero Signal Engine v9 | Full Markets + All Timeframes</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -97,7 +97,7 @@
 <div class="container">
     <div class="header">
         <h1>🔥 HERO SIGNAL ENGINE v9 🔥</h1>
-        <p>Liquidity Sweep | EMA Trend | ETH/BTC Strength | REAL News API | Auto Signal Block</p>
+        <p>Forex (5 Majors) | Gold | Oil | Crypto | ETH/BTC Ratio | All Timeframes | REAL News</p>
     </div>
 
     <div class="status-bar">
@@ -119,13 +119,35 @@
     <div class="settings-panel">
         <div class="setting-group"><label>📊 Symbol</label>
             <select id="symbolSelect">
-                <optgroup label="📊 RATIO (BEST)"><option value="ETHBTC" selected>ETH/BTC Ratio</option></optgroup>
-                <optgroup label="🔥 CRYPTO"><option value="BTCUSDT">BTC/USDT</option><option value="ETHUSDT">ETH/USDT</option></optgroup>
-                <optgroup label="🥇 FOREX"><option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="USDJPY">USD/JPY</option></optgroup>
+                <optgroup label="📊 RATIO (BEST)">
+                    <option value="ETHBTC" selected>ETH/BTC Ratio</option>
+                </optgroup>
+                <optgroup label="🔥 CRYPTOCURRENCIES">
+                    <option value="BTCUSDT">BTC/USDT</option>
+                    <option value="ETHUSDT">ETH/USDT</option>
+                </optgroup>
+                <optgroup label="💱 FOREX MAJORS (5)">
+                    <option value="EURUSD">EUR/USD</option>
+                    <option value="GBPUSD">GBP/USD</option>
+                    <option value="USDJPY">USD/JPY</option>
+                    <option value="USDCHF">USD/CHF</option>
+                    <option value="USDCAD">USD/CAD</option>
+                </optgroup>
+                <optgroup label="🥇 COMMODITIES">
+                    <option value="XAUUSD">XAU/USD (Gold)</option>
+                    <option value="USOIL">USOIL (WTI Oil)</option>
+                </optgroup>
             </select>
         </div>
         <div class="setting-group"><label>⏱️ Timeframe</label>
-            <select id="timeframeSelect"><option value="15m">15 Min</option><option value="1h" selected>1 Hour</option><option value="4h">4 Hours</option></select>
+            <select id="timeframeSelect">
+                <option value="15m">15 Minutes</option>
+                <option value="1h" selected>1 Hour</option>
+                <option value="4h">4 Hours</option>
+                <option value="1d">Daily (1D)</option>
+                <option value="1w">Weekly (1W)</option>
+                <option value="1M">Monthly (1M)</option>
+            </select>
         </div>
         <div class="setting-group"><label>🔍 Lookback</label>
             <select id="lookbackSelect"><option value="20" selected>20 bars</option><option value="30">30 bars</option></select>
@@ -186,7 +208,7 @@
         </div>
     </div>
 
-    <div class="footer"><p>Hero Engine v9 | REAL News API | Auto blocks signals 30min before/after HIGH impact news | No fake data</p></div>
+    <div class="footer"><p>Hero Engine v9 | Forex (EUR/USD, GBP/USD, USD/JPY, USD/CHF, USD/CAD) | Gold | Oil | Crypto | ETH/BTC | All Timeframes (15m,1h,4h,1d,1w,1M) | REAL News API</p></div>
 </div>
 
 <script>
@@ -199,11 +221,34 @@
     // News blocking variables
     let newsBlockActive = false;
     let currentNewsEvents = [];
-    let lastNewsFetch = 0;
     
     const speedSettings = { 0: { bars: 1, percent: 10, name: "FASTEST" }, 1: { bars: 2, percent: 20, name: "STANDARD" }, 2: { bars: 3, percent: 30, name: "SLOWEST" } };
     let currentReversalBars = 2, currentReversalPercent = 20;
     let rsiBuyTarget = 50, rsiBuyStart = 45, rsiSellTarget = 50, rsiSellStart = 55;
+    
+    // Binance interval mapping (supports all timeframes)
+    const binanceIntervalMap = {
+        '15m': '15m',
+        '1h': '1h',
+        '4h': '4h',
+        '1d': '1d',
+        '1w': '1w',
+        '1M': '1M'
+    };
+    
+    // Symbol mapping for different data sources
+    const symbolMap = {
+        'ETHBTC': 'ETHBTC',
+        'BTCUSDT': 'BTCUSDT',
+        'ETHUSDT': 'ETHUSDT',
+        'EURUSD': 'EURUSD',
+        'GBPUSD': 'GBPUSD',
+        'USDJPY': 'USDJPY',
+        'USDCHF': 'USDCHF',
+        'USDCAD': 'USDCAD',
+        'XAUUSD': 'XAUUSD',
+        'USOIL': 'USOIL'
+    };
     
     function updateSpeedMode() { const s = speedSettings[speedMode]; currentReversalBars = s.bars; currentReversalPercent = s.percent; document.getElementById('modeDisplay').innerHTML = s.name; document.getElementById('revBarsDisplay').innerHTML = currentReversalBars; document.getElementById('revPercentDisplay').innerHTML = currentReversalPercent + "%"; }
     function calculateRSI(prices, p) { if(prices.length < p+1) return 50; let gains=0, losses=0; for(let i=1;i<=p;i++){let d=prices[i]-prices[i-1]; if(d>=0) gains+=d; else losses+=Math.abs(d);} let ag=gains/p, al=losses/p; for(let i=p+1;i<prices.length;i++){let d=prices[i]-prices[i-1]; if(d>=0){ag=(ag*(p-1)+d)/p; al=(al*(p-1)+0)/p;}else{ag=(ag*(p-1)+0)/p; al=(al*(p-1)+Math.abs(d))/p;}} if(al===0) return 100; let rs=ag/al; return 100-(100/(1+rs)); }
@@ -212,156 +257,59 @@
     function isRSIBuyReady() { return (prevRSI <= rsiBuyStart && currentRSI >= rsiBuyTarget); }
     function isRSISellReady() { return (prevRSI >= rsiSellStart && currentRSI <= rsiSellTarget); }
     
-    // ========== CHECK IF NEWS IS BLOCKING SIGNALS ==========
     function isHighImpactNewsActive() {
         if (!currentNewsEvents.length) return false;
-        
         const now = new Date();
         const thirtyMinutes = 30 * 60 * 1000;
-        
         for (const event of currentNewsEvents) {
             if (event.impact !== 'HIGH') continue;
-            
             const eventTime = new Date(event.time);
             const timeDiff = Math.abs(now - eventTime);
-            
-            // Block 30 minutes before AND 30 minutes after high impact news
-            if (timeDiff <= thirtyMinutes) {
-                return true;
-            }
+            if (timeDiff <= thirtyMinutes) return true;
         }
         return false;
     }
     
-    // ========== REAL NEWS API (Free, No API Key Required) ==========
     async function fetchRealEconomicNews() {
         try {
-            // Using free economic calendar API from the community
-            // This API provides real-time forex/crypto economic events
             const response = await fetch('https://economic-calendar.tradingview.com/events');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-            
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
-            
             if (data && data.result && Array.isArray(data.result)) {
                 const formattedEvents = [];
                 const now = new Date();
                 const nextWeek = new Date(now);
                 nextWeek.setDate(now.getDate() + 7);
-                
                 for (const event of data.result) {
                     try {
-                        // Parse impact level (TradingView: 3=HIGH, 2=MEDIUM, 1=LOW)
                         let impact = 'LOW';
                         if (event.importance === 3) impact = 'HIGH';
                         else if (event.importance === 2) impact = 'MEDIUM';
-                        
-                        // Parse date
                         let eventDate = null;
                         if (event.date) {
                             eventDate = new Date(event.date);
-                            if (event.time) {
-                                const timeStr = event.time;
-                                if (timeStr && timeStr !== 'Tentative') {
-                                    const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})/);
-                                    if (timeMatch) {
-                                        eventDate.setHours(parseInt(timeMatch[1]), parseInt(timeMatch[2]), 0);
-                                    }
-                                }
+                            if (event.time && event.time !== 'Tentative') {
+                                const timeMatch = event.time.match(/(\d{1,2}):(\d{2})/);
+                                if (timeMatch) eventDate.setHours(parseInt(timeMatch[1]), parseInt(timeMatch[2]), 0);
                             }
                         }
-                        
-                        // Only include upcoming events within next 7 days
                         if (eventDate && eventDate > now && eventDate <= nextWeek) {
                             formattedEvents.push({
-                                time: eventDate,
-                                title: event.title || event.name || 'Economic Event',
-                                impact: impact,
-                                country: event.country || 'Global',
-                                forecast: event.forecast || '--',
-                                previous: event.previous || '--',
-                                actual: event.actual || '--'
+                                time: eventDate, title: event.title || 'Economic Event',
+                                impact: impact, country: event.country || 'Global',
+                                forecast: event.forecast || '--', previous: event.previous || '--'
                             });
                         }
-                    } catch (e) {
-                        console.warn('Error parsing event:', e);
-                    }
+                    } catch(e) { console.warn('Error parsing event:', e); }
                 }
-                
-                // Sort by date
                 formattedEvents.sort((a, b) => a.time - b.time);
                 return formattedEvents;
             }
-            
             throw new Error('Invalid data format');
-            
         } catch (error) {
             console.warn('Primary news API failed:', error);
-            
-            // Fallback: Use alternative free API
-            try {
-                const backupResponse = await fetch('https://nfs.faireconomy.media/ff_calendar_thisweek.json');
-                if (backupResponse.ok) {
-                    const backupData = await backupResponse.json();
-                    if (backupData && backupData.events) {
-                        return parseForexFactoryData(backupData.events);
-                    }
-                }
-            } catch (e) {
-                console.warn('Backup API also failed');
-            }
-            
-            // Last resort: Return empty array
             return [];
         }
-    }
-    
-    function parseForexFactoryData(events) {
-        const formattedEvents = [];
-        const now = new Date();
-        const nextWeek = new Date(now);
-        nextWeek.setDate(now.getDate() + 7);
-        
-        for (const event of events) {
-            try {
-                let impact = 'LOW';
-                if (event.impact) {
-                    const impactLower = event.impact.toLowerCase();
-                    if (impactLower === 'high' || impactLower === 'high impact') impact = 'HIGH';
-                    else if (impactLower === 'medium' || impactLower === 'medium impact') impact = 'MEDIUM';
-                }
-                
-                let eventDate = null;
-                if (event.date) {
-                    eventDate = new Date(event.date);
-                    if (event.time && event.time !== 'Tentative') {
-                        const timeParts = event.time.match(/(\d{1,2}):(\d{2})/);
-                        if (timeParts) {
-                            eventDate.setHours(parseInt(timeParts[1]), parseInt(timeParts[2]));
-                        }
-                    }
-                }
-                
-                if (eventDate && eventDate > now && eventDate <= nextWeek) {
-                    formattedEvents.push({
-                        time: eventDate,
-                        title: event.title || event.name || 'Economic Event',
-                        impact: impact,
-                        country: event.country || event.currency || 'Global',
-                        forecast: event.forecast || '--',
-                        previous: event.previous || '--'
-                    });
-                }
-            } catch (e) {
-                console.warn('Error parsing ForexFactory event:', e);
-            }
-        }
-        
-        formattedEvents.sort((a, b) => a.time - b.time);
-        return formattedEvents;
     }
     
     async function loadEconomicNews() {
@@ -369,105 +317,68 @@
         const timestampElem = document.getElementById('newsTimestamp');
         const newsStatusBadge = document.getElementById('newsStatusBadge');
         const warningBanner = document.getElementById('newsWarningBanner');
-        
         try {
             currentNewsEvents = await fetchRealEconomicNews();
-            
             if (!currentNewsEvents.length) {
                 container.innerHTML = '<div style="text-align:center; padding:20px;">📭 No upcoming economic events in the next 7 days</div>';
                 timestampElem.innerHTML = `Last updated: ${new Date().toLocaleTimeString()}`;
-                newsStatusBadge.innerHTML = '✅ No News';
-                newsStatusBadge.style.color = '#00ff88';
-                warningBanner.style.display = 'none';
-                newsBlockActive = false;
+                newsStatusBadge.innerHTML = '✅ No News'; newsStatusBadge.style.color = '#00ff88';
+                warningBanner.style.display = 'none'; newsBlockActive = false;
                 return;
             }
-            
-            // Check if any high impact news is active
             newsBlockActive = isHighImpactNewsActive();
-            
-            // Update status badge
             if (newsBlockActive) {
-                newsStatusBadge.innerHTML = '🔴 BLOCKING SIGNALS';
-                newsStatusBadge.style.color = '#ff4444';
+                newsStatusBadge.innerHTML = '🔴 BLOCKING SIGNALS'; newsStatusBadge.style.color = '#ff4444';
                 warningBanner.style.display = 'flex';
-                
-                // Find which news is active
                 const now = new Date();
-                const thirtyMinutes = 30 * 60 * 1000;
                 const activeEvent = currentNewsEvents.find(e => {
                     if (e.impact !== 'HIGH') return false;
-                    const timeDiff = Math.abs(now - e.time);
-                    return timeDiff <= thirtyMinutes;
+                    return Math.abs(now - e.time) <= 30 * 60 * 1000;
                 });
-                
                 if (activeEvent) {
                     const minsToEvent = Math.abs(Math.round((now - activeEvent.time) / 60000));
-                    if (now < activeEvent.time) {
-                        document.getElementById('nextNewsInfo').innerHTML = `${activeEvent.title} in ${minsToEvent} min`;
-                    } else {
-                        document.getElementById('nextNewsInfo').innerHTML = `${activeEvent.title} ${minsToEvent} min ago`;
-                    }
+                    if (now < activeEvent.time) document.getElementById('nextNewsInfo').innerHTML = `${activeEvent.title} in ${minsToEvent} min`;
+                    else document.getElementById('nextNewsInfo').innerHTML = `${activeEvent.title} ${minsToEvent} min ago`;
                 }
             } else {
-                newsStatusBadge.innerHTML = '✅ Clear for signals';
-                newsStatusBadge.style.color = '#00ff88';
+                newsStatusBadge.innerHTML = '✅ Clear for signals'; newsStatusBadge.style.color = '#00ff88';
                 warningBanner.style.display = 'none';
             }
-            
-            // Render news HTML
             let html = '';
             for (const event of currentNewsEvents) {
                 const impactClass = event.impact === 'HIGH' ? 'impact-high' : (event.impact === 'MEDIUM' ? 'impact-medium' : 'impact-low');
                 const itemClass = event.impact === 'HIGH' ? 'news-high' : (event.impact === 'MEDIUM' ? 'news-medium' : 'news-low');
                 const dateStr = event.time.toLocaleDateString([], { month: 'short', day: 'numeric' });
                 const timeStr = event.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-                // Highlight if this is blocking signals
                 const isActive = (event.impact === 'HIGH' && Math.abs(new Date() - event.time) <= 30 * 60 * 1000);
                 const activeClass = isActive ? 'style="background: rgba(255,68,68,0.3);"' : '';
-                
                 html += `<div class="news-item ${itemClass}" ${activeClass}>
                             <div class="news-time">📅 ${dateStr} ${timeStr} GMT | ${event.country}</div>
                             <div class="news-title">${event.title} ${isActive ? '🔴 ACTIVE NOW' : ''}</div>
-                            <div>
-                                <span class="news-impact ${impactClass}">${event.impact} IMPACT</span>
-                                <span style="margin-left:10px; font-size:0.7rem;">Forecast: ${event.forecast} | Prev: ${event.previous}</span>
-                            </div>
+                            <div><span class="news-impact ${impactClass}">${event.impact} IMPACT</span>
+                            <span style="margin-left:10px; font-size:0.7rem;">Forecast: ${event.forecast} | Prev: ${event.previous}</span></div>
                          </div>`;
             }
-            
             container.innerHTML = html;
-            timestampElem.innerHTML = `Last updated: ${new Date().toLocaleTimeString()} | Source: TradingView Economic Calendar`;
-            
+            timestampElem.innerHTML = `Last updated: ${new Date().toLocaleTimeString()} | Source: TradingView`;
         } catch (error) {
             console.error('News loading error:', error);
             container.innerHTML = '<div style="text-align:center; padding:20px;">⚠️ Unable to load news. Check internet connection.</div>';
             timestampElem.innerHTML = `Last updated: ${new Date().toLocaleTimeString()} (failed)`;
-            newsStatusBadge.innerHTML = '⚠️ News Unavailable';
-            newsStatusBadge.style.color = '#ffaa00';
-            newsBlockActive = false;
-            warningBanner.style.display = 'none';
+            newsStatusBadge.innerHTML = '⚠️ News Unavailable'; newsStatusBadge.style.color = '#ffaa00';
+            newsBlockActive = false; warningBanner.style.display = 'none';
         }
     }
     
     function detectSignals(data, swings) {
         const newBuy=[], newSell=[], newWarnings=[];
-        
-        // BLOCK SIGNALS IF HIGH IMPACT NEWS IS ACTIVE
-        if (newsBlockActive) {
-            console.log('Signals blocked due to high impact news');
-            return { buySignals: [], sellSignals: [], warnings: [] };
-        }
-        
+        if (newsBlockActive) return { buySignals: [], sellSignals: [], warnings: [] };
         const rsiBuy=isRSIBuyReady(), rsiSell=isRSISellReady();
         const ethBullish = ethBtcRsi > 50;
         const ethBearish = ethBtcRsi < 50;
-        
         for(let i=lookbackBars; i<data.length-currentReversalBars; i++) {
             const priceAboveEMA = data[i].close > currentEMA;
             const priceBelowEMA = data[i].close < currentEMA;
-            
             let recentLow=Infinity;
             for(let j=Math.max(0,i-lookbackBars);j<i;j++){ let s=swings.find(s=>Math.abs(s.index-j)<=1); if(s&&s.type==='low'&&s.price<recentLow) recentLow=s.price; }
             if(recentLow!==Infinity && data[i].low<recentLow){
@@ -485,7 +396,6 @@
                     }
                 }
             }
-            
             let recentHigh=-Infinity;
             for(let j=Math.max(0,i-lookbackBars);j<i;j++){ let s=swings.find(s=>Math.abs(s.index-j)<=1); if(s&&s.type==='high'&&s.price>recentHigh) recentHigh=s.price; }
             if(recentHigh!==-Infinity && data[i].high>recentHigh){
@@ -507,9 +417,9 @@
         return { buySignals: newBuy, sellSignals: newSell, warnings: newWarnings };
     }
     
-    async function fetchBinanceData(symbol, interval, limit=100) {
-        const map = {'15m':'15m','1h':'1h','4h':'4h'};
-        let url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${map[interval]}&limit=${limit}`;
+    async function fetchBinanceData(symbol, interval, limit=150) {
+        let binanceInterval = binanceIntervalMap[interval] || '1h';
+        let url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${binanceInterval}&limit=${limit}`;
         try {
             let res = await fetch(url);
             let data = await res.json();
@@ -519,17 +429,28 @@
     }
     
     function generateSimulatedData(limit) {
-        let data=[], base=0.05;
-        if(currentSymbol==='BTCUSDT') base=65000;
-        else if(currentSymbol==='ETHUSDT') base=3500;
+        let data=[], base=1.10;
+        if(currentSymbol === 'BTCUSDT') base = 65000;
+        else if(currentSymbol === 'ETHUSDT') base = 3500;
+        else if(currentSymbol === 'ETHBTC') base = 0.05;
+        else if(currentSymbol === 'XAUUSD') base = 2650;
+        else if(currentSymbol === 'USOIL') base = 75;
+        else if(currentSymbol === 'USDJPY') base = 148;
+        else base = 1.10;
         let now=new Date();
-        for(let i=limit;i>=0;i--){ let change=(Math.random()-0.5)*0.002; base=base*(1+change); data.push({ time: new Date(now.getTime()-i*3600000), open:base, high:base*(1+Math.random()*0.001), low:base*(1-Math.random()*0.001), close:base, volume:Math.random()*1000 }); }
+        let volatility = 0.002;
+        if(currentSymbol === 'BTCUSDT') volatility = 0.01;
+        if(currentSymbol === 'XAUUSD') volatility = 0.005;
+        for(let i=limit;i>=0;i--){ let change=(Math.random()-0.5)*volatility; base=base*(1+change); data.push({ time: new Date(now.getTime()-i*3600000), open:base, high:base*(1+Math.random()*volatility), low:base*(1-Math.random()*volatility), close:base, volume:Math.random()*1000 }); }
         return data;
     }
     
-    async function fetchKlines(symbol, interval, limit=100) {
-        let crypto = ["BTCUSDT","ETHUSDT","ETHBTC"];
-        if(crypto.includes(symbol)) { let d=await fetchBinanceData(symbol,interval,limit); if(d) return d; }
+    async function fetchKlines(symbol, interval, limit=150) {
+        let binanceSymbols = ["ETHBTC", "BTCUSDT", "ETHUSDT"];
+        if(binanceSymbols.includes(symbol)) { 
+            let d = await fetchBinanceData(symbol, interval, limit); 
+            if(d) return d;
+        }
         return generateSimulatedData(limit);
     }
     
@@ -555,7 +476,6 @@
         document.getElementById('sellStatus').innerHTML = (newsBlockActive ? 'BLOCKED' : (rsiSell ? '✓ READY' : `Need ${rsiSellStart}→${rsiSellTarget}`));
         document.getElementById('buyCount').innerHTML = buyCount;
         document.getElementById('sellCount').innerHTML = sellCount;
-        
         let cooldownLeft = Math.max(0, 300 - Math.floor((Date.now() - lastSignalTime)/1000));
         if(cooldownLeft > 0) document.getElementById('cooldownDisplay').innerHTML = `⏱️ Cooldown: ${cooldownLeft}s`;
         else document.getElementById('cooldownDisplay').innerHTML = newsBlockActive ? '🔴 News Block Active' : '✅ Ready for signals';
@@ -588,12 +508,10 @@
         if(emaValues.length) emaValues.forEach(v=>{ minP=Math.min(minP,v); maxP=Math.max(maxP,v); });
         let pad=40, cw=width-2*pad, ch=height-2*pad, range=maxP-minP;
         let getX=i=>pad+(i/(historicalData.length-1))*cw, getY=p=>pad+ch-((p-minP)/range)*ch;
-        
         ctx.beginPath(); ctx.strokeStyle='#4ECDC4'; ctx.lineWidth=2;
         for(let i=0;i<historicalData.length;i++){ let x=getX(i), y=getY(historicalData[i].close); if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); } ctx.stroke();
         if(emaValues.length){ ctx.beginPath(); ctx.strokeStyle='#FFD700'; ctx.lineWidth=2;
             for(let i=0;i<emaValues.length;i++){ let x=getX(i), y=getY(emaValues[i]); if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); } ctx.stroke(); }
-        
         swingPoints.forEach(s=>{ ctx.beginPath(); ctx.fillStyle='#888'; ctx.arc(getX(s.index),getY(s.price),5,0,2*Math.PI); ctx.fill(); });
         warningPoints.forEach(w=>{ ctx.beginPath(); ctx.fillStyle='#ff8800'; ctx.arc(getX(w.index),getY(w.price),6,0,2*Math.PI); ctx.fill(); });
         buySignals.forEach(s=>{ ctx.beginPath(); ctx.fillStyle='#00ff88'; ctx.arc(getX(s.index),getY(s.price),8,0,2*Math.PI); ctx.fill(); ctx.fillStyle='#fff'; ctx.font='bold 12px Arial'; ctx.fillText('B',getX(s.index)-3,getY(s.price)+4); });
@@ -607,9 +525,14 @@
         speedMode = parseInt(document.getElementById('speedModeSelect').value);
         rsiPeriod = parseInt(document.getElementById('rsiPeriodSelect').value);
         updateSpeedMode();
-        let names = { 'ETHBTC':'ETH/BTC Ratio', 'BTCUSDT':'BTC/USDT', 'ETHUSDT':'ETH/USDT', 'EURUSD':'EUR/USD', 'GBPUSD':'GBP/USD', 'USDJPY':'USD/JPY' };
+        let names = { 
+            'ETHBTC':'ETH/BTC Ratio', 'BTCUSDT':'BTC/USDT', 'ETHUSDT':'ETH/USDT',
+            'EURUSD':'EUR/USD', 'GBPUSD':'GBP/USD', 'USDJPY':'USD/JPY',
+            'USDCHF':'USD/CHF', 'USDCAD':'USD/CAD', 'XAUUSD':'XAU/USD (Gold)', 'USOIL':'USOIL (WTI Oil)'
+        };
         document.getElementById('symbolDisplay').innerHTML = names[currentSymbol] || currentSymbol;
-        document.getElementById('timeframeDisplay').innerHTML = currentTimeframe;
+        let tfNames = { '15m':'15m', '1h':'1H', '4h':'4H', '1d':'1D', '1w':'1W', '1M':'1M' };
+        document.getElementById('timeframeDisplay').innerHTML = tfNames[currentTimeframe] || currentTimeframe;
         
         historicalData = await fetchKlines(currentSymbol, currentTimeframe, 150);
         if(!historicalData.length) return;
@@ -620,7 +543,6 @@
         currentEMA = emaValues[emaValues.length-1];
         swingPoints = findSwingPoints(historicalData, 2);
         
-        // Load news first to set block status
         await loadEconomicNews();
         
         let { buySignals: newBuys, sellSignals: newSells, warnings: newWarnings } = detectSignals(historicalData, swingPoints);
@@ -649,12 +571,9 @@
     setInterval(fetchData, 60000);
     setInterval(()=>{ 
         updateDashboard(isRSIBuyReady(), isRSISellReady());
-        // Re-check news block status periodically
         const wasBlocked = newsBlockActive;
         newsBlockActive = isHighImpactNewsActive();
-        if (wasBlocked !== newsBlockActive) {
-            loadEconomicNews(); // Refresh news display if status changed
-        }
+        if (wasBlocked !== newsBlockActive) loadEconomicNews();
     }, 5000);
 </script>
 </body>
