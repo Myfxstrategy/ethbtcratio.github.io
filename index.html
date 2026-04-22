@@ -240,9 +240,48 @@
             background: #444;
         }
 
+        .btn-contact {
+            background: #00aa44;
+            color: white;
+            border: none;
+        }
+
+        .btn-contact:hover {
+            background: #008833;
+        }
+
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+
+        /* Contact Bar */
+        .contact-bar {
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #333;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+        }
+
+        .contact-label {
+            color: #888;
+        }
+
+        .contact-value {
+            color: #FFD700;
         }
 
         /* Access Screen */
@@ -324,10 +363,40 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
+
+        .whatsapp-link {
+            color: #00ff88;
+            text-decoration: none;
+        }
+
+        .whatsapp-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 <div class="container">
+    <!-- Contact Bar with Your Details -->
+    <div class="contact-bar">
+        <div class="contact-item">
+            <span class="contact-label">👨‍🏫 Instructor:</span>
+            <span class="contact-value">Mohamoud</span>
+        </div>
+        <div class="contact-item">
+            <span class="contact-label">📧 Email:</span>
+            <span class="contact-value">ukdesigner62@gmail.com</span>
+        </div>
+        <div class="contact-item">
+            <span class="contact-label">📱 WhatsApp:</span>
+            <span class="contact-value">
+                <a href="https://wa.me/447492166072" target="_blank" class="whatsapp-link">+447492166072</a>
+            </span>
+        </div>
+        <div class="contact-item">
+            <button class="btn-contact" style="padding:5px 15px; font-size:0.7rem;" onclick="window.open('https://wa.me/447492166072', '_blank')">💬 Message on WhatsApp</button>
+        </div>
+    </div>
+
     <div class="academy-header">
         <h1>🎓 MPRIMO ONLINE ACADEMY 🎓</h1>
         <p>Master the TRIO Rotator Strategy | Learn Before You Trade</p>
@@ -365,6 +434,7 @@
                         <p><span class="highlight">EXIT</span> when: Z returns to ~0</p>
                     </div>
                     <p>By the end of this course, you will understand exactly how the system works — and more importantly, <span class="success-text">how to use it correctly</span>.</p>
+                    <p style="margin-top:15px;">📧 <span class="highlight">Need help?</span> Contact me on WhatsApp: <span class="success-text">+447492166072</span> or email: <span class="success-text">ukdesigner62@gmail.com</span></p>
                 </div>
             `
         },
@@ -551,6 +621,7 @@
                         <div class="example-title">💡 THE BOTTOM LINE</div>
                         <p>No signal = No trade. Forcing trades when there's no edge = <span class="warning-text">LOSING MONEY</span>. Sometimes the best trade is NO TRADE.</p>
                     </div>
+                    <p style="margin-top:15px;">📱 <span class="highlight">Questions?</span> WhatsApp me: <span class="success-text">+447492166072</span></p>
                 </div>
             `
         },
@@ -604,6 +675,7 @@
                     <div class="button-group">
                         ${currentModule > 0 ? `<button class="btn btn-secondary" onclick="previousModule()">◀ Previous</button>` : '<div></div>'}
                         <button class="btn btn-primary" onclick="nextModule()">Next Module ▶</button>
+                        <button class="btn btn-contact" onclick="window.open('https://wa.me/447492166072', '_blank')">💬 Need Help? WhatsApp</button>
                     </div>
                 </div>
             `;
@@ -616,6 +688,7 @@
                     <div class="button-group">
                         ${currentModule > 0 ? `<button class="btn btn-secondary" onclick="previousModule()">◀ Previous</button>` : '<div></div>'}
                         <button class="btn btn-primary" onclick="nextModule()">Next Module ▶</button>
+                        <button class="btn btn-contact" onclick="window.open('https://wa.me/447492166072', '_blank')">💬 Need Help? WhatsApp</button>
                     </div>
                 </div>
             `;
@@ -646,6 +719,7 @@
                         <button class="btn btn-primary" onclick="nextModule()" ${!isCorrect && selected !== undefined ? 'disabled' : ''}>
                             Next Module ▶
                         </button>
+                        <button class="btn btn-contact" onclick="window.open('https://wa.me/447492166072', '_blank')">💬 Need Help? WhatsApp</button>
                     </div>
                 </div>
             `;
@@ -670,6 +744,7 @@
                         <a href="https://myfxstrategy.github.io/ethbtcratio.github.io/" class="dashboard-link" id="dashboardLink">🚀 ACCESS TRADING DASHBOARD 🚀</a>
                         <div class="countdown" id="countdown"></div>
                         <p style="margin-top: 20px; font-size: 0.8rem; color: #888;">⚠️ Remember: Always use proper risk management. Never risk more than 2% per trade.</p>
+                        <p style="margin-top: 15px;">📧 <span class="highlight">Instructor:</span> Mohamoud | 📱 WhatsApp: <span class="success-text">+447492166072</span> | 📧 Email: <span class="success-text">ukdesigner62@gmail.com</span></p>
                     </div>
                 </div>
             `;
