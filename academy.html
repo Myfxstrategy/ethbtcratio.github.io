@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mprimo Online Academy | Master ETH/BTC Rotator Strategy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .academy-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            border: 1px solid #FFD700;
+        }
+
+        .academy-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #FFD700, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .academy-header p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .progress-container {
+            background: #2a2a3e;
+            border-radius: 20px;
+            height: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #FFD700, #00ff88);
+            width: 0%;
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #FFD700;
+        }
+
+        .lecture-card, .quiz-card {
+            background: rgba(0,0,0,0.7);
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid #333;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 20px;
+            border-left: 4px solid #FFD700;
+            padding-left: 15px;
+        }
+
+        .lecture-content {
+            line-height: 1.7;
+            color: #ddd;
+        }
+
+        .lecture-content p {
+            margin-bottom: 15px;
+        }
+
+        .lecture-content ul, .lecture-content ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .lecture-content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .success-text {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .warning-text {
+            color: #ff8800;
+        }
+
+        .danger-text {
+            color: #ff4444;
+        }
+
+        .critical-box {
+            background: rgba(255,68,68,0.15);
+            border-left: 4px solid #ff4444;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .important-box {
+            background: rgba(255,215,0,0.1);
+            border-left: 4px solid #FFD700;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .tip-box {
+            background: rgba(0,255,136,0.1);
+            border-left: 4px solid #00ff88;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .example-box {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid #00ff88;
+        }
+
+        .example-title {
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .quiz-option {
+            background: #2a2a3e;
+            border: 2px solid #444;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: #3a3a4e;
+            border-color: #FFD700;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: rgba(255,215,0,0.2);
+            border-color: #FFD700;
+        }
+
+        .quiz-option.correct {
+            background: rgba(0,255,136,0.2);
+            border-color: #00ff88;
+        }
+
+        .quiz-option.wrong {
+            background: rgba(255,68,68,0.2);
+            border-color: #ff4444;
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .feedback-correct {
+            background: rgba(0,255,136,0.1);
+            border-left: 3px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .feedback-wrong {
+            background: rgba(255,68,68,0.1);
+            border-left: 3px solid #ff4444;
+            color: #ff8888;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: #FFD700;
+            color: #000;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+
+        .btn-secondary {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #444;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .contact-bar {
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #333;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+        }
+
+        .contact-label {
+            color: #888;
+        }
+
+        .contact-value {
+            color: #FFD700;
+        }
+
+        .whatsapp-link {
+            color: #00ff88;
+            text-decoration: none;
+        }
+
+        .access-screen {
+            text-align: center;
+        }
+
+        .access-screen h2 {
+            font-size: 2rem;
+            color: #00ff88;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-link {
+            display: inline-block;
+            background: #FFD700;
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .dashboard-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255,215,0,0.5);
+        }
+
+        .rating {
+            display: inline-block;
+            background: #333;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 10px;
+        }
+        .rating-critical { background: #ff4444; color: white; }
+        .rating-important { background: #ffaa00; color: black; }
+        .rating-nice { background: #00ff88; color: black; }
+
+        .countdown {
+            font-size: 1rem;
+            color: #FFD700;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Contact Bar -->
+    <div class="contact-bar">
+        <div class="contact-item">
+            <span class="contact-label">👨‍🏫 Instructor:</span>
+            <span class="contact-value">Mohamoud</span>
+        </div>
+        <div class="contact-item">
+            <span class="contact-label">📧 Email:</span>
+            <span class="contact-value">ukdesigner62@gmail.com</span>
+        </div>
+        <div class="contact-item">
+            <span class="contact-label">📱 WhatsApp:</span>
+            <span class="contact-value">
+                <a href="https://wa.me/447492166072" target="_blank" class="whatsapp-link">+447492166072</a>
+            </span>
+        </div>
+    </div>
+
+    <div class="academy-header">
+        <h1>🎓 MPRIMO ONLINE ACADEMY 🎓</h1>
+        <p>Master the ETH/BTC Rotator Strategy | Complete Trading Course</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">⚠️ 12 Comprehensive Modules + Randomized Quizzes ⚠️</p>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="step-indicator" id="stepIndicator">Module 1 / 12</div>
+
+    <div id="stepContainer"></div>
+</div>
+
+<script>
+    // ========== QUIZ BANK (Randomized) ==========
+    const quizBank = [
+        {
+            question: "What does Z-Score measure in the ETH/BTC Rotator strategy?",
+            options: [
+                "How fast the price is moving",
+                "How far the ETH/BTC ratio is from its historical average",
+                "The total trading volume",
+                "The trend direction only"
+            ],
+            correct: 1,
+            explanation: "Z-Score = (Current Ratio - Average Ratio) / Standard Deviation. It tells you how statistically extreme the ETH/BTC ratio is."
+        },
+        {
+            question: "What Z-Score value triggers a BUY ETH signal?",
+            options: [
+                "Z-Score > +1.5",
+                "Z-Score < -1.5",
+                "Z-Score = 0",
+                "Z-Score > +2.0"
+            ],
+            correct: 1,
+            explanation: "Z-Score < -1.5 means ETH/BTC ratio is statistically very low → ETH is cheap → expected to rise back to average → BUY ETH."
+        },
+        {
+            question: "What Z-Score value triggers a BUY BTC signal?",
+            options: [
+                "Z-Score < -1.5",
+                "Z-Score > +1.5",
+                "Z-Score = 0",
+                "Z-Score < -2.0"
+            ],
+            correct: 1,
+            explanation: "Z-Score > +1.5 means ETH/BTC ratio is statistically very high → ETH is expensive → expected to fall → BUY BTC."
+        },
+        {
+            question: "What RSI range on the ETH/BTC ratio confirms a BUY signal?",
+            options: [
+                "RSI below 30",
+                "RSI between 30-45",
+                "RSI between 50-70",
+                "RSI above 70"
+            ],
+            correct: 1,
+            explanation: "RSI 30-45 is the 'early accumulation zone' — momentum is just starting to turn up."
+        },
+        {
+            question: "What RSI range confirms a SELL signal (BUY BTC)?",
+            options: [
+                "RSI below 30",
+                "RSI between 30-45",
+                "RSI between 55-70",
+                "RSI above 80"
+            ],
+            correct: 2,
+            explanation: "RSI 55-70 is the 'early distribution zone' — momentum is just starting to turn down."
+        },
+        {
+            question: "What does EMA50 act as in the strategy?",
+            options: [
+                "A volume indicator",
+                "A trend filter (bullish above, bearish below)",
+                "A volatility measure",
+                "A support/resistance level only"
+            ],
+            correct: 1,
+            explanation: "EMA50 tells you the trend direction. Price above EMA50 = bullish trend (favor BUY ETH). Price below EMA50 = bearish trend (favor BUY BTC)."
+        },
+        {
+            question: "When should you EXIT a trade?",
+            options: [
+                "When Z-Score returns to ~0",
+                "When you feel like taking profit",
+                "After 1 hour",
+                "When RSI reaches 30"
+            ],
+            correct: 0,
+            explanation: "Exit when Z-Score returns to ~0 (fair value). This is when the statistical edge is gone."
+        },
+        {
+            question: "What is the recommended risk per trade?",
+            options: [
+                "5-10% of capital",
+                "1-2% of capital",
+                "20% of capital",
+                "50% of capital"
+            ],
+            correct: 1,
+            explanation: "Professional traders risk 1-2% per trade. This protects your account from drawdowns."
+        },
+        {
+            question: "What is a 'Divergence' in this strategy?",
+            options: [
+                "When price moves with RSI",
+                "When Z-Score is extreme but RSI moves in the opposite direction",
+                "When volume increases",
+                "When EMA crosses price"
+            ],
+            correct: 1,
+            explanation: "Divergence occurs when Z-Score is extreme but RSI is moving opposite. This signals a potential trap."
+        },
+        {
+            question: "What does 'BEARISH DIVERGENCE' mean?",
+            options: [
+                "Price is low but momentum is bullish",
+                "Price is high (Z > +1.5) but RSI is below 50",
+                "Volume is decreasing",
+                "EMA is flat"
+            ],
+            correct: 1,
+            explanation: "Bearish divergence: Z-Score > +1.5 (price high) but RSI ratio < 50 (momentum failing)."
+        },
+        {
+            question: "What is Plan B in the strategy?",
+            options: [
+                "Ignoring all signals",
+                "Taking small bounce trades on lower timeframes while waiting for main confirmation",
+                "Doubling position size",
+                "Closing all trades"
+            ],
+            correct: 1,
+            explanation: "Plan B allows you to extract small profits while waiting for the main 1D confirmation."
+        },
+        {
+            question: "What position size should you use for Plan B1 trades?",
+            options: [
+                "Full normal size",
+                "1/3 of normal size",
+                "2x normal size",
+                "10x leverage"
+            ],
+            correct: 1,
+            explanation: "Plan B1 is supplementary, use smaller position size (0.3x normal) to limit risk."
+        },
+        {
+            question: "What is the maximum hold time for Plan B1 trades?",
+            options: [
+                "1 week",
+                "4 hours",
+                "1 day",
+                "No limit"
+            ],
+            correct: 1,
+            explanation: "Plan B1 trades are scalps, maximum hold time is 4 hours."
+        },
+        {
+            question: "What is the recommended timeframe for the main TRIO strategy?",
+            options: [
+                "1 minute",
+                "1 Hour or Daily",
+                "Tick chart",
+                "Monthly"
+            ],
+            correct: 1,
+            explanation: "1H and Daily timeframes provide the best balance of clear signals and reasonable trade frequency."
+        },
+        {
+            question: "What should you do when the dashboard shows 'WAIT'?",
+            options: [
+                "Force a trade anyway",
+                "Wait patiently — no statistical edge",
+                "Change all settings",
+                "Close the browser"
+            ],
+            correct: 1,
+            explanation: "'WAIT' means Z-Score is not extreme. Forcing trades without edge leads to losses."
+        }
+    ];
+
+    // ========== 12 COMPREHENSIVE MODULES ==========
+    const modules = [
+        // Module 1: Welcome & Overview
+        {
+            type: "lecture",
+            title: "🎯 Module 1: Welcome to the ETH/BTC Rotator Strategy",
+            content: `
+                <div class="lecture-content">
+                    <p>Welcome to the <span class="highlight">Mprimo Online Academy</span> — a complete professional course on the ETH/BTC Rotator Strategy.</p>
+                    <p>This strategy is <span class="success-text">NOT a random indicator</span>. It's a statistical arbitrage system based on mean reversion.</p>
+                    <p>By the end of this course, you will understand:</p>
+                    <ul>
+                        <li>📊 <span class="highlight">What Z-Score is and how to interpret it</span> <span class="rating rating-critical">CRITICAL</span></li>
+                        <li>📈 <span class="highlight">How RSI confirms entry timing</span> <span class="rating rating-critical">CRITICAL</span></li>
+                        <li>📉 <span class="highlight">Why EMA50 filters bad trades</span> <span class="rating rating-critical">CRITICAL</span></li>
+                        <li>🟢 <span class="highlight">When to BUY ETH</span> <span class="rating rating-critical">CRITICAL</span></li>
+                        <li>🔴 <span class="highlight">When to BUY BTC</span> <span class="rating rating-critical">CRITICAL</span></li>
+                        <li>🚪 <span class="highlight">When to EXIT trades</span> <span class="rating rating-critical">CRITICAL</span></li>
+                        <li>📋 <span class="highlight">Plan B: Micro Mean Reversion</span> <span class="rating rating-important">IMPORTANT</span></li>
+                        <li>⚠️ <span class="highlight">Common mistakes to avoid</span> <span class="rating rating-important">IMPORTANT</span></li>
+                    </ul>
+                    <div class="important-box">
+                        <strong>⚠️ IMPORTANT:</strong> This course has <span class="highlight">12 modules</span> and <span class="highlight">randomized quizzes</span>. You must pass all quizzes to complete the course.
+                    </div>
+                </div>
+            `
+        },
+        // Module 2: Understanding Z-Score
+        {
+            type: "lecture",
+            title: "📊 Module 2: Z-Score - The Statistical Edge",
+            content: `
+                <div class="lecture-content">
+                    <p>The <span class="highlight">Z-Score</span> is the <span class="success-text">MOST IMPORTANT</span> component of the strategy.</p>
+                    
+                    <div class="critical-box">
+                        <strong>🔴 CRITICAL - Must Understand:</strong>
+                        <p>Z-Score = (Current ETH/BTC Ratio - Average Ratio) / Standard Deviation</p>
+                        <p>It tells you how many standard deviations the current ratio is from its historical average.</p>
+                    </div>
+                    
+                    <p><span class="highlight">Z-Score Values and Meanings:</span></p>
+                    <ul>
+                        <li><span class="success-text">Z < -1.5</span> = Ratio is VERY LOW → <span class="highlight">ETH IS CHEAP</span> → BUY ETH</li>
+                        <li><span class="warning-text">-1.5 < Z < +1.5</span> = Ratio is NORMAL → <span class="highlight">WAIT ZONE</span> (no edge)</li>
+                        <li><span class="danger-text">Z > +1.5</span> = Ratio is VERY HIGH → <span class="highlight">ETH IS EXPENSIVE</span> → BUY BTC</li>
+                        <li><span class="danger-text">Z < -3 or Z > +3</span> = EXTREME → <span class="highlight">STOP LOSS / EMERGENCY EXIT</span></li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">📊 REAL EXAMPLE</div>
+                        <p>ETH/BTC Ratio 1H Chart:</p>
+                        <p>• 90-period average ratio = 0.0500</p>
+                        <p>• Standard deviation = 0.0008</p>
+                        <p>• Current ratio = 0.0488</p>
+                        <p>• Z-Score = (0.0488 - 0.0500) / 0.0008 = <span class="success-text">-1.5 → BUY ETH ZONE</span></p>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>💡 PRO TIP:</strong> The dashboard shows a color-coded meter. Green zone = BUY ETH, Red zone = BUY BTC, Yellow = WAIT.
+                    </div>
+                </div>
+            `
+        },
+        // Module 3: RSI Confirmation
+        {
+            type: "lecture",
+            title: "📈 Module 3: RSI - The Timing Tool",
+            content: `
+                <div class="lecture-content">
+                    <p>RSI (Relative Strength Index) tells you <span class="highlight">WHEN</span> to enter, not just WHERE.</p>
+                    
+                    <div class="critical-box">
+                        <strong>🔴 CRITICAL - Must Understand:</strong>
+                        <p>Even if Z-Score is extreme, <span class="warning-text">DO NOT ENTER</span> unless RSI is in the correct zone.</p>
+                    </div>
+                    
+                    <p><span class="highlight">RSI Zones on ETH/BTC Ratio:</span></p>
+                    <ul>
+                        <li><span class="success-text">RSI 30-45</span> = <span class="highlight">EARLY ACCUMULATION ZONE</span> → BUY ETH READY</li>
+                        <li><span class="danger-text">RSI 55-70</span> = <span class="highlight">EARLY DISTRIBUTION ZONE</span> → BUY BTC READY</li>
+                        <li><span class="warning-text">RSI < 30</span> = OVERSOLD PANIC → WAIT for pullback to 30-45</li>
+                        <li><span class="warning-text">RSI > 70</span> = OVERBOUGHT EUPHORIA → WAIT for pullback to 55-70</li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">⚠️ WHY RSI MATTERS</div>
+                        <p>Z-Score = -2.0 (extreme) BUT RSI = 25 (oversold panic)</p>
+                        <p>→ <span class="warning-text">NO SIGNAL.</span> Wait for RSI to rise to 30-45 first.</p>
+                        <p>Momentum must confirm the reversal, not just price level.</p>
+                    </div>
+                </div>
+            `
+        },
+        // Module 4: EMA50 Trend Filter
+        {
+            type: "lecture",
+            title: "📉 Module 4: EMA50 - Never Trade Against the Trend",
+            content: `
+                <div class="lecture-content">
+                    <p>The <span class="highlight">50-period EMA</span> (Exponential Moving Average) is your <span class="success-text">trend filter</span> on the ETH/BTC ratio.</p>
+                    
+                    <div class="critical-box">
+                        <strong>🔴 CRITICAL - Must Understand:</strong>
+                        <p>Never trade against the EMA50 trend. This is the #1 mistake new traders make.</p>
+                    </div>
+                    
+                    <p><span class="highlight">EMA50 Rules:</span></p>
+                    <ul>
+                        <li><span class="success-text">Ratio ABOVE EMA50</span> = <span class="highlight">ETH DOMINANT TREND</span> → Only take BUY ETH signals</li>
+                        <li><span class="danger-text">Ratio BELOW EMA50</span> = <span class="highlight">BTC DOMINANT TREND</span> → Only take BUY BTC signals</li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">❌ WRONG (Common Mistake)</div>
+                        <p>Z-Score = -1.8 (BUY ETH zone), RSI = 38 (ready), BUT ratio is BELOW EMA50 (BTC dominant)</p>
+                        <p>→ <span class="warning-text">NO SIGNAL.</span> Waiting for ratio to cross above EMA50.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">✅ CORRECT</div>
+                        <p>Z-Score = -1.8, RSI = 38, AND ratio is ABOVE EMA50</p>
+                        <p>→ <span class="success-text">BUY ETH SIGNAL TRIGGERS</span></p>
+                    </div>
+                </div>
+            `
+        },
+        // Module 5: The Complete Signal
+        {
+            type: "lecture",
+            title: "🎯 Module 5: The Complete Signal - All 3 Conditions",
+            content: `
+                <div class="lecture-content">
+                    <p>A <span class="success-text">VALID SIGNAL</span> requires ALL THREE conditions to be true:</p>
+                    
+                    <div class="critical-box">
+                        <strong>🟢 BUY ETH SIGNAL REQUIRES:</strong>
+                        <p>1. Z-Score < -1.5 (ETH is statistically cheap)</p>
+                        <p>2. RSI between 30-45 (momentum turning up)</p>
+                        <p>3. Ratio ABOVE EMA50 (ETH dominant trend)</p>
+                    </div>
+                    
+                    <div class="critical-box">
+                        <strong>🔴 BUY BTC SIGNAL REQUIRES:</strong>
+                        <p>1. Z-Score > +1.5 (ETH is statistically expensive)</p>
+                        <p>2. RSI between 55-70 (momentum turning down)</p>
+                        <p>3. Ratio BELOW EMA50 (BTC dominant trend)</p>
+                    </div>
+                    
+                    <div class="important-box">
+                        <strong>⚡ WHAT TO EXPECT ON DASHBOARD:</strong>
+                        <p>• Green Signal Box → "🟢 BUY ETH / 🔴 SELL BTC"</p>
+                        <p>• Red Signal Box → "🔴 SELL ETH / 🟢 BUY BTC"</p>
+                        <p>• Orange Signal Box → "📤 TAKE PROFITS"</p>
+                        <p>• Gray Signal Box → "⚪ WAIT"</p>
+                    </div>
+                </div>
+            `
+        },
+        // Module 6: Exit Rules
+        {
+            type: "lecture",
+            title: "🚪 Module 6: Exit Rules - Protecting Your Capital",
+            content: `
+                <div class="lecture-content">
+                    <p><span class="danger-text">Most traders lose money because they don't know when to exit.</span> The system has <span class="highlight">4 clear exit rules:</span></p>
+                    
+                    <div class="critical-box">
+                        <strong>🚪 EXIT RULE 1 (Primary):</strong>
+                        <p>When <span class="highlight">Z-Score returns to ~0</span> (fair value) → <span class="success-text">TAKE PROFITS</span></p>
+                        <p>The statistical edge is gone. Exit now.</p>
+                    </div>
+                    
+                    <div class="critical-box">
+                        <strong>🚪 EXIT RULE 2 (Stop Loss):</strong>
+                        <p>When <span class="highlight">Z-Score < -3 or > +3</span> → <span class="success-text">EMERGENCY EXIT</span></p>
+                        <p>This is your last line of defense.</p>
+                    </div>
+                    
+                    <div class="critical-box">
+                        <strong>🚪 EXIT RULE 3 (Divergence):</strong>
+                        <p>When <span class="highlight">Z extreme + RSI moving opposite</span> → <span class="success-text">EXIT</span></p>
+                        <p>This catches trap signals early.</p>
+                    </div>
+                    
+                    <div class="critical-box">
+                        <strong>🚪 EXIT RULE 4 (Dashboard Signal):</strong>
+                        <p>When dashboard shows <span class="highlight">"📤 TAKE PROFITS"</span> → <span class="success-text">CLOSE POSITION</span></p>
+                        <p>Trust the system.</p>
+                    </div>
+                </div>
+            `
+        },
+        // Quiz 1
+        {
+            type: "quiz",
+            title: "📝 Quiz 1: TRIO Fundamentals",
+            quizBank: true,
+            numQuestions: 5
+        },
+        // Module 7: Plan B
+        {
+            type: "lecture",
+            title: "⚡ Module 7: Plan B - Extract Profits While Waiting",
+            content: `
+                <div class="lecture-content">
+                    <p>Sometimes the 1D confirmation takes time. <span class="highlight">Plan B</span> allows you to extract small profits while waiting.</p>
+                    
+                    <div class="important-box">
+                        <strong>⚠️ IMPORTANT:</strong> Plan B is <span class="warning-text">NOT a replacement</span> for the main system. It's a SUPPLEMENT.
+                    </div>
+                    
+                    <div class="critical-box">
+                        <strong>🟢 PLAN B1 - Micro Mean Reversion (Safe):</strong>
+                        <p>• Enter on <span class="highlight">15m or 1H</span> when Z < -1.5 AND RSI < 35</p>
+                        <p>• Position size: <span class="highlight">1/3 of normal</span></p>
+                        <p>• Exit when Z reaches -0.5 OR RSI reaches 45 OR 2 green candles</p>
+                        <p>• Max hold time: <span class="highlight">4 hours</span></p>
+                        <p>• Profit target: <span class="success-text">0.5-1%</span></p>
+                    </div>
+                    
+                    <div class="critical-box">
+                        <strong>🔴 PLAN B2 - Momentum Following (Advanced):</strong>
+                        <p>• If oversold persists for <span class="highlight">6+ hours</span> with RSI below 35</p>
+                        <p>• Don't try to catch the bottom → follow BTC dominance</p>
+                        <p>• Position size: <span class="highlight">1/2 of normal</span></p>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>💡 PLAN B QUICK REFERENCE:</strong>
+                        <p>Z < -1.5 + RSI < 35 on 15m/1H → Plan B1 (small bounce)</p>
+                        <p>After 6 hours still RSI < 35 → Switch to Plan B2 (follow trend)</p>
+                        <p>When 1D TRIO confirms → Stop Plan B, use main system</p>
+                    </div>
+                </div>
+            `
+        },
+        // Module 8: Divergence
+        {
+            type: "lecture",
+            title: "🔄 Module 8: Divergence - The Trap Detector",
+            content: `
+                <div class="lecture-content">
+                    <p>Divergence helps you <span class="highlight">avoid trap signals</span> and fake moves.</p>
+                    
+                    <div class="critical-box">
+                        <strong>🔥 BEARISH DIVERGENCE:</strong>
+                        <p>Z-Score > +1.5 (price high) BUT RSI ratio &lt; 50</p>
+                        <p>→ Price high, but momentum failing</p>
+                        <p>→ BTC likely to lead soon</p>
+                        <p>→ <span class="danger-text">Avoid chasing ETH</span></p>
+                    </div>
+                    
+                    <div class="critical-box">
+                        <strong>🔥 BULLISH DIVERGENCE:</strong>
+                        <p>Z-Score < -1.5 (price low) BUT RSI ratio > 50</p>
+                        <p>→ Price low, but momentum improving</p>
+                        <p>→ ETH likely to lead soon</p>
+                        <p>→ <span class="success-text">High quality entry signal</span></p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">📊 DASHBOARD VISUAL</div>
+                        <p>When divergence is detected, the dashboard shows a <span class="warning-text">🟠 orange warning box</span> with explanation.</p>
+                        <p>Always read this before entering a trade.</p>
+                    </div>
+                </div>
+            `
+        },
+        // Quiz 2
+        {
+            type: "quiz",
+            title: "📝 Quiz 2: Plan B & Divergence",
+            quizBank: true,
+            numQuestions: 5
+        },
+        // Module 9: Dashboard Components
+        {
+            type: "lecture",
+            title: "🖥️ Module 9: Understanding the Dashboard",
+            content: `
+                <div class="lecture-content">
+                    <p>Your dashboard has <span class="highlight">6 main sections</span>. Here's what each one does:</p>
+                    
+                    <ul>
+                        <li><span class="highlight">📊 ETH/BTC RATIO CARD</span> - Shows current ratio, ETH and BTC prices</li>
+                        <li><span class="highlight">⚡ Z-SCORE METER</span> - Visual meter with green (BUY), yellow (WAIT), red (SELL)</li>
+                        <li><span class="highlight">🎯 CURRENT SIGNAL</span> - Your primary action indicator (BUY/SELL/EXIT/WAIT)</li>
+                        <li><span class="highlight">📈 TREND + RSI CONFIRMATION</span> - Shows trend direction, RSI value, divergence alerts</li>
+                        <li><span class="highlight">📋 STRATEGY RULES</span> - Quick reference card</li>
+                        <li><span class="highlight">🕐 RECENT SIGNALS</span> - History of all signals</li>
+                        <li><span class="highlight">📊 LIVE CHART</span> - Candlestick chart with EMA50 and RSI(14)</li>
+                    </ul>
+                    
+                    <div class="tip-box">
+                        <strong>💡 PRO TIP:</strong> You can change timeframes (15m, 1H, 4H, 1D) using the buttons above the chart.
+                    </div>
+                </div>
+            `
+        },
+        // Module 10: Common Mistakes
+        {
+            type: "lecture",
+            title: "⚠️ Module 10: Common Mistakes to Avoid",
+            content: `
+                <div class="lecture-content">
+                    <ul>
+                        <li><span class="danger-text">❌ Entering when Z-Score is NOT extreme</span> → Loses statistical edge</li>
+                        <li><span class="danger-text">❌ Trading against the EMA50 trend</span> → High probability of failure</li>
+                        <li><span class="danger-text">❌ Risking more than 2% per trade</span> → One loss can hurt your account</li>
+                        <li><span class="danger-text">❌ Not using stop loss</span> → Unlimited risk</li>
+                        <li><span class="danger-text">❌ Holding past exit signal</span> → Turns winners into losers</li>
+                        <li><span class="danger-text">❌ Confusing Plan B with main system</span> → Keep them separate mentally</li>
+                        <li><span class="danger-text">❌ Ignoring divergence warnings</span> → Divergence catches trap signals</li>
+                    </ul>
+                    
+                    <div class="important-box">
+                        <strong>💡 THE BOTTOM LINE:</strong>
+                        <p>No signal = No trade. Forcing trades when there's no edge = <span class="warning-text">LOSING MONEY</span>.</p>
+                        <p>Sometimes the best trade is NO TRADE.</p>
+                    </div>
+                </div>
+            `
+        },
+        // Module 11: Daily Trading Routine
+        {
+            type: "lecture",
+            title: "📋 Module 11: Your Daily Trading Routine",
+            content: `
+                <div class="lecture-content">
+                    <p>Follow this <span class="highlight">simple 5-step process</span> every day:</p>
+                    
+                    <ul>
+                        <li><span class="highlight">🕐 STEP 1 (5 min)</span> - Open dashboard, check current Z-Score and signal</li>
+                        <li><span class="highlight">🕐 STEP 2 (10 min)</span> - Check if Z-Score is extreme (< -1.5 or > +1.5)</li>
+                        <li><span class="highlight">🕐 STEP 3 (5 min)</span> - Verify RSI in correct zone (30-45 for BUY, 55-70 for SELL)</li>
+                        <li><span class="highlight">🕐 STEP 4 (5 min)</span> - Check ratio vs EMA50 (above for BUY, below for SELL)</li>
+                        <li><span class="highlight">🕐 STEP 5 (5 min)</span> - If all conditions met → execute trade with 1-2% risk</li>
+                    </ul>
+                    
+                    <div class="tip-box">
+                        <strong>⏰ SUGGESTED SCHEDULE:</strong>
+                        <p>• 08:00 GMT - Morning check (15 min)</p>
+                        <p>• 12:00 GMT - Mid-day check (5 min)</p>
+                        <p>• 16:00 GMT - End of day review (10 min)</p>
+                        <p>• <span class="highlight">Total: ~30 minutes per day</span></p>
+                    </div>
+                </div>
+            `
+        },
+        // Final Quiz
+        {
+            type: "quiz",
+            title: "🎓 FINAL EXAM: Complete Strategy Mastery",
+            quizBank: true,
+            numQuestions: 10
+        },
+        // Completion
+        {
+            type: "completion",
+            title: "🎉 Congratulations!"
+        }
+    ];
+
+    let currentModule = 0;
+    let quizAnswers = {};
+    let currentQuizQuestions = [];
+
+    const progressBar = document.getElementById('progressBar');
+    const stepIndicator = document.getElementById('stepIndicator');
+    const stepContainer = document.getElementById('stepContainer');
+
+    function getRandomQuestions(count) {
+        const shuffled = [...quizBank];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled.slice(0, count);
+    }
+
+    function updateProgress() {
+        const total = modules.length;
+        const progress = ((currentModule + 1) / total) * 100;
+        progressBar.style.width = `${progress}%`;
+        stepIndicator.innerHTML = `Module ${currentModule + 1} / ${total}`;
+    }
+
+    function renderModule() {
+        const module = modules[currentModule];
+        updateProgress();
+
+        let html = '';
+
+        if (module.type === 'lecture') {
+            html = `
+                <div class="lecture-card">
+                    <div class="card-title">${module.title}</div>
+                    ${module.content}
+                    <div class="button-group">
+                        ${currentModule > 0 ? `<button class="btn btn-secondary" onclick="previousModule()">◀ Previous</button>` : '<div></div>'}
+                        <button class="btn btn-primary" onclick="nextModule()">Next Module ▶</button>
+                    </div>
+                </div>
+            `;
+        }
+        else if (module.type === 'quiz') {
+            if (!currentQuizQuestions[currentModule]) {
+                currentQuizQuestions[currentModule] = getRandomQuestions(module.numQuestions || 5);
+                quizAnswers[currentModule] = {};
+            }
+            
+            const questions = currentQuizQuestions[currentModule];
+            const userAnswers = quizAnswers[currentModule] || {};
+            let allCorrect = true;
+            let answeredCount = 0;
+            
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] !== undefined) {
+                    answeredCount++;
+                    if (userAnswers[i] !== questions[i].correct) allCorrect = false;
+                } else {
+                    allCorrect = false;
+                }
+            }
+            
+            html = `
+                <div class="quiz-card">
+                    <div class="card-title">${module.title}</div>
+                    <div class="lecture-content">
+                        <p style="margin-bottom: 15px;"><span class="highlight">${questions.length} Questions</span> | Answered: ${answeredCount}/${questions.length}</p>
+                        ${questions.map((q, idx) => `
+                            <div style="margin-bottom: 25px; padding: 15px; background: #1a1a2e; border-radius: 10px;">
+                                <p style="font-weight: bold; margin-bottom: 10px;">${idx+1}. ${q.question}</p>
+                                ${q.options.map((opt, optIdx) => `
+                                    <div class="quiz-option ${userAnswers[idx] === optIdx ? (userAnswers[idx] === q.correct ? 'correct' : 'wrong') : ''}" onclick="selectQuizAnswer(${idx}, ${optIdx})">
+                                        ${String.fromCharCode(65+optIdx)}. ${opt}
+                                    </div>
+                                `).join('')}
+                                ${userAnswers[idx] !== undefined ? `
+                                    <div class="quiz-feedback ${userAnswers[idx] === q.correct ? 'feedback-correct' : 'feedback-wrong'}">
+                                        ${userAnswers[idx] === q.correct ? '✅ Correct! ' + q.explanation : '❌ Incorrect. ' + q.explanation}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="button-group">
+                        ${currentModule > 0 ? `<button class="btn btn-secondary" onclick="previousModule()">◀ Previous</button>` : '<div></div>'}
+                        <button class="btn btn-primary" onclick="nextModule()" ${!allCorrect ? 'disabled' : ''}>
+                            ${currentModule === modules.length - 1 ? '🎓 Complete Course' : 'Next Module ▶'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        else if (module.type === 'completion') {
+            localStorage.setItem('mprimo_academy_completed', 'true');
+            localStorage.setItem('mprimo_academy_date', new Date().toISOString());
+            
+            html = `
+                <div class="lecture-card access-screen">
+                    <div class="card-title">🎉 CONGRATULATIONS! 🎉</div>
+                    <div class="lecture-content">
+                        <h2 style="color: #00ff88;">You are now a CERTIFIED Rotator Trader</h2>
+                        <p>You've successfully completed all ${modules.length - 1} modules of the Mprimo Online Academy.</p>
+                        <p>You now understand:</p>
+                        <ul style="text-align: left; max-width: 500px; margin: 20px auto;">
+                            <li>✓ Z-Score mean reversion (statistical edge)</li>
+                            <li>✓ RSI confirmation zones (30-45 / 55-70)</li>
+                            <li>✓ EMA50 trend filter</li>
+                            <li>✓ Exit rules (Z=0)</li>
+                            <li>✓ Plan B (Micro Mean Reversion)</li>
+                            <li>✓ Divergence detection (trap signals)</li>
+                            <li>✓ Daily trading routine (30 min/day)</li>
+                            <li>✓ Risk management (1-2% per trade)</li>
+                        </ul>
+                        <p><span class="success-text">You are now ready to use the ETH/BTC Rotator Dashboard!</span></p>
+                        <button class="dashboard-link" onclick="window.location.href='ethbtc_dashboard.html'">🚀 ACCESS TRADING DASHBOARD 🚀</button>
+                        <div class="countdown" id="countdown"></div>
+                        <p style="margin-top: 20px; font-size: 0.8rem; color: #888;">⚠️ Remember: Always use proper risk management. Never risk more than 2% per trade.</p>
+                        <p style="margin-top: 15px;">📧 <span class="highlight">Instructor:</span> Mohamoud | 📱 WhatsApp: <span class="success-text">+447492166072</span> | 📧 Email: <span class="success-text">ukdesigner62@gmail.com</span></p>
+                        <p style="margin-top: 10px;">💡 <span class="highlight">Contact us to purchase the full trading dashboard with live signals!</span></p>
+                    </div>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                const countdownElem = document.getElementById('countdown');
+                if (countdownElem) {
+                    let seconds = 10;
+                    const interval = setInterval(() => {
+                        seconds--;
+                        if (countdownElem) countdownElem.innerHTML = `For demo purposes, redirecting in ${seconds} seconds... (Purchase required for full dashboard)`;
+                        if (seconds <= 0) {
+                            clearInterval(interval);
+                            // Show purchase message instead of auto-redirect
+                            countdownElem.innerHTML = '🎓 Course completed! Contact instructor to purchase the full trading dashboard.';
+                        }
+                    }, 1000);
+                }
+            }, 500);
+        }
+
+        stepContainer.innerHTML = html;
+    }
+
+    function selectQuizAnswer(questionIdx, answerIdx) {
+        if (!quizAnswers[currentModule]) quizAnswers[currentModule] = {};
+        quizAnswers[currentModule][questionIdx] = answerIdx;
+        renderModule();
+    }
+
+    function nextModule() {
+        if (currentModule < modules.length - 1) {
+            currentModule++;
+            renderModule();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function previousModule() {
+        if (currentModule > 0) {
+            currentModule--;
+            renderModule();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    // Check if already completed
+    const completed = localStorage.getItem('mprimo_academy_completed');
+    if (completed === 'true') {
+        const completionDate = new Date(localStorage.getItem('mprimo_academy_date'));
+        const daysSince = (new Date() - completionDate) / (1000 * 60 * 60 * 24);
+        if (daysSince < 90) {
+            // Show completion screen instead of auto redirect
+            renderModule();
+        } else {
+            localStorage.removeItem('mprimo_academy_completed');
+            renderModule();
+        }
+    } else {
+        renderModule();
+    }
+</script>
+</body>
+</html>
