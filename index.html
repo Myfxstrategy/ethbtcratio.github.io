@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETH/BTC Rotator Strategy | Full Chart + RSI + EMA50</title>
+    <title>ETH/BTC Rotator Strategy | License Protected</title>
     <style>
         * {
             margin: 0;
@@ -19,17 +19,86 @@
             color: #fff;
         }
 
+        /* License Overlay */
+        .license-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.98);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        .license-card {
+            background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid #FFD700;
+        }
+        .license-card h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #FFD700, #FF6B6B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .license-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            background: #2a2a3e;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #fff;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .license-card button {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .trial-btn {
+            background: #00aa44 !important;
+            margin-top: 10px;
+        }
+        .expired-message {
+            color: #ff6666;
+            margin-top: 15px;
+            font-size: 0.85rem;
+        }
+        .contact-info {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+        .hidden { display: none !important; }
+
+        /* Main Dashboard (visible only when licensed) */
         .container {
             max-width: 1600px;
             margin: 0 auto;
         }
-
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
-
         .header h1 {
             font-size: 2.5rem;
             background: linear-gradient(90deg, #FFD700, #FF6B6B, #4ECDC4);
@@ -38,13 +107,10 @@
             color: transparent;
             margin-bottom: 10px;
         }
-
         .header p {
             color: #888;
             font-size: 0.9rem;
         }
-
-        /* Status Bar */
         .status-bar {
             background: rgba(0,0,0,0.5);
             border-radius: 10px;
@@ -57,38 +123,36 @@
             gap: 15px;
             border: 1px solid #333;
         }
-
         .status-item {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .status-label {
             color: #888;
             font-size: 0.85rem;
         }
-
         .status-value {
             font-size: 1.2rem;
             font-weight: bold;
         }
-
+        .license-badge {
+            background: #00aa44;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
         .live-badge {
             background: #ff4444;
-            color: white;
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             animation: pulse 1.5s infinite;
         }
-
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
-
-        /* Timeframe Selector */
         .timeframe-selector {
             background: rgba(0,0,0,0.4);
             border-radius: 10px;
@@ -125,8 +189,6 @@
             border-color: #FFD700;
             font-weight: bold;
         }
-
-        /* Chart Container */
         .chart-container {
             background: rgba(0,0,0,0.4);
             border-radius: 15px;
@@ -153,20 +215,12 @@
             font-size: 0.7rem;
             justify-content: center;
         }
-        .legend-candle { color: #00ff88; }
-        .legend-ema { color: #FFD700; }
-        .legend-rsi { color: #4ECDC4; }
-        .legend-line { color: #888; }
-
-        /* Main Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
             margin-bottom: 20px;
         }
-
-        /* Cards */
         .card {
             background: rgba(0,0,0,0.6);
             border-radius: 15px;
@@ -174,7 +228,6 @@
             border: 1px solid #333;
             backdrop-filter: blur(10px);
         }
-
         .card-title {
             font-size: 1.1rem;
             color: #FFD700;
@@ -182,8 +235,6 @@
             border-left: 3px solid #FFD700;
             padding-left: 10px;
         }
-
-        /* Ratio Display */
         .ratio-display {
             text-align: center;
             padding: 20px;
@@ -194,12 +245,6 @@
             font-family: monospace;
             color: #4ECDC4;
         }
-        .ratio-change {
-            font-size: 1rem;
-            margin-top: 10px;
-        }
-
-        /* Z-Score Meter */
         .meter-container { padding: 20px 0; }
         .meter-scale {
             background: linear-gradient(90deg, #ff4444, #FFD700, #00ff88, #FFD700, #ff4444);
@@ -231,8 +276,6 @@
             font-weight: bold;
             margin: 10px 0;
         }
-
-        /* Signal Box */
         .signal-box {
             text-align: center;
             padding: 20px;
@@ -250,9 +293,6 @@
         .signal-exit {
             background: linear-gradient(135deg, #ff8800, #cc6600);
         }
-        .signal-stop {
-            background: linear-gradient(135deg, #660000, #440000);
-        }
         .signal-neutral {
             background: linear-gradient(135deg, #333, #222);
         }
@@ -260,25 +300,6 @@
             font-size: 2rem;
             font-weight: bold;
         }
-        .signal-subtext {
-            font-size: 0.9rem;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        /* Tables */
-        .signals-table {
-            width: 100%;
-            font-size: 0.85rem;
-        }
-        .signals-table th, .signals-table td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #333;
-        }
-        .signals-table th { color: #FFD700; }
-
-        /* Rules List */
         .rules-list {
             list-style: none;
         }
@@ -292,8 +313,6 @@
             color: #FFD700;
             margin-right: 10px;
         }
-
-        /* Buttons */
         .refresh-btn {
             background: #FFD700;
             color: #000;
@@ -302,10 +321,7 @@
             border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
-            transition: transform 0.2s;
         }
-        .refresh-btn:hover { transform: scale(1.05); }
-
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -313,40 +329,55 @@
             color: #555;
             font-size: 0.8rem;
         }
-
-        .momentum-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-left: 8px;
+        .signals-table {
+            width: 100%;
+            font-size: 0.85rem;
         }
-        .bullish-mom {
-            background: #00aa4455;
-            border: 1px solid #00ff88;
-            color: #00ff88;
+        .signals-table th, .signals-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
         }
-        .bearish-mom {
-            background: #ff444455;
-            border: 1px solid #ff8888;
-            color: #ff8888;
-        }
-        .divergence-warning {
-            background: #ffaa0055;
-            border-left: 3px solid #ffaa00;
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-top: 12px;
-            font-size: 0.8rem;
-        }
-        .tooltip {
-            border-bottom: 1px dashed #888;
-            cursor: help;
-        }
+        .signals-table th { color: #FFD700; }
     </style>
 </head>
 <body>
+
+<!-- LICENSE OVERLAY -->
+<div id="licenseOverlay" class="license-overlay">
+    <div class="license-card">
+        <h1>🔐 ETH/BTC Rotator</h1>
+        <p style="margin-bottom: 10px;">Professional Trading Dashboard</p>
+        
+        <div id="trialPanel">
+            <p style="margin: 10px 0;">🎁 <strong>2 Days Free Trial</strong></p>
+            <button onclick="startTrial()" class="trial-btn">🚀 Start 2-Day Trial</button>
+            <p style="margin: 15px 0; color: #888;">- OR -</p>
+        </div>
+        
+        <div id="licensePanel">
+            <p>Enter your monthly license key:</p>
+            <input type="text" id="licenseInput" placeholder="XXXX-XXXX-XXXX-XXXX">
+            <button onclick="activateLicense()">✅ Activate License ($15/month)</button>
+            <p style="font-size: 0.7rem; margin-top: 10px; color: #888;">License valid for 30 days | Auto-expires</p>
+        </div>
+        
+        <div id="expiredPanel" class="hidden">
+            <div class="expired-message">
+                ⚠️ Your trial or license has expired
+            </div>
+            <div class="contact-info">
+                📧 <strong>Contact to Purchase License:</strong><br>
+                Email: <span id="developerEmail">ukdesigner62@gmail.com</span><br>
+                WhatsApp: <span id="developerWhatsapp">+447492166072</span>
+            </div>
+            <button onclick="showActivation()" style="margin-top: 15px;">Enter License Key</button>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN DASHBOARD -->
+<div id="mainDashboard" class="hidden">
     <div class="container">
         <div class="header">
             <h1>🔥 ETH/BTC ROTATOR STRATEGY 🔥</h1>
@@ -359,18 +390,17 @@
                 <span class="status-value">Binance (Real-time)</span>
             </div>
             <div class="status-item">
-                <span class="status-label">Strategy:</span>
-                <span class="status-value">MA50 + Z-Score + RSI confirmation</span>
+                <span class="status-label">License:</span>
+                <span class="license-badge" id="licenseBadge">✅ Active</span>
             </div>
             <div class="status-item">
                 <span class="live-badge" id="liveBadge">🟢 LIVE</span>
             </div>
             <div class="status-item">
-                <button class="refresh-btn" onclick="fetchData()">⟳ Refresh Now</button>
+                <button class="refresh-btn" onclick="fetchData()">⟳ Refresh</button>
             </div>
         </div>
 
-        <!-- Timeframe Selector -->
         <div class="timeframe-selector">
             <div class="timeframe-buttons">
                 <button class="tf-btn" data-tf="15m" onclick="changeTimeframe('15m')">15 Minutes</button>
@@ -381,7 +411,6 @@
             <span id="currentTimeframeDisplay" style="font-size: 0.75rem; color: #FFD700;">Current: 1H</span>
         </div>
 
-        <!-- CHART SECTION - NEW -->
         <div class="chart-container">
             <canvas id="mainChart" class="main-chart" width="800" height="450"></canvas>
             <canvas id="rsiChart" class="rsi-chart" width="800" height="150"></canvas>
@@ -393,7 +422,6 @@
         </div>
 
         <div class="grid">
-            <!-- ETH/BTC Ratio Card -->
             <div class="card">
                 <div class="card-title">📊 ETH/BTC RATIO</div>
                 <div class="ratio-display">
@@ -405,538 +433,519 @@
                 </div>
             </div>
 
-            <!-- Z-Score Card -->
             <div class="card">
-                <div class="card-title">⚡ Z-SCORE METER (ETH/BTC Ratio)</div>
+                <div class="card-title">⚡ Z-SCORE METER</div>
                 <div class="meter-container">
-                    <div class="meter-scale" id="meterScale">
-                        <div class="meter-indicator" id="meterIndicator" style="left: 50%"></div>
-                    </div>
-                    <div class="meter-labels">
-                        <span>-3 (Stop)</span>
-                        <span>-1.5 (Entry)</span>
-                        <span>0 (Exit)</span>
-                        <span>+1.5 (Entry)</span>
-                        <span>+3 (Stop)</span>
-                    </div>
+                    <div class="meter-scale"><div class="meter-indicator" id="meterIndicator" style="left:50%"></div></div>
+                    <div class="meter-labels"><span>-3</span><span>-1.5</span><span>0</span><span>+1.5</span><span>+3</span></div>
                     <div class="z-value" id="zValue">0.00</div>
-                    <div id="zStatus" style="text-align: center; font-size: 0.85rem; color: #888;"></div>
+                    <div id="zStatus" style="text-align:center; font-size:0.85rem;"></div>
                 </div>
             </div>
 
-            <!-- Signal Card -->
             <div class="card">
                 <div class="card-title">🎯 CURRENT SIGNAL</div>
                 <div class="signal-box signal-neutral" id="signalBox">
-                    <div class="signal-text" id="signalText">LOADING...</div>
-                    <div class="signal-subtext" id="signalSubtext">Fetching market data</div>
+                    <div class="signal-text" id="signalText">WAITING</div>
+                    <div class="signal-subtext" id="signalSubtext">Loading data...</div>
                 </div>
             </div>
         </div>
 
         <div class="grid">
-            <!-- Trend & Momentum Confirmation Card -->
             <div class="card">
-                <div class="card-title">📈 TREND + RSI MOMENTUM CONFIRMATION</div>
+                <div class="card-title">📈 TREND + RSI CONFIRMATION</div>
                 <div style="padding: 10px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                        <span>Current Ratio:</span>
-                        <span id="trendRatio" style="font-family: monospace;">---</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                        <span>MA50 (Trend):</span>
-                        <span id="maValue" style="font-family: monospace;">---</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                        <span>Trend:</span>
-                        <span id="trendDirection" style="font-weight: bold;">---</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                        <span>Dominant Asset:</span>
-                        <span id="dominantAsset" style="font-weight: bold;">---</span>
-                    </div>
-                    <hr style="border-color: #333; margin: 12px 0;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                        <span class="tooltip">📊 RSI (ETH/BTC ratio):</span>
-                        <span id="rsiRatioValue" style="font-family: monospace; font-weight: bold;">---</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                        <span>Momentum signal:</span>
-                        <span id="momentumSignal" style="font-weight: bold;">---</span>
-                    </div>
-                    <div id="divergenceAlert" class="divergence-warning" style="display: none;"></div>
-                    <div id="momentumAdvice" style="margin-top: 12px; font-size: 0.8rem; background: #111; padding: 8px; border-radius: 8px;"></div>
+                    <div><span>Current Ratio:</span> <span id="trendRatio">---</span></div>
+                    <div><span>MA50:</span> <span id="maValue">---</span></div>
+                    <div><span>Trend:</span> <span id="trendDirection">---</span></div>
+                    <div><span>Dominant:</span> <span id="dominantAsset">---</span></div>
+                    <hr style="margin:10px 0;">
+                    <div><span>RSI:</span> <span id="rsiRatioValue">---</span></div>
+                    <div><span>Momentum:</span> <span id="momentumSignal">---</span></div>
+                    <div id="divergenceAlert" style="color:#ffaa00; font-size:0.8rem; display:none;"></div>
                 </div>
             </div>
-
-            <!-- Strategy Rules Card -->
             <div class="card">
                 <div class="card-title">📋 STRATEGY RULES</div>
                 <ul class="rules-list">
-                    <li><strong>BUY ETH</strong>: Ratio > MA50 AND Z-Score &lt; -1.5 → RSI &lt; 30 = strong confirmation</li>
-                    <li><strong>BUY BTC</strong>: Ratio &lt; MA50 AND Z-Score &gt; +1.5 → RSI &gt; 70 = strong confirmation</li>
-                    <li><strong>EXIT</strong>: Z-Score returns to ~0 OR momentum divergence</li>
-                    <li><strong>STOP LOSS</strong>: Z-Score &lt; -3 OR &gt; +3</li>
-                    <li><strong>🔥 DIVERGENCE</strong>: Z extreme + RSI opposite = trap signal</li>
+                    <li><strong>BUY ETH</strong>: Z &lt; -1.5 + RSI 30-45 + Above EMA50</li>
+                    <li><strong>BUY BTC</strong>: Z &gt; +1.5 + RSI 55-70 + Below EMA50</li>
+                    <li><strong>EXIT</strong>: Z returns to ~0</li>
+                    <li><strong>STOP</strong>: Z &lt; -3 or &gt; +3</li>
                 </ul>
             </div>
-
-            <!-- Recent Signals Card -->
             <div class="card">
                 <div class="card-title">🕐 RECENT SIGNALS</div>
-                <div style="max-height: 250px; overflow-y: auto;">
-                    <table class="signals-table">
-                        <thead><tr><th>Time</th><th>Signal</th><th>Ratio</th><th>Z-Score</th></tr></thead>
-                        <tbody id="signalsBody"><tr><td colspan="4">No signals yet</td></tr></tbody>
+                <div style="max-height:250px; overflow-y:auto;">
+                    <table class="signals-table"><thead><tr><th>Time</th><th>Signal</th><th>Z</th></tr></thead>
+                    <tbody id="signalsBody"><tr><td colspan="3">No signals yet</tr</tbody>
                     </table>
                 </div>
             </div>
         </div>
-
-        <div class="footer">
-            <p>Data updates every 60 seconds from Binance API | Candlestick Chart + EMA50 + RSI(14) | Strategy based on MA50 + Z-Score (90-period)</p>
-            <p>⚠️ Educational only. Not financial advice.</p>
-        </div>
+        <div class="footer"><p>License required | Monthly subscription | 2-day free trial</p></div>
     </div>
+</div>
 
-    <script>
-        // ========== CONFIGURATION ==========
-        let historicalData = [];
-        let historicalRatios = [];
-        let historicalCloses = [];
-        let historicalHighs = [];
-        let historicalLows = [];
-        let historicalOpens = [];
-        let emaValues = [];
-        let rsiValues = [];
+<script>
+    // ========== LICENSE SYSTEM ==========
+    let isLicensed = false;
+    let licenseCheckInterval = null;
+    
+    // YOUR CONTACT DETAILS
+    const DEVELOPER_EMAIL = "ukdesigner62@gmail.com";
+    const DEVELOPER_WHATSAPP = "+447492166072";
+    
+    document.getElementById('developerEmail').innerText = DEVELOPER_EMAIL;
+    document.getElementById('developerWhatsapp').innerText = DEVELOPER_WHATSAPP;
+    
+    // Admin panel access: add ?admin to URL
+    if (window.location.search.includes('admin')) {
+        showAdminPanel();
+    }
+    
+    function showAdminPanel() {
+        const adminHTML = `
+        <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0a0a0a; z-index:20000; padding:40px; overflow:auto;">
+            <div style="max-width:600px; margin:0 auto; background:#1a1a2e; padding:30px; border-radius:20px;">
+                <h1 style="color:#FFD700;">🔑 Admin License Manager</h1>
+                <button onclick="closeAdmin()" style="background:#ff4444; margin-bottom:20px;">✖ Close Admin</button>
+                
+                <h3>Generate License</h3>
+                <label>License Duration:</label>
+                <select id="licenseDays">
+                    <option value="30">30 Days ($15)</option>
+                    <option value="90">90 Days ($40)</option>
+                    <option value="365">365 Days ($150)</option>
+                </select>
+                <label>Customer ID/Name:</label>
+                <input type="text" id="customerName" placeholder="Customer name">
+                <button onclick="generateLicense()" style="background:#FFD700; color:#000; margin-top:10px;">🔑 Generate License</button>
+                <div id="licenseResult" style="background:#000; padding:15px; border-radius:10px; margin-top:15px;"></div>
+                
+                <h3 style="margin-top:20px;">📋 Active Licenses</h3>
+                <div id="licensesList" style="max-height:300px; overflow-y:auto;"></div>
+                <button onclick="exportLicenses()" style="background:#00aa44; margin-top:10px;">📥 Export Licenses</button>
+                <button onclick="resetAllData()" style="background:#ff4444; margin-top:10px;">⚠️ RESET ALL DATA</button>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', adminHTML);
+        displayLicenses();
+    }
+    
+    function generateLicense() {
+        const days = parseInt(document.getElementById('licenseDays').value);
+        const customer = document.getElementById('customerName').value || 'customer';
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+        let code = '';
+        for (let i = 0; i < 16; i++) {
+            if (i > 0 && i % 4 === 0) code += '-';
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + days);
         
-        let historicalSignals = [];
-        let maPeriod = 50;
-        let zPeriod = 90;
-        let zEntry = 1.5;
-        let zExit = 0.45;
-        let zStop = 3.0;
-        let rsiPeriod = 14;
-        
-        let currentTimeframe = "1h";
-        let currentRatio = 0;
-        let currentMA = 0;
-        let currentZScore = 0;
-        let currentRSI = 50;
-        
-        const binanceIntervalMap = {
-            '15m': '15m',
-            '1h': '1h',
-            '4h': '4h',
-            '1d': '1d'
+        const licenses = JSON.parse(localStorage.getItem('ethbtc_licenses') || '{}');
+        licenses[code] = {
+            customer: customer,
+            expiry: expiryDate.toISOString(),
+            created: new Date().toISOString(),
+            active: true
         };
+        localStorage.setItem('ethbtc_licenses', JSON.stringify(licenses));
         
-        // ========== HELPER FUNCTIONS ==========
-        function calculateRSI(prices, period) {
-            if (prices.length < period + 1) return 50;
-            let gains = 0, losses = 0;
-            for (let i = prices.length - period; i < prices.length; i++) {
-                let diff = prices[i] - prices[i-1];
-                if (diff >= 0) gains += diff;
-                else losses += Math.abs(diff);
+        document.getElementById('licenseResult').innerHTML = `
+            <strong>✅ License Generated</strong><br>
+            <code style="font-size:1.2rem;">${code}</code><br>
+            Customer: ${customer}<br>
+            Expires: ${expiryDate.toLocaleDateString()}<br>
+            <button onclick="navigator.clipboard.writeText('${code}')">📋 Copy</button>
+        `;
+        displayLicenses();
+    }
+    
+    function displayLicenses() {
+        const licenses = JSON.parse(localStorage.getItem('ethbtc_licenses') || '{}');
+        const container = document.getElementById('licensesList');
+        if (Object.keys(licenses).length === 0) {
+            container.innerHTML = '<p>No licenses generated.</p>';
+            return;
+        }
+        let html = '<ul style="list-style:none;">';
+        for (const [code, data] of Object.entries(licenses)) {
+            const expiryDate = new Date(data.expiry);
+            const isValid = expiryDate > new Date();
+            html += `<li style="margin:5px 0; padding:8px; background:#222; border-radius:5px;">
+                        <code>${code}</code><br>
+                        Customer: ${data.customer}<br>
+                        Expires: ${expiryDate.toLocaleDateString()} ${isValid ? '✅ Active' : '❌ Expired'}<br>
+                        <button onclick="navigator.clipboard.writeText('${code}')" style="padding:2px 8px;">📋 Copy</button>
+                        <button onclick="revokeLicense('${code}')" style="padding:2px 8px; background:#ff4444;">❌ Revoke</button>
+                     </li>`;
+        }
+        html += '</ul>';
+        container.innerHTML = html;
+    }
+    
+    function revokeLicense(code) {
+        const licenses = JSON.parse(localStorage.getItem('ethbtc_licenses') || '{}');
+        delete licenses[code];
+        localStorage.setItem('ethbtc_licenses', JSON.stringify(licenses));
+        displayLicenses();
+    }
+    
+    function exportLicenses() {
+        const licenses = JSON.parse(localStorage.getItem('ethbtc_licenses') || '{}');
+        const dataStr = JSON.stringify(licenses, null, 2);
+        const blob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `licenses_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+    
+    function resetAllData() {
+        if(confirm('⚠️ THIS WILL DELETE ALL LICENSES. Continue?')) {
+            localStorage.clear();
+            alert('All data cleared.');
+            location.reload();
+        }
+    }
+    
+    function closeAdmin() {
+        document.querySelector('div[style*="z-index:20000"]').remove();
+    }
+    
+    function loadLicenseStatus() {
+        const savedLicense = localStorage.getItem('ethbtc_license_code');
+        const savedExpiry = localStorage.getItem('ethbtc_license_expiry');
+        const trialStart = localStorage.getItem('ethbtc_trial_start');
+        const trialUsed = localStorage.getItem('ethbtc_trial_used');
+        
+        // Check for valid license
+        if (savedLicense && savedExpiry) {
+            const expiryDate = new Date(savedExpiry);
+            if (expiryDate > new Date()) {
+                isLicensed = true;
+                const daysLeft = Math.ceil((expiryDate - new Date()) / (1000 * 60 * 60 * 24));
+                document.getElementById('licenseBadge').innerHTML = `✅ License: ${daysLeft}d left`;
+                document.getElementById('licenseBadge').style.background = '#00aa44';
+                showDashboard();
+                return true;
+            } else {
+                localStorage.removeItem('ethbtc_license_code');
+                localStorage.removeItem('ethbtc_license_expiry');
             }
-            let avgGain = gains / period;
-            let avgLoss = losses / period;
-            if (avgLoss === 0) return 100;
-            let rs = avgGain / avgLoss;
-            return 100 - (100 / (1 + rs));
         }
         
-        function calculateEMA(data, period) {
-            let ema = [];
-            let multiplier = 2 / (period + 1);
-            for (let i = 0; i < data.length; i++) {
-                if (i === 0) ema.push(data[i]);
-                else ema.push((data[i] - ema[i-1]) * multiplier + ema[i-1]);
-            }
-            return ema;
-        }
-        
-        function calculateZScore(data, currentVal) {
-            if (data.length < zPeriod) return 0;
-            let recent = data.slice(-zPeriod);
-            let mean = recent.reduce((a,b) => a+b, 0) / recent.length;
-            let variance = recent.reduce((s,v) => s + Math.pow(v - mean, 2), 0) / recent.length;
-            let stdDev = Math.sqrt(variance);
-            if (stdDev === 0) return 0;
-            return (currentVal - mean) / stdDev;
-        }
-        
-        function calculateSMA(data, period) {
-            if (data.length < period) return null;
-            return data.slice(-period).reduce((a,b) => a+b, 0) / period;
-        }
-        
-        // ========== DATA FETCHING ==========
-        async function fetchCurrentPrices() {
-            try {
-                const response = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["ETHUSDT","BTCUSDT"]');
-                const data = await response.json();
-                return {
-                    eth: parseFloat(data.find(d => d.symbol === 'ETHUSDT').lastPrice),
-                    btc: parseFloat(data.find(d => d.symbol === 'BTCUSDT').lastPrice)
-                };
-            } catch (error) {
-                console.error('Error fetching prices:', error);
-                return null;
-            }
-        }
-        
-        async function fetchKlines(limit = 200) {
-            try {
-                const interval = binanceIntervalMap[currentTimeframe] || '1h';
-                const ethRes = await fetch(`https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=${interval}&limit=${limit}`);
-                const btcRes = await fetch(`https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=${interval}&limit=${limit}`);
-                const ethData = await ethRes.json();
-                const btcData = await btcRes.json();
+        // Check for valid trial (2 days)
+        if (trialStart && trialUsed !== 'expired') {
+            const trialDate = new Date(trialStart);
+            const trialEnd = new Date(trialDate);
+            trialEnd.setDate(trialEnd.getDate() + 2);
+            
+            if (trialEnd > new Date()) {
+                isLicensed = true;
+                const hoursLeft = Math.ceil((trialEnd - new Date()) / (1000 * 60 * 60));
+                document.getElementById('licenseBadge').innerHTML = `🎁 Trial: ${hoursLeft}h left`;
+                document.getElementById('licenseBadge').style.background = '#ffaa00';
+                showDashboard();
                 
-                let ratios = [];
-                let opens = [], highs = [], lows = [], closes = [];
-                
-                for (let i = 0; i < ethData.length; i++) {
-                    let ethClose = parseFloat(ethData[i][4]);
-                    let btcClose = parseFloat(btcData[i][4]);
-                    let ethOpen = parseFloat(ethData[i][1]);
-                    let btcOpen = parseFloat(btcData[i][1]);
-                    let ethHigh = parseFloat(ethData[i][2]);
-                    let btcHigh = parseFloat(btcData[i][2]);
-                    let ethLow = parseFloat(ethData[i][3]);
-                    let btcLow = parseFloat(btcData[i][3]);
-                    
-                    if (btcClose > 0) {
-                        ratios.push(ethClose / btcClose);
-                        opens.push(ethOpen / btcOpen);
-                        highs.push(ethHigh / btcHigh);
-                        lows.push(ethLow / btcLow);
-                        closes.push(ethClose / btcClose);
+                // Set expiry timeout
+                const msLeft = trialEnd - new Date();
+                setTimeout(() => {
+                    localStorage.setItem('ethbtc_trial_used', 'expired');
+                    if (!localStorage.getItem('ethbtc_license_code')) {
+                        alert('Your 2-day trial has expired. Please purchase a license.');
+                        location.reload();
                     }
-                }
-                return { ratios, opens, highs, lows, closes, times: ethData.map(d => new Date(d[0])) };
-            } catch (error) {
-                console.error('Error fetching klines:', error);
-                return null;
-            }
-        }
-        
-        // ========== DRAW CHARTS ==========
-        function drawCharts(data, emaVals, rsiVals) {
-            if (!data || !data.ratios.length) return;
-            
-            // Main Chart (Candles + EMA50)
-            const mainCanvas = document.getElementById('mainChart');
-            const ctx = mainCanvas.getContext('2d');
-            const width = mainCanvas.clientWidth;
-            const height = mainCanvas.clientHeight;
-            mainCanvas.width = width;
-            mainCanvas.height = height;
-            ctx.clearRect(0, 0, width, height);
-            
-            let minPrice = Math.min(...data.lows);
-            let maxPrice = Math.max(...data.highs);
-            if (emaVals && emaVals.length) {
-                minPrice = Math.min(minPrice, ...emaVals);
-                maxPrice = Math.max(maxPrice, ...emaVals);
-            }
-            let padding = (maxPrice - minPrice) * 0.05;
-            minPrice -= padding;
-            maxPrice += padding;
-            
-            let chartTop = 30;
-            let chartBottom = height - 30;
-            let chartLeft = 60;
-            let chartRight = width - 20;
-            let chartHeight = chartBottom - chartTop;
-            let candleWidth = (chartRight - chartLeft) / data.ratios.length * 0.7;
-            let halfCandle = candleWidth / 2;
-            
-            function getX(index) { return chartLeft + (index / (data.ratios.length - 1)) * (chartRight - chartLeft); }
-            function getY(price) { return chartBottom - ((price - minPrice) / (maxPrice - minPrice)) * chartHeight; }
-            
-            // Grid
-            ctx.strokeStyle = '#333';
-            ctx.lineWidth = 0.5;
-            for (let i = 0; i <= 4; i++) {
-                let y = chartTop + (i * chartHeight / 4);
-                ctx.beginPath();
-                ctx.moveTo(chartLeft, y);
-                ctx.lineTo(chartRight, y);
-                ctx.stroke();
-            }
-            
-            // Candlesticks
-            for (let i = 0; i < data.ratios.length; i++) {
-                let x = getX(i);
-                let open = data.opens[i];
-                let close = data.closes[i];
-                let high = data.highs[i];
-                let low = data.lows[i];
-                let isBullish = close > open;
-                let color = isBullish ? '#00ff88' : '#ff4444';
-                
-                ctx.beginPath();
-                ctx.strokeStyle = color;
-                ctx.lineWidth = 1;
-                ctx.moveTo(x, getY(high));
-                ctx.lineTo(x, getY(low));
-                ctx.stroke();
-                
-                let bodyTop = Math.min(getY(open), getY(close));
-                let bodyBottom = Math.max(getY(open), getY(close));
-                ctx.fillStyle = color;
-                ctx.fillRect(x - halfCandle, bodyTop, candleWidth, bodyBottom - bodyTop);
-                ctx.strokeRect(x - halfCandle, bodyTop, candleWidth, bodyBottom - bodyTop);
-            }
-            
-            // EMA50 Line
-            if (emaVals && emaVals.length) {
-                ctx.beginPath();
-                ctx.strokeStyle = '#FFD700';
-                ctx.lineWidth = 2;
-                let first = true;
-                for (let i = 0; i < emaVals.length; i++) {
-                    let x = getX(i);
-                    let y = getY(emaVals[i]);
-                    if (first) { ctx.moveTo(x, y); first = false; }
-                    else { ctx.lineTo(x, y); }
-                }
-                ctx.stroke();
-            }
-            
-            // Price labels
-            ctx.fillStyle = '#888';
-            ctx.font = '10px Arial';
-            ctx.fillText(minPrice.toFixed(6), 5, chartBottom);
-            ctx.fillText(maxPrice.toFixed(6), 5, chartTop);
-            
-            // RSI Chart
-            const rsiCanvas = document.getElementById('rsiChart');
-            const rsiCtx = rsiCanvas.getContext('2d');
-            const rsiWidth = rsiCanvas.clientWidth;
-            const rsiHeight = rsiCanvas.clientHeight;
-            rsiCanvas.width = rsiWidth;
-            rsiCanvas.height = rsiHeight;
-            rsiCtx.clearRect(0, 0, rsiWidth, rsiHeight);
-            
-            if (rsiVals && rsiVals.length) {
-                let rsiMin = 0, rsiMax = 100;
-                let rsiChartTop = 20;
-                let rsiChartBottom = rsiHeight - 20;
-                let rsiChartHeight = rsiChartBottom - rsiChartTop;
-                
-                function getRsiY(val) { return rsiChartBottom - ((val - rsiMin) / (rsiMax - rsiMin)) * rsiChartHeight; }
-                function getRsiX(index) { return chartLeft + (index / (rsiVals.length - 1)) * (chartRight - chartLeft); }
-                
-                // RSI zones
-                rsiCtx.fillStyle = 'rgba(0,255,136,0.1)';
-                rsiCtx.fillRect(chartLeft, getRsiY(45), chartRight - chartLeft, getRsiY(30) - getRsiY(45));
-                rsiCtx.fillStyle = 'rgba(255,68,68,0.1)';
-                rsiCtx.fillRect(chartLeft, getRsiY(70), chartRight - chartLeft, getRsiY(55) - getRsiY(70));
-                
-                // RSI line
-                rsiCtx.beginPath();
-                rsiCtx.strokeStyle = '#4ECDC4';
-                rsiCtx.lineWidth = 2;
-                let firstRsi = true;
-                for (let i = 0; i < rsiVals.length; i++) {
-                    let x = getRsiX(i);
-                    let y = getRsiY(rsiVals[i]);
-                    if (firstRsi) { rsiCtx.moveTo(x, y); firstRsi = false; }
-                    else { rsiCtx.lineTo(x, y); }
-                }
-                rsiCtx.stroke();
-                
-                // RSI levels
-                rsiCtx.beginPath();
-                rsiCtx.strokeStyle = '#00ff88';
-                rsiCtx.setLineDash([5, 5]);
-                rsiCtx.moveTo(chartLeft, getRsiY(30));
-                rsiCtx.lineTo(chartRight, getRsiY(30));
-                rsiCtx.stroke();
-                rsiCtx.moveTo(chartLeft, getRsiY(45));
-                rsiCtx.lineTo(chartRight, getRsiY(45));
-                rsiCtx.stroke();
-                rsiCtx.moveTo(chartLeft, getRsiY(55));
-                rsiCtx.lineTo(chartRight, getRsiY(55));
-                rsiCtx.stroke();
-                rsiCtx.moveTo(chartLeft, getRsiY(70));
-                rsiCtx.lineTo(chartRight, getRsiY(70));
-                rsiCtx.stroke();
-                rsiCtx.setLineDash([]);
-                
-                rsiCtx.fillStyle = '#888';
-                rsiCtx.font = '10px Arial';
-                rsiCtx.fillText('70 (Overbought)', chartRight - 100, getRsiY(70) - 3);
-                rsiCtx.fillText('55', chartRight - 40, getRsiY(55) + 3);
-                rsiCtx.fillText('45', chartRight - 40, getRsiY(45) + 3);
-                rsiCtx.fillText('30 (Oversold)', chartRight - 100, getRsiY(30) + 10);
-            }
-        }
-        
-        // ========== SIGNAL DETECTION ==========
-        function evaluateMomentumConfidence(zScore, rsiRatio, isEthTrend) {
-            let divergenceType = null;
-            let confidence = "";
-            if (zScore > zEntry && rsiRatio < 50) {
-                divergenceType = "BEARISH DIVERGENCE";
-                confidence = "⚠️ Price high but momentum failing → BTC likely to lead soon.";
-            } else if (zScore < -zEntry && rsiRatio > 50) {
-                divergenceType = "BULLISH DIVERGENCE";
-                confidence = "✅ Price low but momentum improving → ETH likely to lead soon.";
-            } else if (Math.abs(zScore) < zEntry) {
-                confidence = "Neutral zone — waiting for entry trigger.";
+                }, msLeft + 1000);
+                return true;
             } else {
-                confidence = "No divergence — standard entry conditions apply.";
+                localStorage.setItem('ethbtc_trial_used', 'expired');
             }
-            return { divergenceType, confidence };
         }
         
-        function determineSignal(ratio, ma, zScore, rsiRatio) {
-            const isEthTrend = ratio > ma;
-            if (zScore < -zStop || zScore > zStop) {
-                return { signal: 'STOP', action: '🛑 EMERGENCY EXIT', color: 'signal-stop', detail: 'Z-Score extreme!' };
-            }
-            if (zScore < -zEntry && isEthTrend) {
-                return { signal: 'BUY ETH', action: '🟢 BUY ETH / 🔴 SELL BTC', color: 'signal-buy-eth', detail: 'ETH oversold + uptrend' };
-            }
-            if (zScore > zEntry && !isEthTrend) {
-                return { signal: 'BUY BTC', action: '🔴 SELL ETH / 🟢 BUY BTC', color: 'signal-buy-btc', detail: 'BTC overbought + downtrend' };
-            }
-            if (Math.abs(zScore) < zExit) {
-                return { signal: 'EXIT', action: '📤 TAKE PROFITS', color: 'signal-exit', detail: 'Z-Score returned to neutral' };
-            }
-            return { signal: 'WAIT', action: '⚪ NO ACTION', color: 'signal-neutral', detail: 'No clear signal' };
+        showLicenseScreen();
+        return false;
+    }
+    
+    function startTrial() {
+        if (localStorage.getItem('ethbtc_trial_used') === 'expired') {
+            alert('Trial already used. Please purchase a license.');
+            return;
         }
+        localStorage.setItem('ethbtc_trial_start', new Date().toISOString());
+        localStorage.setItem('ethbtc_trial_used', 'active');
+        location.reload();
+    }
+    
+    function activateLicense() {
+        const licenseInput = document.getElementById('licenseInput').value.toUpperCase().trim();
+        const licenses = JSON.parse(localStorage.getItem('ethbtc_licenses') || '{}');
         
-        function updateDashboard(ratio, ma, zScore, prices, rsiValue) {
-            document.getElementById('ratioValue').innerHTML = ratio.toFixed(8);
-            document.getElementById('ratioChange').innerHTML = `MA50: ${ma.toFixed(8)}`;
-            if (prices) {
-                document.getElementById('ethPrice').innerHTML = prices.eth.toFixed(2);
-                document.getElementById('btcPrice').innerHTML = prices.btc.toFixed(2);
-            }
-            document.getElementById('zValue').innerHTML = zScore.toFixed(2);
-            let pos = ((zScore + 3) / 6) * 100;
-            document.getElementById('meterIndicator').style.left = `${Math.min(100, Math.max(0, pos))}%`;
-            
-            let zStatus = '';
-            if (zScore < -zEntry) zStatus = '🔴 OVERSOLD ZONE - Watch for BUY ETH';
-            else if (zScore > zEntry) zStatus = '🟡 OVERBOUGHT ZONE - Watch for BUY BTC';
-            else if (Math.abs(zScore) < zExit) zStatus = '🟢 NEUTRAL ZONE - Take profits';
-            else zStatus = '⚪ NORMAL ZONE - No action';
-            document.getElementById('zStatus').innerHTML = zStatus;
-            
-            document.getElementById('trendRatio').innerHTML = ratio.toFixed(8);
-            document.getElementById('maValue').innerHTML = ma.toFixed(8);
-            const isEthTrend = ratio > ma;
-            document.getElementById('trendDirection').innerHTML = isEthTrend ? '📈 UP (ETH Dominant)' : '📉 DOWN (BTC Dominant)';
-            document.getElementById('dominantAsset').innerHTML = isEthTrend ? 'ETHEREUM (ETH)' : 'BITCOIN (BTC)';
-            document.getElementById('rsiRatioValue').innerHTML = rsiValue.toFixed(1);
-            
-            let momText = rsiValue > 50 ? "📈 ETH LEADING" : "📉 BTC LEADING";
-            document.getElementById('momentumSignal').innerHTML = momText;
-            
-            const { divergenceType, confidence } = evaluateMomentumConfidence(zScore, rsiValue, isEthTrend);
-            const divAlert = document.getElementById('divergenceAlert');
-            if (divergenceType) {
-                divAlert.style.display = 'block';
-                divAlert.innerHTML = `⚠️ <strong>${divergenceType}</strong><br>${confidence}`;
+        if (licenses[licenseInput]) {
+            const expiryDate = new Date(licenses[licenseInput].expiry);
+            if (expiryDate > new Date()) {
+                localStorage.setItem('ethbtc_license_code', licenseInput);
+                localStorage.setItem('ethbtc_license_expiry', expiryDate.toISOString());
+                localStorage.removeItem('ethbtc_trial_start');
+                location.reload();
             } else {
-                divAlert.style.display = 'none';
+                alert('This license has expired. Please purchase a new one.');
+                delete licenses[licenseInput];
+                localStorage.setItem('ethbtc_licenses', JSON.stringify(licenses));
             }
-            document.getElementById('momentumAdvice').innerHTML = confidence;
-            
-            const signal = determineSignal(ratio, ma, zScore, rsiValue);
-            const box = document.getElementById('signalBox');
-            box.className = `signal-box ${signal.color}`;
-            document.getElementById('signalText').innerHTML = signal.action;
-            document.getElementById('signalSubtext').innerHTML = signal.detail;
-            
-            if (historicalSignals.length === 0 || historicalSignals[0].signal !== signal.signal) {
-                historicalSignals.unshift({
-                    time: new Date().toLocaleTimeString(),
-                    signal: signal.signal,
-                    ratio: ratio.toFixed(6),
-                    zScore: zScore.toFixed(2)
-                });
-                if (historicalSignals.length > 15) historicalSignals.pop();
-                const tbody = document.getElementById('signalsBody');
-                tbody.innerHTML = historicalSignals.map(s => `
-                    <tr><td>${s.time}</td><td><strong>${s.signal}</strong></td><td>${s.ratio}</td><td>${s.zScore}</td></tr>
-                `).join('');
-            }
+        } else {
+            alert('Invalid license key. Contact WhatsApp: +447492166072');
         }
-        
-        // ========== MAIN FETCH ==========
-        async function fetchData() {
-            try {
-                const prices = await fetchCurrentPrices();
-                if (!prices) return;
-                currentRatio = prices.eth / prices.btc;
-                
-                const klineData = await fetchKlines(200);
-                if (!klineData || !klineData.ratios.length) return;
-                
-                historicalRatios = klineData.ratios;
-                historicalCloses = klineData.closes;
-                historicalHighs = klineData.highs;
-                historicalLows = klineData.lows;
-                historicalOpens = klineData.opens;
-                
-                const ma = calculateSMA(historicalRatios, maPeriod);
-                if (!ma) return;
-                currentMA = ma;
-                currentZScore = calculateZScore(historicalRatios, currentRatio);
-                
-                // Calculate RSI on ratio series
-                currentRSI = calculateRSI(historicalRatios, rsiPeriod);
-                
-                // Calculate EMA values for chart
-                emaValues = calculateEMA(historicalCloses, 50);
-                
-                // Calculate RSI values for chart
-                rsiValues = [];
-                for (let i = rsiPeriod; i <= historicalRatios.length; i++) {
-                    let slice = historicalRatios.slice(0, i);
-                    rsiValues.push(calculateRSI(slice, rsiPeriod));
+    }
+    
+    function showDashboard() {
+        document.getElementById('licenseOverlay').classList.add('hidden');
+        document.getElementById('mainDashboard').classList.remove('hidden');
+        startDashboard();
+    }
+    
+    function showLicenseScreen() {
+        document.getElementById('trialPanel').classList.remove('hidden');
+        document.getElementById('licensePanel').classList.remove('hidden');
+        document.getElementById('expiredPanel').classList.add('hidden');
+        document.getElementById('licenseOverlay').classList.remove('hidden');
+        document.getElementById('mainDashboard').classList.add('hidden');
+    }
+    
+    function showExpiredScreen() {
+        document.getElementById('trialPanel').classList.add('hidden');
+        document.getElementById('licensePanel').classList.add('hidden');
+        document.getElementById('expiredPanel').classList.remove('hidden');
+        document.getElementById('licenseOverlay').classList.remove('hidden');
+        document.getElementById('mainDashboard').classList.add('hidden');
+    }
+    
+    function showActivation() {
+        document.getElementById('trialPanel').classList.remove('hidden');
+        document.getElementById('licensePanel').classList.remove('hidden');
+        document.getElementById('expiredPanel').classList.add('hidden');
+    }
+    
+    // ========== DASHBOARD FUNCTIONS ==========
+    let historicalRatios = [], historicalCloses = [], historicalHighs = [], historicalLows = [], historicalOpens = [];
+    let emaValues = [], rsiValues = [], historicalSignals = [];
+    let maPeriod = 50, zPeriod = 90, zEntry = 1.5, zExit = 0.45, zStop = 3.0, rsiPeriod = 14;
+    let currentTimeframe = "1h", currentRatio = 0, currentMA = 0, currentZScore = 0, currentRSI = 50;
+    const binanceIntervalMap = {'15m':'15m','1h':'1h','4h':'4h','1d':'1d'};
+    
+    function calculateRSI(prices, period) {
+        if(prices.length < period+1) return 50;
+        let gains=0, losses=0;
+        for(let i=prices.length-period;i<prices.length;i++){let d=prices[i]-prices[i-1]; if(d>=0) gains+=d; else losses+=Math.abs(d);}
+        let ag=gains/period, al=losses/period;
+        if(al===0) return 100;
+        return 100-(100/(1+(ag/al)));
+    }
+    
+    function calculateEMA(data, p) {
+        let ema=[], m=2/(p+1);
+        for(let i=0;i<data.length;i++) ema.push(i===0?data[i]:(data[i]-ema[i-1])*m+ema[i-1]);
+        return ema;
+    }
+    
+    function calculateZScore(data, currentVal) {
+        if(data.length<zPeriod) return 0;
+        let recent=data.slice(-zPeriod);
+        let mean=recent.reduce((a,b)=>a+b,0)/recent.length;
+        let variance=recent.reduce((s,v)=>s+Math.pow(v-mean,2),0)/recent.length;
+        let std=Math.sqrt(variance);
+        return std===0?0:(currentVal-mean)/std;
+    }
+    
+    function calculateSMA(data, period) {
+        if(data.length<period) return null;
+        return data.slice(-period).reduce((a,b)=>a+b,0)/period;
+    }
+    
+    async function fetchCurrentPrices() {
+        try {
+            const res=await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["ETHUSDT","BTCUSDT"]');
+            const data=await res.json();
+            return {eth:parseFloat(data.find(d=>d.symbol==='ETHUSDT').lastPrice), btc:parseFloat(data.find(d=>d.symbol==='BTCUSDT').lastPrice)};
+        } catch(e){return null;}
+    }
+    
+    async function fetchKlines(limit=200) {
+        try {
+            const interval=binanceIntervalMap[currentTimeframe]||'1h';
+            const ethRes=await fetch(`https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=${interval}&limit=${limit}`);
+            const btcRes=await fetch(`https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=${interval}&limit=${limit}`);
+            const ethData=await ethRes.json(), btcData=await btcRes.json();
+            let ratios=[], opens=[], highs=[], lows=[], closes=[];
+            for(let i=0;i<ethData.length;i++){
+                let ec=parseFloat(ethData[i][4]), bc=parseFloat(btcData[i][4]);
+                if(bc>0){
+                    ratios.push(ec/bc);
+                    opens.push(parseFloat(ethData[i][1])/parseFloat(btcData[i][1]));
+                    highs.push(parseFloat(ethData[i][2])/parseFloat(btcData[i][2]));
+                    lows.push(parseFloat(ethData[i][3])/parseFloat(btcData[i][3]));
+                    closes.push(ec/bc);
                 }
-                
-                // Draw charts
-                drawCharts(klineData, emaValues, rsiValues);
-                
-                updateDashboard(currentRatio, currentMA, currentZScore, prices, currentRSI);
-                
-                const badge = document.getElementById('liveBadge');
-                badge.style.animation = 'none';
-                setTimeout(() => { badge.style.animation = 'pulse 1.5s infinite'; }, 100);
-            } catch (err) {
-                console.error(err);
-                document.getElementById('signalText').innerHTML = '⚠️ ERROR';
             }
+            return {ratios,opens,highs,lows,closes};
+        } catch(e){return null;}
+    }
+    
+    function evaluateMomentumConfidence(zScore, rsiRatio, isEthTrend){
+        if(zScore>zEntry && rsiRatio<50) return "⚠️ Bearish divergence - avoid chasing ETH";
+        if(zScore<-zEntry && rsiRatio>50) return "✅ Bullish divergence - high quality entry";
+        if(Math.abs(zScore)<zEntry) return "Neutral zone - waiting";
+        return "No divergence - standard entry";
+    }
+    
+    function determineSignal(ratio, ma, zScore){
+        const isEthTrend=ratio>ma;
+        if(zScore<-zStop||zScore>zStop) return {action:'🛑 STOP', color:'signal-stop', detail:'Emergency exit'};
+        if(zScore<-zEntry && isEthTrend) return {action:'🟢 BUY ETH', color:'signal-buy-eth', detail:'Z extreme + uptrend'};
+        if(zScore>zEntry && !isEthTrend) return {action:'🔴 BUY BTC', color:'signal-buy-btc', detail:'Z extreme + downtrend'};
+        if(Math.abs(zScore)<zExit) return {action:'📤 EXIT', color:'signal-exit', detail:'Take profits'};
+        return {action:'⚪ WAIT', color:'signal-neutral', detail:'No clear signal'};
+    }
+    
+    function drawCharts(data, emaVals, rsiVals){
+        if(!data||!data.ratios.length) return;
+        const canvas=document.getElementById('mainChart'), ctx=canvas.getContext('2d');
+        const w=canvas.clientWidth, h=canvas.clientHeight;
+        canvas.width=w; canvas.height=h;
+        ctx.clearRect(0,0,w,h);
+        let minP=Math.min(...data.lows), maxP=Math.max(...data.highs);
+        if(emaVals.length){minP=Math.min(minP,...emaVals); maxP=Math.max(maxP,...emaVals);}
+        let pad=(maxP-minP)*0.05;
+        minP-=pad; maxP+=pad;
+        let top=30, bottom=h-30, left=60, right=w-20, ch=bottom-top, cw=right-left;
+        let getX=i=>left+(i/(data.ratios.length-1))*cw, getY=p=>bottom-((p-minP)/(maxP-minP))*ch;
+        ctx.strokeStyle='#333';
+        for(let i=0;i<=4;i++){let y=top+(i*ch/4); ctx.beginPath(); ctx.moveTo(left,y); ctx.lineTo(right,y); ctx.stroke();}
+        let candleW=(cw/data.ratios.length)*0.7, half=candleW/2;
+        for(let i=0;i<data.ratios.length;i++){
+            let x=getX(i), open=data.opens[i], close=data.closes[i], high=data.highs[i], low=data.lows[i];
+            let isBullish=close>open, color=isBullish?'#00ff88':'#ff4444';
+            ctx.beginPath(); ctx.strokeStyle=color; ctx.moveTo(x,getY(high)); ctx.lineTo(x,getY(low)); ctx.stroke();
+            let bodyTop=Math.min(getY(open),getY(close)), bodyBottom=Math.max(getY(open),getY(close));
+            ctx.fillStyle=color; ctx.fillRect(x-half,bodyTop,candleW,bodyBottom-bodyTop);
+            ctx.strokeRect(x-half,bodyTop,candleW,bodyBottom-bodyTop);
         }
-        
-        function changeTimeframe(tf) {
-            currentTimeframe = tf;
-            document.querySelectorAll('.tf-btn').forEach(btn => {
-                if (btn.getAttribute('data-tf') === tf) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-            document.getElementById('currentTimeframeDisplay').innerHTML = `Current: ${tf.toUpperCase()}`;
-            fetchData();
+        if(emaVals.length){
+            ctx.beginPath(); ctx.strokeStyle='#FFD700'; ctx.lineWidth=2;
+            for(let i=0;i<emaVals.length;i++){let x=getX(i), y=getY(emaVals[i]); if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);}
+            ctx.stroke();
         }
-        
-        window.addEventListener('resize', () => {
-            if (historicalCloses.length) {
-                drawCharts({ ratios: historicalRatios, opens: historicalOpens, highs: historicalHighs, lows: historicalLows, closes: historicalCloses }, emaValues, rsiValues);
+        const rsiCanvas=document.getElementById('rsiChart'), rsiCtx=rsiCanvas.getContext('2d');
+        const rw=rsiCanvas.clientWidth, rh=rsiCanvas.clientHeight;
+        rsiCanvas.width=rw; rsiCanvas.height=rh;
+        rsiCtx.clearRect(0,0,rw,rh);
+        if(rsiVals.length){
+            let rTop=20, rBottom=rh-20, rH=rBottom-rTop;
+            let getRsiY=v=>rBottom-((v-0)/100)*rH, getRsiX=i=>left+(i/(rsiVals.length-1))*cw;
+            rsiCtx.fillStyle='rgba(0,255,136,0.1)'; rsiCtx.fillRect(left,getRsiY(45),cw,getRsiY(30)-getRsiY(45));
+            rsiCtx.fillStyle='rgba(255,68,68,0.1)'; rsiCtx.fillRect(left,getRsiY(70),cw,getRsiY(55)-getRsiY(70));
+            rsiCtx.beginPath(); rsiCtx.strokeStyle='#4ECDC4'; rsiCtx.lineWidth=2;
+            for(let i=0;i<rsiVals.length;i++){let x=getRsiX(i), y=getRsiY(rsiVals[i]); if(i===0) rsiCtx.moveTo(x,y); else rsiCtx.lineTo(x,y);}
+            rsiCtx.stroke();
+            for(let l of [30,45,55,70]){rsiCtx.beginPath(); rsiCtx.strokeStyle='#00ff88'; rsiCtx.setLineDash([5,5]); rsiCtx.moveTo(left,getRsiY(l)); rsiCtx.lineTo(right,getRsiY(l)); rsiCtx.stroke();}
+            rsiCtx.setLineDash([]);
+        }
+    }
+    
+    function updateDashboard(ratio, ma, zScore, prices, rsiValue){
+        document.getElementById('ratioValue').innerHTML=ratio.toFixed(8);
+        document.getElementById('ratioChange').innerHTML=`MA50: ${ma.toFixed(8)}`;
+        if(prices){document.getElementById('ethPrice').innerHTML=prices.eth.toFixed(2); document.getElementById('btcPrice').innerHTML=prices.btc.toFixed(2);}
+        document.getElementById('zValue').innerHTML=zScore.toFixed(2);
+        let pos=((zScore+3)/6)*100;
+        document.getElementById('meterIndicator').style.left=`${Math.min(100,Math.max(0,pos))}%`;
+        let zStatus='';
+        if(zScore<-zEntry) zStatus='🔴 OVERSOLD - Watch BUY ETH';
+        else if(zScore>zEntry) zStatus='🟡 OVERBOUGHT - Watch BUY BTC';
+        else if(Math.abs(zScore)<zExit) zStatus='🟢 NEUTRAL - Exit';
+        else zStatus='⚪ NORMAL - Wait';
+        document.getElementById('zStatus').innerHTML=zStatus;
+        document.getElementById('trendRatio').innerHTML=ratio.toFixed(8);
+        document.getElementById('maValue').innerHTML=ma.toFixed(8);
+        const isEthTrend=ratio>ma;
+        document.getElementById('trendDirection').innerHTML=isEthTrend?'📈 ETH Dominant':'📉 BTC Dominant';
+        document.getElementById('dominantAsset').innerHTML=isEthTrend?'ETHEREUM':'BITCOIN';
+        document.getElementById('rsiRatioValue').innerHTML=rsiValue.toFixed(1);
+        document.getElementById('momentumSignal').innerHTML=rsiValue>50?'📈 ETH Leading':'📉 BTC Leading';
+        const divergence=evaluateMomentumConfidence(zScore,rsiValue,isEthTrend);
+        const divAlert=document.getElementById('divergenceAlert');
+        if(divergence.includes('divergence')){divAlert.style.display='block'; divAlert.innerHTML=divergence;}
+        else divAlert.style.display='none';
+        const signal=determineSignal(ratio,ma,zScore);
+        const box=document.getElementById('signalBox');
+        box.className=`signal-box ${signal.color}`;
+        document.getElementById('signalText').innerHTML=signal.action;
+        document.getElementById('signalSubtext').innerHTML=signal.detail;
+        if(historicalSignals.length===0||historicalSignals[0].signal!==signal.action){
+            historicalSignals.unshift({time:new Date().toLocaleTimeString(), signal:signal.action, z:zScore.toFixed(2)});
+            if(historicalSignals.length>15) historicalSignals.pop();
+            const tbody=document.getElementById('signalsBody');
+            tbody.innerHTML=historicalSignals.map(s=>`<tr><td>${s.time}</td><td><strong>${s.signal}</strong></td><td>${s.z}</td></tr>`).join('');
+        }
+    }
+    
+    async function fetchData(){
+        if(!isLicensed) return;
+        try{
+            const prices=await fetchCurrentPrices();
+            if(!prices) return;
+            currentRatio=prices.eth/prices.btc;
+            const klineData=await fetchKlines(200);
+            if(!klineData||!klineData.ratios.length) return;
+            historicalRatios=klineData.ratios;
+            historicalCloses=klineData.closes;
+            historicalHighs=klineData.highs;
+            historicalLows=klineData.lows;
+            historicalOpens=klineData.opens;
+            const ma=calculateSMA(historicalRatios,maPeriod);
+            if(!ma) return;
+            currentMA=ma;
+            currentZScore=calculateZScore(historicalRatios,currentRatio);
+            currentRSI=calculateRSI(historicalRatios,rsiPeriod);
+            emaValues=calculateEMA(historicalCloses,50);
+            rsiValues=[];
+            for(let i=rsiPeriod;i<=historicalRatios.length;i++){
+                let slice=historicalRatios.slice(0,i);
+                rsiValues.push(calculateRSI(slice,rsiPeriod));
             }
+            drawCharts({ratios:historicalRatios,opens:historicalOpens,highs:historicalHighs,lows:historicalLows,closes:historicalCloses},emaValues,rsiValues);
+            updateDashboard(currentRatio,currentMA,currentZScore,prices,currentRSI);
+            const badge=document.getElementById('liveBadge');
+            badge.style.animation='none';
+            setTimeout(()=>{badge.style.animation='pulse 1.5s infinite';},100);
+        }catch(err){console.error(err);}
+    }
+    
+    function changeTimeframe(tf){
+        currentTimeframe=tf;
+        document.querySelectorAll('.tf-btn').forEach(btn=>{
+            if(btn.getAttribute('data-tf')===tf) btn.classList.add('active');
+            else btn.classList.remove('active');
         });
-        
+        document.getElementById('currentTimeframeDisplay').innerHTML=`Current: ${tf.toUpperCase()}`;
         fetchData();
-        setInterval(fetchData, 60000);
-    </script>
+    }
+    
+    function startDashboard(){
+        fetchData();
+        setInterval(fetchData,60000);
+        window.addEventListener('resize',()=>{
+            if(historicalCloses.length) drawCharts({ratios:historicalRatios,opens:historicalOpens,highs:historicalHighs,lows:historicalLows,closes:historicalCloses},emaValues,rsiValues);
+        });
+    }
+    
+    loadLicenseStatus();
+</script>
 </body>
 </html>
