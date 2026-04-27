@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mprimo Academy | ETH/BTC Rotator Strategy Course</title>
+    <title>Trading Academy | Learn ETH/BTC Rotator Strategy | Professional Course</title>
     <style>
         * {
             margin: 0;
@@ -15,1002 +15,987 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
             min-height: 100vh;
-            padding: 20px;
             color: #fff;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .academy-header {
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            padding: 40px;
             text-align: center;
-            margin-bottom: 30px;
-            padding: 30px 20px;
-            background: rgba(0,0,0,0.4);
-            border-radius: 20px;
-            border: 1px solid #FFD700;
+            border-bottom: 1px solid #FFD700;
         }
-
-        .academy-header h1 {
+        .header h1 {
             font-size: 2.5rem;
             background: linear-gradient(90deg, #FFD700, #FF6B6B, #4ECDC4);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 10px;
         }
-
-        .academy-header p {
+        .header p {
             color: #888;
-            font-size: 0.9rem;
+            margin-top: 10px;
         }
 
+        /* Progress Bar */
         .progress-container {
-            background: #2a2a3e;
-            border-radius: 20px;
+            background: #1a1a2e;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #333;
+        }
+        .progress-bar {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+        }
+        .progress-track {
+            background: #333;
             height: 10px;
-            margin-bottom: 20px;
+            border-radius: 10px;
             overflow: hidden;
         }
-
-        .progress-bar {
+        .progress-fill {
             background: linear-gradient(90deg, #FFD700, #00ff88);
-            width: 0%;
             height: 100%;
+            width: 0%;
             transition: width 0.5s ease;
-        }
-
-        .step-indicator {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            color: #FFD700;
-        }
-
-        .lecture-card, .quiz-card {
-            background: rgba(0,0,0,0.7);
-            border-radius: 20px;
-            padding: 35px;
-            border: 1px solid #333;
-            backdrop-filter: blur(10px);
-            margin-bottom: 20px;
-        }
-
-        .card-title {
-            font-size: 1.6rem;
-            color: #FFD700;
-            margin-bottom: 20px;
-            border-left: 4px solid #FFD700;
-            padding-left: 15px;
-        }
-
-        .lecture-content {
-            line-height: 1.7;
-            color: #ddd;
-        }
-
-        .lecture-content p {
-            margin-bottom: 15px;
-        }
-
-        .lecture-content ul, .lecture-content ol {
-            margin-left: 25px;
-            margin-bottom: 15px;
-        }
-
-        .lecture-content li {
-            margin-bottom: 8px;
-        }
-
-        .highlight {
-            color: #FFD700;
-            font-weight: bold;
-        }
-
-        .success-text {
-            color: #00ff88;
-            font-weight: bold;
-        }
-
-        .warning-text {
-            color: #ff8800;
-        }
-
-        .danger-text {
-            color: #ff4444;
-        }
-
-        .critical-box {
-            background: rgba(255,68,68,0.15);
-            border-left: 4px solid #ff4444;
-            padding: 15px;
             border-radius: 10px;
-            margin: 15px 0;
         }
-
-        .important-box {
-            background: rgba(255,215,0,0.1);
-            border-left: 4px solid #FFD700;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-        }
-
-        .tip-box {
-            background: rgba(0,255,136,0.1);
-            border-left: 4px solid #00ff88;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-        }
-
-        .example-box {
-            background: #1a1a2e;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            border-left: 3px solid #00ff88;
-        }
-
-        .example-title {
-            color: #00ff88;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .timeframe-badge {
-            display: inline-block;
-            background: #333;
-            padding: 2px 8px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            margin: 0 5px;
-        }
-
-        .quiz-option {
-            background: #2a2a3e;
-            border: 2px solid #444;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .quiz-option:hover {
-            background: #3a3a4e;
-            border-color: #FFD700;
-            transform: translateX(5px);
-        }
-
-        .quiz-option.selected {
-            background: rgba(255,215,0,0.2);
-            border-color: #FFD700;
-        }
-
-        .quiz-option.correct {
-            background: rgba(0,255,136,0.2);
-            border-color: #00ff88;
-        }
-
-        .quiz-option.wrong {
-            background: rgba(255,68,68,0.2);
-            border-color: #ff4444;
-        }
-
-        .quiz-feedback {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-        }
-
-        .feedback-correct {
-            background: rgba(0,255,136,0.1);
-            border-left: 3px solid #00ff88;
-            color: #00ff88;
-        }
-
-        .feedback-wrong {
-            background: rgba(255,68,68,0.1);
-            border-left: 3px solid #ff4444;
-            color: #ff8888;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
+        .badge {
             background: #FFD700;
             color: #000;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
         }
 
-        .btn-primary:hover:not(:disabled) {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255,215,0,0.5);
-        }
-
-        .btn-secondary {
-            background: #333;
-            color: #fff;
-            border: 1px solid #555;
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: #444;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
+        /* Contact Bar */
         .contact-bar {
             background: rgba(0,0,0,0.5);
-            border-radius: 10px;
-            padding: 12px 20px;
-            margin-bottom: 20px;
+            padding: 10px 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
+            gap: 30px;
             flex-wrap: wrap;
-            gap: 15px;
-            border: 1px solid #333;
+            font-size: 0.8rem;
+            border-bottom: 1px solid #333;
         }
-
         .contact-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.8rem;
+        }
+        .contact-item a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+        .contact-item a:hover {
+            text-decoration: underline;
         }
 
-        .contact-label {
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .module-card {
+            background: rgba(0,0,0,0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+        }
+        .module-card.completed {
+            border-left: 4px solid #00ff88;
+        }
+        .module-header {
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .module-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .module-title {
+            font-size: 1.3rem;
+            color: #FFD700;
+        }
+        .module-difficulty {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 5px;
+        }
+        .module-content {
+            padding: 20px;
+        }
+        .lesson-list {
+            list-style: none;
+        }
+        .lesson-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .lesson-item:hover {
+            background: rgba(255,215,0,0.1);
+            padding-left: 10px;
+        }
+        .lesson-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #555;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        .lesson-check.completed {
+            background: #00ff88;
+            border-color: #00ff88;
+            color: #000;
+        }
+        .lesson-title {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        .lesson-status {
+            font-size: 0.7rem;
             color: #888;
         }
 
-        .contact-value {
+        /* Quiz Styles */
+        .quiz-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+        .quiz-question {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        .quiz-option {
+            display: block;
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: #2a2a3e;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quiz-option:hover {
+            background: #3a3a4e;
+            transform: translateX(5px);
+        }
+        .quiz-option.selected {
+            background: #FFD700;
+            color: #000;
+        }
+        .quiz-option.correct {
+            background: #00aa44;
+            color: #fff;
+        }
+        .quiz-option.wrong {
+            background: #ff4444;
+            color: #fff;
+        }
+        .quiz-submit {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .quiz-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 800px;
+            width: 100%;
+            background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+            border-radius: 20px;
+            border: 1px solid #FFD700;
+            overflow: hidden;
+        }
+        .modal-header {
+            padding: 20px;
+            background: rgba(0,0,0,0.4);
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h2 {
             color: #FFD700;
         }
-
-        .whatsapp-link {
-            color: #00ff88;
-            text-decoration: none;
+        .close-modal {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-body {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+        }
+        .complete-lesson-btn {
+            background: #00aa44;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        .complete-lesson-btn.completed {
+            background: #333;
+            cursor: default;
         }
 
-        .access-screen {
+        /* Certificate Section */
+        .certificate-section {
+            background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #FFD700;
+            margin-top: 40px;
+        }
+        .certificate-preview {
+            background: #fff;
+            color: #000;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .certificate-preview h2 {
+            color: #FFD700;
+            font-family: 'Georgia', serif;
+        }
+        .certificate-preview .student-name {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            font-family: 'Georgia', serif;
+            border-bottom: 2px solid #FFD700;
+            display: inline-block;
+            padding: 0 20px;
+        }
+        .download-certificate {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Unlock Dashboard */
+        .unlock-section {
+            background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #FFD700;
+            margin-top: 30px;
+        }
+        .unlock-btn {
+            background: linear-gradient(90deg, #FFD700, #FF6B6B);
+            color: #000;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+        .unlock-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+        .unlock-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Quick Reference */
+        .quick-ref {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .ref-card {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
             text-align: center;
         }
 
-        .access-screen h2 {
-            font-size: 2rem;
-            color: #00ff88;
-            margin-bottom: 20px;
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #555;
+            border-top: 1px solid #333;
+            margin-top: 40px;
         }
 
-        .purchase-btn {
-            display: inline-block;
-            background: #FFD700;
-            color: #000;
-            padding: 15px 40px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .purchase-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255,215,0,0.5);
-        }
-
-        .rating {
-            display: inline-block;
-            background: #333;
-            padding: 2px 8px;
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #00aa44;
+            color: white;
+            padding: 12px 24px;
             border-radius: 10px;
-            font-size: 0.7rem;
-            margin-left: 10px;
+            z-index: 2000;
+            animation: fadeInOut 3s ease;
+            font-size: 0.9rem;
         }
-        .rating-critical { background: #ff4444; color: white; }
-        .rating-important { background: #ffaa00; color: black; }
-        .rating-nice { background: #00ff88; color: black; }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
     </style>
 </head>
 <body>
+
+<div class="header">
+    <h1>📚 ETH/BTC Rotator Trading Academy</h1>
+    <p>Master Professional Trading Strategies | Support & Resistance | Liquidity Zones | Z-Score</p>
+</div>
+
+<div class="contact-bar">
+    <div class="contact-item">📧 Email: <a href="mailto:ukdesigner62@gmail.com">ukdesigner62@gmail.com</a></div>
+    <div class="contact-item">💬 WhatsApp: <a href="https://wa.me/447492166072">+447492166072</a></div>
+    <div class="contact-item">🎓 Support: Mon-Fri 9am-6pm GMT</div>
+</div>
+
+<div class="progress-container">
+    <div class="progress-bar">
+        <div class="progress-text">
+            <span>📊 Course Progress</span>
+            <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div style="margin-top: 8px; font-size: 0.7rem; color: #888; display: flex; justify-content: space-between;">
+            <span>✅ Complete all modules to unlock Dashboard</span>
+            <span>🏆 Get Certificate upon completion</span>
+        </div>
+    </div>
+</div>
+
 <div class="container">
-    <!-- Contact Bar -->
-    <div class="contact-bar">
-        <div class="contact-item">
-            <span class="contact-label">👨‍🏫 Instructor:</span>
-            <span class="contact-value">Mohamoud</span>
+    <div class="course-grid" id="courseGrid"></div>
+
+    <!-- Certificate Section -->
+    <div class="certificate-section" id="certificateSection" style="display: none;">
+        <h2>🎓 Course Completion Certificate</h2>
+        <p>Congratulations! You've mastered the ETH/BTC Rotator Strategy</p>
+        <div class="certificate-preview" id="certificatePreview">
+            <h2>🏆 CERTIFICATE OF COMPLETION</h2>
+            <p>This certificate is awarded to</p>
+            <div class="student-name" id="studentName">[Your Name]</div>
+            <p>for successfully completing the</p>
+            <h3>ETH/BTC Rotator Trading Course</h3>
+            <p>Mastering Z-Score, Support/Resistance, Liquidity Zones, and Professional Trading Strategies</p>
+            <p style="margin-top: 30px;">📅 <span id="completionDate"></span></p>
+            <p style="margin-top: 20px;">━━━━━━━━━━━━━━━━━━━━</p>
+            <p>ukdesigner62@gmail.com | +447492166072</p>
         </div>
-        <div class="contact-item">
-            <span class="contact-label">📧 Email:</span>
-            <span class="contact-value">ukdesigner62@gmail.com</span>
-        </div>
-        <div class="contact-item">
-            <span class="contact-label">📱 WhatsApp:</span>
-            <span class="contact-value">
-                <a href="https://wa.me/447492166072" target="_blank" class="whatsapp-link">+447492166072</a>
-            </span>
-        </div>
+        <button class="download-certificate" onclick="downloadCertificate()">📥 Download Certificate (PNG)</button>
     </div>
 
-    <div class="academy-header">
-        <h1>🎓 MPRIMO TRADING ACADEMY 🎓</h1>
-        <p>Master the ETH/BTC Rotator Strategy | 4 Timeframes | Plan B | Live Signals</p>
-        <p style="font-size: 0.8rem; margin-top: 10px;">⚠️ 10 Modules + Randomized Quizzes ⚠️</p>
+    <!-- Unlock Dashboard -->
+    <div class="unlock-section">
+        <h2>🚀 Ready to Trade?</h2>
+        <p>Complete all 12 lessons to unlock the professional trading dashboard</p>
+        <button class="unlock-btn" id="unlockBtn" disabled>🔒 Complete All Lessons First</button>
+        <div id="unlockMessage" style="margin-top: 15px;"></div>
     </div>
 
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+    <!-- Quick Reference -->
+    <div class="quick-ref">
+        <h3>📖 Quick Reference Guide</h3>
+        <div class="ref-grid">
+            <div class="ref-card">
+                <div class="ref-icon">🟢 BUY ETH</div>
+                <div>Z &lt; -1.5 + RSI 30-45 + Above EMA50</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-icon">🔴 BUY BTC</div>
+                <div>Z &gt; +1.5 + RSI 55-70 + Below EMA50</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-icon">📤 EXIT</div>
+                <div>Z returns to ~0</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-icon">⚪ LIQUIDITY</div>
+                <div>Sweep → Reversal expected</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-icon">🔵 SUPPORT</div>
+                <div>Blue line = Bounce UP</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-icon">🟠 RESISTANCE</div>
+                <div>Orange line = Reverse DOWN</div>
+            </div>
+        </div>
     </div>
-    <div class="step-indicator" id="stepIndicator">Lesson 1 / 10</div>
+</div>
 
-    <div id="stepContainer"></div>
+<footer>
+    <p>© 2026 ETH/BTC Rotator Strategy | Professional Trading Dashboard</p>
+    <p>Contact: ukdesigner62@gmail.com | WhatsApp: +447492166072</p>
+    <p>Complete all lessons → Unlock Dashboard + Certificate</p>
+</footer>
+
+<div id="lessonModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Lesson Title</h2>
+            <button class="close-modal" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer">
+            <button class="complete-lesson-btn" id="completeLessonBtn" onclick="completeCurrentLesson()">✅ Mark as Complete</button>
+            <button class="complete-lesson-btn" onclick="closeModal()" style="background:#333;">Close</button>
+        </div>
+    </div>
 </div>
 
 <script>
-    // ========== QUIZ BANK ==========
-    const quizBank = [
-        {
-            question: "What does Z-Score measure in the ETH/BTC Rotator strategy?",
-            options: [
-                "How fast the price is moving",
-                "How far the ETH/BTC ratio is from its historical average",
-                "The total trading volume",
-                "The trend direction only"
-            ],
-            correct: 1,
-            explanation: "Z-Score = (Current Ratio - Average Ratio) / Standard Deviation. It tells you how statistically extreme the ETH/BTC ratio is."
-        },
-        {
-            question: "What Z-Score value triggers a BUY ETH signal?",
-            options: [
-                "Z-Score > +1.5",
-                "Z-Score < -1.5",
-                "Z-Score = 0",
-                "Z-Score > +2.0"
-            ],
-            correct: 1,
-            explanation: "Z-Score < -1.5 means ETH/BTC ratio is statistically very low → ETH is cheap → BUY ETH."
-        },
-        {
-            question: "What Z-Score value triggers a BUY BTC signal?",
-            options: [
-                "Z-Score < -1.5",
-                "Z-Score > +1.5",
-                "Z-Score = 0",
-                "Z-Score < -2.0"
-            ],
-            correct: 1,
-            explanation: "Z-Score > +1.5 means ETH/BTC ratio is statistically very high → ETH is expensive → BUY BTC."
-        },
-        {
-            question: "What RSI range confirms a BUY ETH signal?",
-            options: [
-                "RSI below 30",
-                "RSI between 30-45",
-                "RSI between 50-70",
-                "RSI above 70"
-            ],
-            correct: 1,
-            explanation: "RSI 30-45 is the 'early accumulation zone' — momentum is just starting to turn up."
-        },
-        {
-            question: "What RSI range confirms a BUY BTC signal?",
-            options: [
-                "RSI below 30",
-                "RSI between 30-45",
-                "RSI between 55-70",
-                "RSI above 80"
-            ],
-            correct: 2,
-            explanation: "RSI 55-70 is the 'early distribution zone' — momentum is just starting to turn down."
-        },
-        {
-            question: "What does EMA50 act as in the strategy?",
-            options: [
-                "A volume indicator",
-                "A trend filter (bullish above, bearish below)",
-                "A volatility measure",
-                "A support/resistance level only"
-            ],
-            correct: 1,
-            explanation: "EMA50 tells you the trend direction. Price above EMA50 = favor BUY ETH. Price below EMA50 = favor BUY BTC."
-        },
-        {
-            question: "What are the 4 available timeframes in the dashboard?",
-            options: [
-                "1m, 5m, 15m, 30m",
-                "15m, 1H, 4H, 1D",
-                "1H, 4H, 1W, 1M",
-                "Tick, 1m, 5m, 1H"
-            ],
-            correct: 1,
-            explanation: "The dashboard supports 15 Minutes, 1 Hour, 4 Hours, and 1 Day timeframes."
-        },
-        {
-            question: "When should you EXIT a trade?",
-            options: [
-                "When Z-Score returns to ~0",
-                "When you feel like taking profit",
-                "After 1 hour",
-                "When RSI reaches 30"
-            ],
-            correct: 0,
-            explanation: "Exit when Z-Score returns to ~0 (fair value). The statistical edge is gone."
-        },
-        {
-            question: "What is the recommended risk per trade?",
-            options: [
-                "5-10% of capital",
-                "1-2% of capital",
-                "20% of capital",
-                "50% of capital"
-            ],
-            correct: 1,
-            explanation: "Professional traders risk 1-2% per trade. This protects your account from drawdowns."
-        },
-        {
-            question: "What is 'BEARISH DIVERGENCE'?",
-            options: [
-                "Price is low but momentum is bullish",
-                "Price is high (Z > +1.5) but RSI is below 50",
-                "Volume is decreasing",
-                "EMA is flat"
-            ],
-            correct: 1,
-            explanation: "Bearish divergence: Z-Score > +1.5 (price high) but RSI ratio < 50 (momentum failing)."
-        },
-        {
-            question: "What is Plan B1 (Micro Mean Reversion)?",
-            options: [
-                "Holding for weeks",
-                "Small scalp trades on 15m/1H when Z < -1.5 and RSI < 35",
-                "Shorting ETH aggressively",
-                "Ignoring Z-Score"
-            ],
-            correct: 1,
-            explanation: "Plan B1: Enter small positions (1/3 size) when lower timeframe shows extreme oversold, exit quickly on small bounce."
-        },
-        {
-            question: "What position size for Plan B1 trades?",
-            options: [
-                "Full normal size",
-                "1/3 of normal size",
-                "2x normal size",
-                "10x leverage"
-            ],
-            correct: 1,
-            explanation: "Plan B1 is supplementary, use smaller position size (0.3x normal) to limit risk."
-        },
-        {
-            question: "What is the maximum hold time for Plan B1 trades?",
-            options: [
-                "1 week",
-                "4 hours",
-                "1 day",
-                "No limit"
-            ],
-            correct: 1,
-            explanation: "Plan B1 trades are scalps, maximum hold time is 4 hours."
-        },
-        {
-            question: "What does the dashboard show when there's no trading edge?",
-            options: [
-                "BUY ETH",
-                "SELL ETH",
-                "WAIT / NO SIGNAL",
-                "EXIT"
-            ],
-            correct: 2,
-            explanation: "WAIT means no statistical edge. Be patient and wait for Z-Score to become extreme."
-        }
-    ];
-
-    // ========== 10 COMPREHENSIVE MODULES ==========
+    // ========== COURSE DATA ==========
     const modules = [
-        // Module 1
         {
-            type: "lecture",
-            title: "🎯 Module 1: Strategy Overview & 4 Timeframes",
-            content: `
-                <div class="lecture-content">
-                    <p>Welcome to the <span class="highlight">MPRIMO Trading Academy</span> — the complete course for the ETH/BTC Rotator Strategy.</p>
-                    <p>This strategy trades the <span class="success-text">RELATIONSHIP between ETH and BTC</span>, not the direction of either alone.</p>
-                    
-                    <div class="important-box">
-                        <strong>📊 THE 4 TIMEFRAMES:</strong>
-                        <p><span class="timeframe-badge">15 Minutes</span> - Fast signals, more noise, for Plan B scalping</p>
-                        <p><span class="timeframe-badge">1 Hour</span> - Main timeframe, balanced signals</p>
-                        <p><span class="timeframe-badge">4 Hours</span> - Fewer signals, higher quality</p>
-                        <p><span class="timeframe-badge">1 Day</span> - Highest quality, largest moves, for swing trading</p>
-                    </div>
-                    
-                    <p>By the end of this course, you will understand:</p>
-                    <ul>
-                        <li>📊 <span class="highlight">Z-Score</span> - When is the ratio extreme?</li>
-                        <li>📈 <span class="highlight">RSI</span> - Is momentum ready?</li>
-                        <li>📉 <span class="highlight">EMA50</span> - Who is dominating the trend?</li>
-                        <li>🎯 <span class="highlight">Timeframes</span> - Which one to use when</li>
-                        <li>⚡ <span class="highlight">Plan B</span> - Small scalps while waiting</li>
-                    </ul>
-                </div>
-            `
+            id: 1,
+            icon: "📊",
+            title: "Dashboard Overview",
+            difficulty: "⭐ Beginner",
+            lessons: [
+                { id: "1.1", title: "Dashboard Layout & Navigation", quiz: null },
+                { id: "1.2", title: "Understanding Timeframes (15m, 1h, 4h, 1d)", quiz: null }
+            ]
         },
-        // Module 2
         {
-            type: "lecture",
-            title: "📊 Module 2: Z-Score - The Statistical Edge",
-            content: `
-                <div class="lecture-content">
-                    <p>The <span class="highlight">Z-Score</span> is the heart of this strategy. It tells you when the ETH/BTC ratio is statistically extreme.</p>
-                    
-                    <div class="critical-box">
-                        <strong>🔴 Z-SCORE FORMULA:</strong>
-                        <p>Z-Score = (Current ETH/BTC Ratio - Average Ratio) / Standard Deviation</p>
-                        <p>It measures how many standard deviations the current ratio is from its historical average.</p>
-                    </div>
-                    
-                    <p><span class="highlight">Z-Score Meanings:</span></p>
-                    <ul>
-                        <li><span class="success-text">Z < -1.5</span> → ETH IS CHEAP → <span class="highlight">BUY ETH</span></li>
-                        <li><span class="warning-text">-1.5 < Z < +1.5</span> → FAIR VALUE → <span class="highlight">WAIT / EXIT</span></li>
-                        <li><span class="danger-text">Z > +1.5</span> → ETH IS EXPENSIVE → <span class="highlight">BUY BTC</span></li>
-                        <li><span class="danger-text">Z < -3 or Z > +3</span> → EXTREME → <span class="highlight">EMERGENCY STOP</span></li>
-                    </ul>
-                    
-                    <div class="example-box">
-                        <div class="example-title">📊 EXAMPLE</div>
-                        <p>90-period average ratio = 0.0500</p>
-                        <p>Standard deviation = 0.0008</p>
-                        <p>Current ratio = 0.0488</p>
-                        <p>Z-Score = (0.0488 - 0.0500) / 0.0008 = <span class="success-text">-1.5 → BUY ETH</span></p>
-                    </div>
-                </div>
-            `
+            id: 2,
+            icon: "⚡",
+            title: "Z-Score & Momentum Meter",
+            difficulty: "⭐⭐ Intermediate",
+            lessons: [
+                { id: "2.1", title: "What is Z-Score & How to Read It", quiz: null },
+                { id: "2.2", title: "Z-Score Entry & Exit Rules (-1.5 to 0)", quiz: null }
+            ]
         },
-        // Module 3
         {
-            type: "lecture",
-            title: "📈 Module 3: RSI - The Timing Tool",
-            content: `
-                <div class="lecture-content">
-                    <p>RSI tells you <span class="highlight">WHEN</span> to enter. Even with extreme Z-Score, you need RSI confirmation.</p>
-                    
-                    <div class="critical-box">
-                        <strong>🔴 RSI ZONES:</strong>
-                        <p><span class="success-text">RSI 30-45</span> → EARLY ACCUMULATION → BUY ETH READY</p>
-                        <p><span class="danger-text">RSI 55-70</span> → EARLY DISTRIBUTION → BUY BTC READY</p>
-                        <p><span class="warning-text">RSI < 30</span> → OVERSOLD PANIC → WAIT</p>
-                        <p><span class="warning-text">RSI > 70</span> → OVERBOUGHT EUPHORIA → WAIT</p>
-                    </div>
-                    
-                    <div class="example-box">
-                        <div class="example-title">⚠️ WHY RSI MATTERS</div>
-                        <p>Z-Score = -2.0 (extreme) BUT RSI = 25 (oversold panic)</p>
-                        <p>→ <span class="warning-text">NO SIGNAL.</span> Wait for RSI to rise to 30-45 first.</p>
-                    </div>
-                </div>
-            `
+            id: 3,
+            icon: "🟠🔵",
+            title: "Support & Resistance Levels",
+            difficulty: "⭐⭐ Intermediate",
+            lessons: [
+                { id: "3.1", title: "Identifying Support (Blue) & Resistance (Orange)", quiz: null },
+                { id: "3.2", title: "How to Trade Breakouts & Rejections", quiz: null }
+            ]
         },
-        // Module 4
         {
-            type: "lecture",
-            title: "📉 Module 4: EMA50 - The Trend Filter",
-            content: `
-                <div class="lecture-content">
-                    <p>The <span class="highlight">50-period EMA</span> tells you who is dominating the trend.</p>
-                    
-                    <div class="critical-box">
-                        <strong>🔴 EMA50 RULES:</strong>
-                        <p><span class="success-text">Ratio ABOVE EMA50</span> → ETH DOMINANT → Only BUY ETH signals</p>
-                        <p><span class="danger-text">Ratio BELOW EMA50</span> → BTC DOMINANT → Only BUY BTC signals</p>
-                    </div>
-                    
-                    <div class="example-box">
-                        <div class="example-title">❌ WRONG</div>
-                        <p>Z = -1.8 (BUY ETH), RSI = 38 (ready), BUT ratio BELOW EMA50 (BTC dominant)</p>
-                        <p>→ <span class="warning-text">NO SIGNAL.</span> Wait for ratio to cross above EMA50.</p>
-                    </div>
-                    
-                    <div class="example-box">
-                        <div class="example-title">✅ CORRECT</div>
-                        <p>Z = -1.8, RSI = 38, AND ratio ABOVE EMA50</p>
-                        <p>→ <span class="success-text">BUY ETH SIGNAL</span></p>
-                    </div>
-                </div>
-            `
+            id: 4,
+            icon: "⚪",
+            title: "Liquidity Zones & Stop Hunts",
+            difficulty: "⭐⭐⭐ Advanced",
+            lessons: [
+                { id: "4.1", title: "What are Liquidity Zones & Stop Hunts", quiz: null },
+                { id: "4.2", title: "The Sweep & Reverse Strategy", quiz: null }
+            ]
         },
-        // Module 5
         {
-            type: "lecture",
-            title: "🎯 Module 5: The Complete Signal (All 3 Conditions)",
-            content: `
-                <div class="lecture-content">
-                    <p>A <span class="success-text">VALID SIGNAL</span> requires ALL THREE conditions to be true:</p>
-                    
-                    <div class="critical-box">
-                        <strong>🟢 BUY ETH SIGNAL:</strong>
-                        <p>1. Z-Score < -1.5 (ETH is cheap)</p>
-                        <p>2. RSI between 30-45 (momentum waking up)</p>
-                        <p>3. Ratio ABOVE EMA50 (ETH dominant)</p>
-                    </div>
-                    
-                    <div class="critical-box">
-                        <strong>🔴 BUY BTC SIGNAL:</strong>
-                        <p>1. Z-Score > +1.5 (ETH is expensive)</p>
-                        <p>2. RSI between 55-70 (momentum rolling over)</p>
-                        <p>3. Ratio BELOW EMA50 (BTC dominant)</p>
-                    </div>
-                    
-                    <div class="important-box">
-                        <strong>📊 DASHBOARD SIGNALS:</strong>
-                        <p>🟢 Green Box → "BUY ETH / SELL BTC"</p>
-                        <p>🔴 Red Box → "SELL ETH / BUY BTC"</p>
-                        <p>🟡 Orange Box → "EXIT / TAKE PROFITS"</p>
-                        <p>⚪ Gray Box → "WAIT"</p>
-                    </div>
-                </div>
-            `
+            id: 5,
+            icon: "📈",
+            title: "RSI + EMA Confirmation",
+            difficulty: "⭐⭐ Intermediate",
+            lessons: [
+                { id: "5.1", title: "RSI Buy Zone (30-45) & Sell Zone (55-70)", quiz: null },
+                { id: "5.2", title: "EMA50 as Trend Filter", quiz: null }
+            ]
         },
-        // Module 6
         {
-            type: "lecture",
-            title: "🚪 Module 6: Exit Rules & Risk Management",
-            content: `
-                <div class="lecture-content">
-                    <p><span class="danger-text">Most traders lose money because they don't know when to exit.</span></p>
-                    
-                    <div class="critical-box">
-                        <strong>🚪 EXIT RULE 1 (Primary):</strong>
-                        <p>When <span class="highlight">Z-Score returns to ~0</span> → TAKE PROFITS</p>
-                    </div>
-                    
-                    <div class="critical-box">
-                        <strong>🚪 EXIT RULE 2 (Emergency Stop):</strong>
-                        <p>When <span class="highlight">Z-Score < -3 or > +3</span> → EMERGENCY EXIT</p>
-                    </div>
-                    
-                    <div class="critical-box">
-                        <strong>🚪 EXIT RULE 3 (Divergence):</strong>
-                        <p>When <span class="highlight">Z extreme + RSI moving opposite</span> → EXIT</p>
-                    </div>
-                    
-                    <div class="important-box">
-                        <strong>💰 RISK MANAGEMENT:</strong>
-                        <p>• Risk per trade: <span class="success-text">1-2% of capital</span></p>
-                        <p>• Never risk more than 2% on any single trade</p>
-                        <p>• Always use a stop loss</p>
-                    </div>
-                </div>
-            `
-        },
-        // Quiz 1
-        {
-            type: "quiz",
-            title: "📝 Quiz 1: TRIO Fundamentals",
-            quizBank: true,
-            numQuestions: 5
-        },
-        // Module 7
-        {
-            type: "lecture",
-            title: "⚡ Module 7: Plan B - Micro Mean Reversion (Scalping)",
-            content: `
-                <div class="lecture-content">
-                    <p>While waiting for the main 1D confirmation, you can extract <span class="highlight">small profits</span> using Plan B.</p>
-                    
-                    <div class="important-box">
-                        <strong>⚠️ IMPORTANT:</strong> Plan B is NOT a replacement for the main strategy. It's a SUPPLEMENT.
-                    </div>
-                    
-                    <div class="critical-box">
-                        <strong>🟢 PLAN B1 - Safe Scalps:</strong>
-                        <p>• Use on <span class="timeframe-badge">15m</span> or <span class="timeframe-badge">1H</span> timeframe</p>
-                        <p>• Enter when <span class="highlight">Z < -1.5 AND RSI < 35</span></p>
-                        <p>• Position size: <span class="highlight">1/3 of normal</span> (0.3x)</p>
-                        <p>• Exit when Z reaches -0.5 OR RSI reaches 45</p>
-                        <p>• Max hold time: <span class="highlight">4 hours</span></p>
-                        <p>• Profit target: <span class="success-text">0.5-1%</span></p>
-                    </div>
-                    
-                    <div class="critical-box">
-                        <strong>🔴 PLAN B2 - Trend Following (Advanced):</strong>
-                        <p>• If oversold persists for <span class="highlight">6+ hours</span> with RSI below 35</p>
-                        <p>• Don't try to catch the bottom → follow the trend</p>
-                        <p>• Position size: <span class="highlight">1/2 of normal</span> (0.5x)</p>
-                    </div>
-                </div>
-            `
-        },
-        // Module 8
-        {
-            type: "lecture",
-            title: "🔄 Module 8: Divergence - The Trap Detector",
-            content: `
-                <div class="lecture-content">
-                    <p>Divergence helps you <span class="highlight">avoid trap signals</span> and fake moves.</p>
-                    
-                    <div class="critical-box">
-                        <strong>🔥 BEARISH DIVERGENCE:</strong>
-                        <p>Z-Score > +1.5 (price high) BUT RSI ratio &lt; 50</p>
-                        <p>→ Price high, but momentum failing</p>
-                        <p>→ <span class="danger-text">Avoid chasing ETH</span></p>
-                    </div>
-                    
-                    <div class="critical-box">
-                        <strong>🔥 BULLISH DIVERGENCE:</strong>
-                        <p>Z-Score < -1.5 (price low) BUT RSI ratio > 50</p>
-                        <p>→ Price low, but momentum improving</p>
-                        <p>→ <span class="success-text">High quality entry signal</span></p>
-                    </div>
-                    
-                    <div class="example-box">
-                        <div class="example-title">📊 DASHBOARD VISUAL</div>
-                        <p>When divergence is detected, the dashboard shows a <span class="warning-text">🟠 orange warning box</span> with explanation.</p>
-                    </div>
-                </div>
-            `
-        },
-        // Quiz 2
-        {
-            type: "quiz",
-            title: "📝 Quiz 2: Plan B & Divergence",
-            quizBank: true,
-            numQuestions: 5
-        },
-        // Module 9
-        {
-            type: "lecture",
-            title: "📋 Module 9: Daily Trading Routine",
-            content: `
-                <div class="lecture-content">
-                    <p>Follow this <span class="highlight">simple 5-step process</span> every day:</p>
-                    
-                    <ul>
-                        <li><span class="highlight">🕐 STEP 1 (5 min)</span> - Open dashboard, check main 1H Z-Score</li>
-                        <li><span class="highlight">🕐 STEP 2 (10 min)</span> - Is Z < -1.5 or > +1.5? If yes, check RSI and EMA50</li>
-                        <li><span class="highlight">🕐 STEP 3 (5 min)</span> - Check divergence alert (no orange box = good)</li>
-                        <li><span class="highlight">🕐 STEP 4 (5 min)</span> - If all 3 conditions met → execute trade with 1-2% risk</li>
-                        <li><span class="highlight">🕐 STEP 5 (5 min)</span> - Set alert for Z = 0 (exit)</li>
-                    </ul>
-                    
-                    <div class="tip-box">
-                        <strong>⏰ SUGGESTED SCHEDULE:</strong>
-                        <p>• 08:00 GMT - Morning check (15 min)</p>
-                        <p>• 12:00 GMT - Mid-day check (5 min)</p>
-                        <p>• 16:00 GMT - End of day review (10 min)</p>
-                        <p>• <span class="highlight">Total: ~30 minutes per day</span></p>
-                    </div>
-                </div>
-            `
-        },
-        // Module 10
-        {
-            type: "lecture",
-            title: "⚠️ Module 10: Common Mistakes",
-            content: `
-                <div class="lecture-content">
-                    <p>Here are the <span class="danger-text">most common mistakes</span> to avoid:</p>
-                    
-                    <ul>
-                        <li><span class="danger-text">❌ Entering when Z-Score is NOT extreme</span> → No statistical edge</li>
-                        <li><span class="danger-text">❌ Trading against the EMA50 trend</span> → High failure rate</li>
-                        <li><span class="danger-text">❌ Risking more than 2% per trade</span> → One loss hurts</li>
-                        <li><span class="danger-text">❌ Holding past exit signal</span> → Winners become losers</li>
-                        <li><span class="danger-text">❌ Confusing Plan B with main system</span> → Keep separate</li>
-                        <li><span class="danger-text">❌ Ignoring divergence warnings</span> → Divergence catches traps</li>
-                        <li><span class="danger-text">❌ Trading on the wrong timeframe</span> → Use 1H for main signals</li>
-                    </ul>
-                    
-                    <div class="important-box">
-                        <strong>💡 THE #1 RULE:</strong>
-                        <p><span class="success-text">No signal = No trade.</span> Forcing trades with no edge = LOSING MONEY.</p>
-                        <p>Sometimes the best trade is NO TRADE.</p>
-                    </div>
-                </div>
-            `
-        },
-        // Final Quiz
-        {
-            type: "quiz",
-            title: "🎓 FINAL EXAM: Complete Strategy Mastery",
-            quizBank: true,
-            numQuestions: 10
-        },
-        // Completion
-        {
-            type: "completion",
-            title: "🎉 Congratulations!"
+            id: 6,
+            icon: "⏰",
+            title: "Timeframe Comparison Tool",
+            difficulty: "⭐⭐ Intermediate",
+            lessons: [
+                { id: "6.1", title: "Reading the Timeframe Comparison Table", quiz: null },
+                { id: "6.2", title: "Choosing the Best Timeframe for Entry", quiz: null }
+            ]
         }
     ];
 
-    let currentModule = 0;
-    let quizAnswers = {};
-    let currentQuizQuestions = [];
+    // Quiz questions (randomized)
+    const quizBank = {
+        '2.1': [
+            { question: "What does Z-Score measure?", options: ["Price volume", "Standard deviations from mean", "RSI value", "Moving average"], correct: 1 },
+            { question: "What Z-Score value indicates OVERSOLD?", options: ["Z > +1.5", "Z < -1.5", "Z = 0", "Z > +3"], correct: 1 },
+            { question: "What period is used for Z-Score calculation?", options: ["14 periods", "50 periods", "90 periods", "200 periods"], correct: 2 },
+            { question: "What does Z = 0 represent?", options: ["Extreme oversold", "Extreme overbought", "Fair value/mean", "Stop loss level"], correct: 2 }
+        ],
+        '2.2': [
+            { question: "When should you BUY ETH according to Z-Score?", options: ["Z > +1.5", "Z < -1.5", "Z = 0", "Z > +3"], correct: 1 },
+            { question: "When should you EXIT a position?", options: ["Z < -3", "Z > +3", "Z returns to ~0", "Never"], correct: 2 },
+            { question: "What Z value triggers emergency STOP?", options: ["±1.5", "±2", "±3", "±0.5"], correct: 2 },
+            { question: "Is Z = -2.0 a valid BUY ETH signal?", options: ["Yes, with confirmation", "No, too extreme", "Only if RSI > 70", "Never"], correct: 0 }
+        ],
+        '3.1': [
+            { question: "What color represents SUPPORT on the chart?", options: ["Orange", "Green", "Blue", "Red"], correct: 2 },
+            { question: "What color represents RESISTANCE on the chart?", options: ["Blue", "Orange", "Green", "Purple"], correct: 1 },
+            { question: "What typically happens when price hits SUPPORT?", options: ["Continues down", "Bounces UP", "No reaction", "Accelerates"], correct: 1 },
+            { question: "What typically happens when price hits RESISTANCE?", options: ["Reverses DOWN", "Continues up", "Consolidates", "Gaps"], correct: 0 }
+        ],
+        '3.2': [
+            { question: "What is a BREAKOUT?", options: ["Price reverses at level", "Price closes strongly beyond level", "Price consolidates", "Price gaps"], correct: 1 },
+            { question: "What is a REJECTION?", options: ["Price breaks through", "Price touches and reverses", "Price consolidates", "No reaction"], correct: 1 },
+            { question: "What confirms a valid breakout?", options: ["Strong close beyond level", "Long wick", "Low volume", "Small candle"], correct: 0 },
+            { question: "Should you trade against a strong breakout?", options: ["Yes, always", "No, wait for pullback", "Only at support", "Only at resistance"], correct: 1 }
+        ],
+        '4.1': [
+            { question: "What are Liquidity Zones?", options: ["Areas of high volume", "Areas where stops cluster", "Support levels", "Resistance levels"], correct: 1 },
+            { question: "What is a STOP HUNT?", options: ["Price reaches target", "Price triggers stops then reverses", "Price trends strongly", "Price consolidates"], correct: 1 },
+            { question: "Where are liquidity zones typically found?", options: ["At round numbers", "Above resistance/below support", "In the middle", "At EMA"], correct: 1 },
+            { question: "Should you place stops exactly at swing highs?", options: ["Yes, always", "No, they'll get hunted", "Only in trends", "Only in ranges"], correct: 1 }
+        ],
+        '4.2': [
+            { question: "What is the SWEEP & REVERSE strategy?", options: ["Buy breakouts", "Sell breakdowns", "Wait for sweep then trade opposite", "Trade with trend"], correct: 2 },
+            { question: "After a liquidity sweep, what is expected?", options: ["Continuation", "Reversal", "Consolidation", "Gap"], correct: 1 },
+            { question: "What confirmation helps after a sweep?", options: ["Pin bar / engulfing candle", "Large volume", "Both A and B", "None"], correct: 2 },
+            { question: "What is the best entry after a sweep?", options: ["Immediately", "After reversal confirmation", "Before the sweep", "Never"], correct: 1 }
+        ]
+    };
 
-    const progressBar = document.getElementById('progressBar');
-    const stepIndicator = document.getElementById('stepIndicator');
-    const stepContainer = document.getElementById('stepContainer');
+    // Lesson content
+    const lessonContent = {
+        '1.1': { title: "Dashboard Layout & Navigation", content: "<h3>📊 Dashboard Components</h3><p>...</p>" },
+        '1.2': { title: "Understanding Timeframes", content: "<h3>⏰ Timeframe Guide</h3><p>...</p>" },
+        '2.1': { title: "What is Z-Score", content: "<h3>⚡ Z-Score Explained</h3><p>Z-Score measures how many standard deviations the current ratio is from its 90-period average.</p><ul><li>Z = 0 → Fair value</li><li>Z = -1.5 → Oversold (BUY ETH)</li><li>Z = +1.5 → Overbought (BUY BTC)</li><li>Z = ±3 → Extreme (Emergency exit)</li></ul>" },
+        '2.2': { title: "Entry & Exit Rules", content: "<h3>🎯 Trading Rules</h3><h4>BUY ETH:</h4><ul><li>Z &lt; -1.5</li><li>Above EMA50</li><li>RSI 30-45</li></ul><h4>BUY BTC:</h4><ul><li>Z &gt; +1.5</li><li>Below EMA50</li><li>RSI 55-70</li></ul><h4>EXIT:</h4><ul><li>Z returns to ~0</li></ul>" },
+        '3.1': { title: "Support & Resistance", content: "<h3>🟠🔵 S/R Levels</h3><p><strong style='color:#00aaff;'>🔵 BLUE = SUPPORT</strong> → Price bounces UP<br><strong style='color:#ffaa00;'>🟠 ORANGE = RESISTANCE</strong> → Price reverses DOWN</p><p>These are automatically calculated from swing highs/lows.</p>" },
+        '3.2': { title: "Breakouts & Rejections", content: "<h3>📈 Trading S/R</h3><p><strong>REJECTION:</strong> Price touches and reverses → Trade opposite direction<br><strong>BREAKOUT:</strong> Price closes strongly beyond level → Trade continuation</p>" },
+        '4.1': { title: "Liquidity Zones", content: "<h3>⚪ Liquidity Zones</h3><p>Areas where stop losses cluster (above resistance / below support). Smart money pushes price into these zones to trigger stops, then reverses.</p>" },
+        '4.2': { title: "Sweep & Reverse", content: "<h3>🎯 Sweep & Reverse Strategy</h3><ol><li>Identify liquidity zone (previous high/low)</li><li>Wait for price to sweep above/below</li><li>Look for reversal confirmation (pin bar/engulfing)</li><li>Enter opposite direction</li></ol>" },
+        '5.1': { title: "RSI Buy & Sell Zones", content: "<h3>📊 RSI Zones</h3><ul><li><strong style='color:#00ff88;'>RSI 30-45</strong> = BUY ZONE (oversold)</li><li><strong style='color:#ff4444;'>RSI 55-70</strong> = SELL ZONE (overbought)</li><li>RSI 45-55 = Neutral</li><li>RSI &lt;30 or &gt;70 = Extreme reversal zone</li></ul>" },
+        '5.2': { title: "EMA50 Trend Filter", content: "<h3>🟡 EMA50</h3><p><strong>Price ABOVE EMA50</strong> = Uptrend (BUY ETH valid)<br><strong>Price BELOW EMA50</strong> = Downtrend (BUY BTC valid)</p>" },
+        '6.1': { title: "Timeframe Comparison", content: "<h3>⏰ Comparison Table</h3><p>Columns: Z-Score, Distance to Entry, Est. Move, Est. Profit, Signal<br><strong style='color:#00ff88;'>Green row = Best entry opportunity</strong> (closest to Z = -1.5)</p>" },
+        '6.2': { title: "Best Timeframe Entry", content: "<h3>🎯 How to Choose</h3><ol><li>Find green highlighted timeframe</li><li>Check higher timeframe for trend alignment</li><li>Confirm with RSI</li><li>Check S/R levels for confluence</li></ol>" }
+    };
 
-    function getRandomQuestions(count) {
-        const shuffled = [...quizBank];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled.slice(0, count);
-    }
-
-    function updateProgress() {
-        const total = modules.length;
-        const progress = ((currentModule + 1) / total) * 100;
-        progressBar.style.width = `${progress}%`;
-        stepIndicator.innerHTML = `Lesson ${currentModule + 1} / ${total}`;
-    }
-
-    function renderModule() {
-        const module = modules[currentModule];
-        updateProgress();
-
-        let html = '';
-
-        if (module.type === 'lecture') {
-            html = `
-                <div class="lecture-card">
-                    <div class="card-title">${module.title}</div>
-                    ${module.content}
-                    <div class="button-group">
-                        ${currentModule > 0 ? `<button class="btn btn-secondary" onclick="previousModule()">◀ Previous</button>` : '<div></div>'}
-                        <button class="btn btn-primary" onclick="nextModule()">Next Lesson ▶</button>
-                    </div>
+    // Populate with full content
+    for(let id in lessonContent) {
+        if(lessonContent[id].content === "<h3>📊 Dashboard Components</h3><p>...</p>") {
+            lessonContent[id].content = `
+                <h3>📊 ETH/BTC Rotator Dashboard</h3>
+                <p>The dashboard has several key sections:</p>
+                <ul>
+                    <li><strong>Status Bar</strong> - License status, data source, live indicator</li>
+                    <li><strong>Timeframe Selector</strong> - Switch between 15m, 1h, 4h, 1d</li>
+                    <li><strong>Timeframe Comparison Table</strong> - Compare Z-scores across timeframes</li>
+                    <li><strong>Main Chart</strong> - Candlesticks + EMA50 + S/R lines + Liquidity zones</li>
+                    <li><strong>RSI Chart</strong> - RSI line with buy/sell zones</li>
+                    <li><strong>Z-Score Meter</strong> - Visual indicator of market extremes</li>
+                    <li><strong>Signal Box</strong> - Current trading signal</li>
+                    <li><strong>Recent Signals</strong> - History of past signals</li>
+                </ul>
+                <div style="background:#0a0a0a; padding:15px; border-radius:10px; margin-top:15px;">
+                    💡 Tip: The chart auto-refreshes every 30 seconds with live data from Binance!
                 </div>
             `;
         }
-        else if (module.type === 'quiz') {
-            if (!currentQuizQuestions[currentModule]) {
-                currentQuizQuestions[currentModule] = getRandomQuestions(module.numQuestions || 5);
-                quizAnswers[currentModule] = {};
-            }
-            
-            const questions = currentQuizQuestions[currentModule];
-            const userAnswers = quizAnswers[currentModule] || {};
-            let allCorrect = true;
-            let answeredCount = 0;
-            
-            for (let i = 0; i < questions.length; i++) {
-                if (userAnswers[i] !== undefined) {
-                    answeredCount++;
-                    if (userAnswers[i] !== questions[i].correct) allCorrect = false;
-                } else {
-                    allCorrect = false;
-                }
-            }
-            
-            html = `
-                <div class="quiz-card">
-                    <div class="card-title">${module.title}</div>
-                    <div class="lecture-content">
-                        <p style="margin-bottom: 15px;"><span class="highlight">${questions.length} Questions</span> | Answered: ${answeredCount}/${questions.length}</p>
-                        ${questions.map((q, idx) => `
-                            <div style="margin-bottom: 25px; padding: 15px; background: #1a1a2e; border-radius: 10px;">
-                                <p style="font-weight: bold; margin-bottom: 10px;">${idx+1}. ${q.question}</p>
-                                ${q.options.map((opt, optIdx) => `
-                                    <div class="quiz-option ${userAnswers[idx] === optIdx ? (userAnswers[idx] === q.correct ? 'correct' : 'wrong') : ''}" onclick="selectQuizAnswer(${idx}, ${optIdx})">
-                                        ${String.fromCharCode(65+optIdx)}. ${opt}
-                                    </div>
-                                `).join('')}
-                                ${userAnswers[idx] !== undefined ? `
-                                    <div class="quiz-feedback ${userAnswers[idx] === q.correct ? 'feedback-correct' : 'feedback-wrong'}">
-                                        ${userAnswers[idx] === q.correct ? '✅ Correct! ' + q.explanation : '❌ Incorrect. ' + q.explanation}
-                                    </div>
-                                ` : ''}
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="button-group">
-                        ${currentModule > 0 ? `<button class="btn btn-secondary" onclick="previousModule()">◀ Previous</button>` : '<div></div>'}
-                        <button class="btn btn-primary" onclick="nextModule()" ${!allCorrect ? 'disabled' : ''}>
-                            ${currentModule === modules.length - 1 ? '🎓 Complete Course' : 'Next Lesson ▶'}
-                        </button>
-                    </div>
+        if(lessonContent[id].title === "Understanding Timeframes") {
+            lessonContent[id].content = `
+                <h3>⏰ Understanding Timeframes</h3>
+                <ul>
+                    <li><strong>15 Minutes (15m)</strong> - Scalping, quick entries/exits, more signals</li>
+                    <li><strong>1 Hour (1h)</strong> - Day trading, balance of signals and reliability</li>
+                    <li><strong>4 Hours (4h)</strong> - Swing trading, fewer but higher quality signals</li>
+                    <li><strong>1 Day (1d)</strong> - Position trading, major moves only</li>
+                </ul>
+                <h4>How to Switch:</h4>
+                <p>Click any timeframe button at the top of the dashboard. The chart will reload with that timeframe's data.</p>
+                <div style="background:#0a0a0a; padding:15px; border-radius:10px; margin-top:15px;">
+                    💡 Recommendation: Start with 1h timeframe. Check 4h for trend confirmation.
                 </div>
             `;
         }
-        else if (module.type === 'completion') {
-            localStorage.setItem('mprimo_academy_completed', 'true');
-            localStorage.setItem('mprimo_academy_date', new Date().toISOString());
+    }
+
+    let completedLessons = JSON.parse(localStorage.getItem('academy_completed_lessons') || '[]');
+    let quizResults = JSON.parse(localStorage.getItem('academy_quiz_results') || '{}');
+    let studentName = localStorage.getItem('academy_student_name') || '';
+    let currentLessonId = null;
+    let currentQuiz = null;
+    let currentQuizAnswers = {};
+
+    // Build course grid
+    function buildCourseGrid() {
+        const grid = document.getElementById('courseGrid');
+        grid.innerHTML = '';
+        
+        modules.forEach(module => {
+            const moduleCompleted = module.lessons.every(l => completedLessons.includes(l.id));
+            const moduleCard = document.createElement('div');
+            moduleCard.className = `module-card ${moduleCompleted ? 'completed' : ''}`;
+            moduleCard.setAttribute('data-module', module.id);
             
-            html = `
-                <div class="lecture-card access-screen">
-                    <div class="card-title">🎉 CONGRATULATIONS! 🎉</div>
-                    <div class="lecture-content">
-                        <h2 style="color: #00ff88;">You are now a CERTIFIED Rotator Trader</h2>
-                        <p>You've successfully completed all ${modules.length - 1} modules of the Mprimo Trading Academy.</p>
-                        <p>You now understand:</p>
-                        <ul style="text-align: left; max-width: 450px; margin: 20px auto;">
-                            <li>✓ Z-Score mean reversion (statistical edge)</li>
-                            <li>✓ RSI confirmation zones (30-45 / 55-70)</li>
-                            <li>✓ EMA50 trend filter</li>
-                            <li>✓ 4 Timeframes (15m, 1H, 4H, 1D)</li>
-                            <li>✓ Exit rules (Z=0, stop loss, divergence)</li>
-                            <li>✓ Plan B (Micro Mean Reversion scalping)</li>
-                            <li>✓ Divergence detection (trap signals)</li>
-                            <li>✓ Daily routine (30 min/day)</li>
-                            <li>✓ Risk management (1-2% per trade)</li>
-                        </ul>
-                        <p><span class="success-text">You are now ready to use the ETH/BTC Rotator Dashboard!</span></p>
-                        <button class="purchase-btn" onclick="window.open('https://wa.me/447492166072', '_blank')">💎 PURCHASE FULL DASHBOARD - $97 💎</button>
-                        <p style="margin-top: 20px; font-size: 0.8rem; color: #888;">Contact us via WhatsApp to purchase and get instant access to the live trading dashboard.</p>
-                        <p style="margin-top: 15px;">📧 <span class="highlight">Instructor:</span> Mohamoud | 📱 WhatsApp: <span class="success-text">+447492166072</span> | 📧 Email: <span class="success-text">ukdesigner62@gmail.com</span></p>
-                    </div>
+            let lessonsHtml = '';
+            module.lessons.forEach(lesson => {
+                const isCompleted = completedLessons.includes(lesson.id);
+                lessonsHtml += `
+                    <li class="lesson-item" data-lesson="${lesson.id}">
+                        <div class="lesson-check ${isCompleted ? 'completed' : ''}">${isCompleted ? '✓' : ''}</div>
+                        <span class="lesson-title">${lesson.title}</span>
+                        <span class="lesson-status">${isCompleted ? '✅ Completed' : '📖 Not started'}</span>
+                    </li>
+                `;
+            });
+            
+            moduleCard.innerHTML = `
+                <div class="module-header">
+                    <div class="module-icon">${module.icon}</div>
+                    <div class="module-title">${module.title}</div>
+                    <div class="module-difficulty">${module.difficulty} | ${module.lessons.length} lessons</div>
+                </div>
+                <div class="module-content">
+                    <ul class="lesson-list">${lessonsHtml}</ul>
                 </div>
             `;
-        }
-
-        stepContainer.innerHTML = html;
+            grid.appendChild(moduleCard);
+        });
+        
+        attachLessonClickHandlers();
     }
-
-    function selectQuizAnswer(questionIdx, answerIdx) {
-        if (!quizAnswers[currentModule]) quizAnswers[currentModule] = {};
-        quizAnswers[currentModule][questionIdx] = answerIdx;
-        renderModule();
+    
+    function attachLessonClickHandlers() {
+        document.querySelectorAll('.lesson-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                const lessonId = item.getAttribute('data-lesson');
+                openLesson(lessonId);
+            });
+        });
     }
-
-    function nextModule() {
-        if (currentModule < modules.length - 1) {
-            currentModule++;
-            renderModule();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    }
-
-    function previousModule() {
-        if (currentModule > 0) {
-            currentModule--;
-            renderModule();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    }
-
-    const completed = localStorage.getItem('mprimo_academy_completed');
-    if (completed === 'true') {
-        const completionDate = new Date(localStorage.getItem('mprimo_academy_date'));
-        const daysSince = (new Date() - completionDate) / (1000 * 60 * 60 * 24);
-        if (daysSince < 90) {
-            currentModule = modules.length - 1;
-            renderModule();
+    
+    function openLesson(lessonId) {
+        currentLessonId = lessonId;
+        const lesson = lessonContent[lessonId];
+        if (!lesson) return;
+        
+        document.getElementById('modalTitle').innerHTML = lesson.title;
+        
+        let quizHtml = '';
+        if (quizBank[lessonId]) {
+            currentQuiz = quizBank[lessonId];
+            currentQuizAnswers = quizResults[lessonId] || {};
+            quizHtml = generateQuizHtml(lessonId);
         } else {
-            localStorage.removeItem('mprimo_academy_completed');
-            renderModule();
+            currentQuiz = null;
         }
-    } else {
-        renderModule();
+        
+        document.getElementById('modalBody').innerHTML = lesson.content + quizHtml;
+        
+        const isCompleted = completedLessons.includes(lessonId);
+        const completeBtn = document.getElementById('completeLessonBtn');
+        if (isCompleted) {
+            completeBtn.innerHTML = '✅ Already Completed';
+            completeBtn.classList.add('completed');
+            completeBtn.disabled = true;
+        } else {
+            completeBtn.innerHTML = '✅ Mark as Complete';
+            completeBtn.classList.remove('completed');
+            completeBtn.disabled = false;
+        }
+        
+        document.getElementById('lessonModal').classList.add('active');
+        attachQuizHandlers(lessonId);
     }
+    
+    function generateQuizHtml(lessonId) {
+        const quiz = quizBank[lessonId];
+        if (!quiz) return '';
+        
+        let html = '<div class="quiz-section"><h3>📝 Knowledge Check Quiz</h3>';
+        quiz.forEach((q, idx) => {
+            const savedAnswer = quizResults[lessonId] ? quizResults[lessonId][idx] : null;
+            html += `
+                <div class="quiz-question" data-qidx="${idx}">
+                    <p><strong>${idx+1}. ${q.question}</strong></p>
+            `;
+            q.options.forEach((opt, optIdx) => {
+                const isSelected = savedAnswer === optIdx;
+                html += `
+                    <div class="quiz-option ${isSelected ? 'selected' : ''}" data-opt="${optIdx}">
+                        ${String.fromCharCode(65+optIdx)}. ${opt}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+        });
+        html += `<button class="quiz-submit" onclick="submitQuiz('${lessonId}')">✅ Submit Quiz</button>`;
+        html += `<div class="quiz-result" id="quizResult"></div></div>`;
+        return html;
+    }
+    
+    function attachQuizHandlers(lessonId) {
+        document.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.removeEventListener('click', handleQuizOptionClick);
+            opt.addEventListener('click', handleQuizOptionClick);
+        });
+    }
+    
+    function handleQuizOptionClick(e) {
+        const option = e.currentTarget;
+        const parent = option.closest('.quiz-question');
+        const qIdx = parseInt(parent.getAttribute('data-qidx'));
+        
+        parent.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        option.classList.add('selected');
+        
+        if (!currentQuizAnswers) currentQuizAnswers = {};
+        currentQuizAnswers[qIdx] = parseInt(option.getAttribute('data-opt'));
+    }
+    
+    function submitQuiz(lessonId) {
+        const quiz = quizBank[lessonId];
+        if (!quiz) return;
+        
+        let score = 0;
+        if (!currentQuizAnswers) currentQuizAnswers = {};
+        
+        quiz.forEach((q, idx) => {
+            if (currentQuizAnswers[idx] === q.correct) score++;
+        });
+        
+        const passed = score >= quiz.length * 0.7;
+        quizResults[lessonId] = currentQuizAnswers;
+        localStorage.setItem('academy_quiz_results', JSON.stringify(quizResults));
+        
+        const resultDiv = document.getElementById('quizResult');
+        if (passed) {
+            resultDiv.innerHTML = `<div style="background:#00aa44; padding:10px; border-radius:10px;">✅ Quiz passed! ${score}/${quiz.length} correct. You can now mark this lesson as complete.</div>`;
+            resultDiv.style.color = '#00ff88';
+        } else {
+            resultDiv.innerHTML = `<div style="background:#ff4444; padding:10px; border-radius:10px;">❌ Quiz failed! ${score}/${quiz.length} correct. Need 70% to pass. Review and try again.</div>`;
+            resultDiv.style.color = '#ff8888';
+        }
+    }
+    
+    function completeCurrentLesson() {
+        if (!currentLessonId) return;
+        if (completedLessons.includes(currentLessonId)) return;
+        
+        // Check if there's a quiz and if it's passed
+        if (quizBank[currentLessonId]) {
+            const answers = quizResults[currentLessonId];
+            if (!answers) {
+                showToast('⚠️ Please complete the quiz first!');
+                return;
+            }
+            const quiz = quizBank[currentLessonId];
+            let score = 0;
+            quiz.forEach((q, idx) => {
+                if (answers[idx] === q.correct) score++;
+            });
+            if (score < quiz.length * 0.7) {
+                showToast('⚠️ You must pass the quiz before completing this lesson!');
+                return;
+            }
+        }
+        
+        completedLessons.push(currentLessonId);
+        localStorage.setItem('academy_completed_lessons', JSON.stringify(completedLessons));
+        
+        updateDisplay();
+        closeModal();
+        showToast('✅ Lesson completed! Progress saved.');
+        
+        if (completedLessons.length === 12) {
+            showToast('🎉 CONGRATULATIONS! You completed all lessons! Get your certificate and unlock the dashboard!');
+            updateCertificateSection();
+        }
+    }
+    
+    function updateDisplay() {
+        buildCourseGrid();
+        updateProgress();
+        setupUnlockButton();
+        updateCertificateSection();
+    }
+    
+    function updateProgress() {
+        const totalLessons = 12;
+        const completedCount = completedLessons.length;
+        const percent = Math.round((completedCount / totalLessons) * 100);
+        document.getElementById('progressPercent').innerHTML = `${percent}%`;
+        document.getElementById('progressFill').style.width = `${percent}%`;
+    }
+    
+    function setupUnlockButton() {
+        const unlockBtn = document.getElementById('unlockBtn');
+        const unlockMessage = document.getElementById('unlockMessage');
+        const totalLessons = 12;
+        const completedCount = completedLessons.length;
+        
+        if (completedCount === totalLessons) {
+            unlockBtn.disabled = false;
+            unlockBtn.innerHTML = '🚀 UNLOCK TRADING DASHBOARD';
+            unlockBtn.style.background = 'linear-gradient(90deg, #FFD700, #00ff88)';
+            unlockMessage.innerHTML = '<span style="color:#00ff88;">✅ You have completed all lessons! Click to access the dashboard with 48-hour trial.</span>';
+        } else {
+            unlockBtn.disabled = true;
+            unlockBtn.innerHTML = `🔒 Complete ${totalLessons - completedCount} more lessons to unlock`;
+            unlockMessage.innerHTML = `<span style="color:#ff8888;">⚠️ Complete all 12 lessons first (${completedCount}/12 completed)</span>`;
+        }
+    }
+    
+    function updateCertificateSection() {
+        const certSection = document.getElementById('certificateSection');
+        if (completedLessons.length === 12) {
+            certSection.style.display = 'block';
+            const completionDate = new Date().toLocaleDateString();
+            document.getElementById('completionDate').innerHTML = completionDate;
+            if (!studentName) {
+                studentName = prompt('🎓 Enter your name for the certificate:', 'Your Name');
+                if (studentName) localStorage.setItem('academy_student_name', studentName);
+                else studentName = 'Student';
+            }
+            document.getElementById('studentName').innerHTML = studentName;
+        } else {
+            certSection.style.display = 'none';
+        }
+    }
+    
+    function downloadCertificate() {
+        const certificate = document.getElementById('certificatePreview');
+        html2canvas ? html2canvas(certificate).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `certificate_${studentName.replace(/ /g, '_')}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }) : showToast('⚠️ html2canvas not loaded. Right-click and save as image.');
+    }
+    
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    function closeModal() {
+        document.getElementById('lessonModal').classList.remove('active');
+        currentLessonId = null;
+    }
+    
+    // Unlock dashboard
+    document.getElementById('unlockBtn').addEventListener('click', () => {
+        if (completedLessons.length === 12) {
+            localStorage.setItem('academy_completed', 'true');
+            localStorage.setItem('academy_completion_date', new Date().toISOString());
+            localStorage.setItem('academy_student_name', studentName);
+            localStorage.setItem('ethbtc_trial_start', new Date().toISOString());
+            localStorage.setItem('ethbtc_trial_used', 'active');
+            window.location.href = 'dashboard.html';
+        }
+    });
+    
+    // Load html2canvas for certificate
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    document.head.appendChild(script);
+    
+    // Initialize
+    buildCourseGrid();
+    updateProgress();
+    setupUnlockButton();
+    updateCertificateSection();
 </script>
 </body>
 </html>
