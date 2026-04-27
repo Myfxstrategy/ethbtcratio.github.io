@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETH/BTC Rotator | Professional Trading Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #FFD700, #FF6B6B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 15px 30px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #FFD700, #FF6B6B);
+            color: #000;
+        }
+        .btn-secondary {
+            background: #2a2a3e;
+            color: #fff;
+            border: 1px solid #FFD700;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        .info-box {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        .status {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        footer {
+            margin-top: 40px;
+            color: #555;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 ETH/BTC Rotator</h1>
+        <p>Professional Trading Dashboard & Strategy Course</p>
+        
+        <div class="info-box">
+            <h3>📚 Welcome!</h3>
+            <p>Choose your path:</p>
+        </div>
+        
+        <div class="btn-group">
+            <a href="academy.html" class="btn btn-primary">📖 Take the Course First</a>
+            <a href="dashboard.html" class="btn btn-secondary">🚀 Go to Dashboard</a>
+        </div>
+        
+        <div class="status" id="statusBox">
+            ⚡ Checking your progress...
+        </div>
+        
+        <footer>
+            <p>Contact: ukdesigner62@gmail.com | WhatsApp: +447492166072</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Check if user already completed the course
+        function checkUserStatus() {
+            const academyCompleted = localStorage.getItem('academy_completed');
+            const completedLessons = localStorage.getItem('academy_completed_lessons');
+            const certificateDate = localStorage.getItem('academy_completion_date');
+            const studentName = localStorage.getItem('academy_student_name');
+            
+            const statusBox = document.getElementById('statusBox');
+            
+            if (academyCompleted === 'true') {
+                const date = certificateDate ? new Date(certificateDate).toLocaleDateString() : 'previously';
+                statusBox.innerHTML = `
+                    ✅ <strong>Welcome back${studentName ? ' ' + studentName : ''}!</strong><br>
+                    You completed the course on ${date}.<br>
+                    🎓 Your certificate is ready.<br>
+                    ➡️ Go directly to the <strong>Dashboard</strong> to continue trading!
+                `;
+                statusBox.style.borderLeft = '4px solid #00ff88';
+            } else if (completedLessons) {
+                const lessons = JSON.parse(completedLessons);
+                statusBox.innerHTML = `
+                    📊 <strong>You have completed ${lessons.length}/12 lessons.</strong><br>
+                    Continue the course to unlock your certificate and full dashboard access!
+                `;
+                statusBox.style.borderLeft = '4px solid #FFD700';
+            } else {
+                statusBox.innerHTML = `
+                    🆕 <strong>New here?</strong><br>
+                    We recommend taking the free course first to master the strategy!<br>
+                    Or try the dashboard with a 48-hour trial.
+                `;
+                statusBox.style.borderLeft = '4px solid #FFD700';
+            }
+        }
+        
+        checkUserStatus();
+    </script>
+</body>
+</html>
