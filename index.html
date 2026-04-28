@@ -20,7 +20,7 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
         
@@ -49,11 +49,200 @@
             letter-spacing: 2px;
         }
         
-        .creator-name span {
+        /* COUNTDOWN TIMER - People stay to see! */
+        .countdown-container {
+            background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #FFD700;
+        }
+        
+        .countdown-title {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        
+        .countdown-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
             background: rgba(0,0,0,0.5);
-            padding: 5px 15px;
+            padding: 15px;
+            border-radius: 15px;
+            min-width: 80px;
+        }
+        
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        .countdown-label {
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+        
+        /* RANDOM QURAN VERSE OF THE DAY */
+        .verse-of-day {
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 4px solid #FFD700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .verse-of-day:hover {
+            transform: translateX(5px);
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .verse-title {
+            font-size: 0.8rem;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+        
+        .verse-arabic {
+            font-size: 1.2rem;
+            font-family: 'Amiri', serif;
+            color: #00cc44;
+            margin-bottom: 10px;
+            text-align: right;
+            direction: rtl;
+        }
+        
+        .verse-english {
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+        
+        /* DAILY CHALLENGE - Keep users coming back */
+        .challenge-card {
+            background: linear-gradient(135deg, #1a2a1a, #0a1a0a);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #00cc44;
+            text-align: center;
+        }
+        
+        .challenge-title {
+            font-size: 1.1rem;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+        
+        .challenge-question {
+            font-size: 1rem;
+            margin: 15px 0;
+        }
+        
+        .challenge-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .challenge-btn {
+            background: #2a2a3e;
+            border: 1px solid #FFD700;
+            padding: 10px 20px;
             border-radius: 30px;
-            display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .challenge-btn:hover {
+            background: #FFD700;
+            color: #000;
+        }
+        
+        .challenge-feedback {
+            margin-top: 10px;
+            font-size: 0.8rem;
+        }
+        
+        /* STREAK COUNTER */
+        .streak-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .streak-fire {
+            font-size: 1.5rem;
+        }
+        
+        .streak-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff8800;
+        }
+        
+        /* SUGGESTED SEARCHES - Keep exploring */
+        .suggested-section {
+            margin: 20px 0;
+        }
+        
+        .suggested-title {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+        .suggested-grid {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .suggested-item {
+            background: rgba(255,215,0,0.15);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .suggested-item:hover {
+            background: #FFD700;
+            color: #000;
+        }
+        
+        /* SHARE BUTTON */
+        .share-btn {
+            background: #1a9bd9;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        
+        .share-btn:hover {
+            background: #FFD700;
+            color: #000;
         }
         
         .prayer-card {
@@ -189,11 +378,6 @@
             cursor: pointer;
         }
         
-        .next-prayer:hover {
-            background: #FFD700;
-            color: #000;
-        }
-        
         .test-btn {
             background: #ff8800;
             border: none;
@@ -203,20 +387,6 @@
             margin-top: 15px;
             font-size: 0.9rem;
             width: 100%;
-        }
-        
-        .test-btn:hover {
-            background: #FFD700;
-            color: #000;
-        }
-        
-        .chime-info {
-            background: rgba(0,170,68,0.15);
-            border-radius: 12px;
-            padding: 10px;
-            margin-top: 10px;
-            text-align: center;
-            font-size: 0.75rem;
         }
         
         .search-card {
@@ -274,28 +444,6 @@
         }
         
         .mode-btn.active {
-            background: #FFD700;
-            color: #000;
-        }
-        
-        .suggestion-chips {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        
-        .chip {
-            background: #2a2a3e;
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border: 1px solid #FFD700;
-        }
-        
-        .chip:hover {
             background: #FFD700;
             color: #000;
         }
@@ -380,54 +528,6 @@
             cursor: pointer;
         }
         
-        .play-btn:hover {
-            background: #FFD700;
-            color: #000;
-        }
-        
-        .science-box {
-            background: rgba(0,170,68,0.15);
-            border-left: 3px solid #00cc44;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-        }
-        
-        .science-title {
-            color: #00cc44;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 60px;
-            font-size: 1.2rem;
-            color: #FFD700;
-        }
-        
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #FFD700;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .no-results {
-            text-align: center;
-            padding: 60px;
-            color: #888;
-        }
-        
         .footer {
             text-align: center;
             margin-top: 50px;
@@ -438,8 +538,9 @@
         
         @media (max-width: 768px) {
             .results-grid { grid-template-columns: 1fr; }
-            .header h1 { font-size: 1.6rem; }
-            .prayer-times { grid-template-columns: repeat(2, 1fr); }
+            .countdown-numbers { gap: 10px; }
+            .countdown-box { min-width: 60px; padding: 10px; }
+            .countdown-value { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -449,7 +550,40 @@
     <div class="header">
         <h1>🔬 القرآن والعلم | Quran & Science</h1>
         <div class="creator-name"><span>✨ Created by: MPRIMO ✨</span></div>
-        <p>Search ANY word in the Quran | Discover scientific miracles | Prayer Times with Gentle Chime</p>
+        <p>Search ANY word in the Quran | Discover scientific miracles | Prayer Times</p>
+    </div>
+    
+    <!-- STREAK COUNTER - Keeps users coming back daily -->
+    <div class="streak-card">
+        <div class="streak-fire">🔥 Daily Streak</div>
+        <div class="streak-count" id="streakCount">0 days</div>
+        <div id="lastVisitMessage" style="font-size:0.7rem; color:#888;">Visit daily to increase streak!</div>
+    </div>
+    
+    <!-- COUNTDOWN TIMER - Creates urgency to stay -->
+    <div class="countdown-container">
+        <div class="countdown-title">⏰ Next Prayer in...</div>
+        <div class="countdown-numbers" id="countdownTimer">
+            <div class="countdown-box"><div class="countdown-value" id="countdownHours">--</div><div class="countdown-label">Hours</div></div>
+            <div class="countdown-box"><div class="countdown-value" id="countdownMinutes">--</div><div class="countdown-label">Minutes</div></div>
+            <div class="countdown-box"><div class="countdown-value" id="countdownSeconds">--</div><div class="countdown-label">Seconds</div></div>
+        </div>
+    </div>
+    
+    <!-- RANDOM QURAN VERSE OF THE DAY - Click to search -->
+    <div class="verse-of-day" id="verseOfDay" onclick="searchWordFromVerse()">
+        <div class="verse-title">📖 Today's Featured Verse</div>
+        <div class="verse-arabic" id="verseArabic">Loading...</div>
+        <div class="verse-english" id="verseEnglish">Loading...</div>
+        <div style="font-size:0.7rem; color:#aaa; margin-top:10px;">👇 Click to search related verses</div>
+    </div>
+    
+    <!-- DAILY CHALLENGE - Interactive quiz -->
+    <div class="challenge-card" id="challengeCard">
+        <div class="challenge-title">🏆 Today's Challenge</div>
+        <div class="challenge-question" id="challengeQuestion">Loading...</div>
+        <div class="challenge-options" id="challengeOptions"></div>
+        <div class="challenge-feedback" id="challengeFeedback"></div>
     </div>
     
     <div class="prayer-card">
@@ -480,14 +614,6 @@
         </div>
         
         <button class="test-btn" id="testAlertBtn">🎵 Test Prayer Chime</button>
-        
-        <div class="chime-info">
-            🎵 <strong>Gentle Prayer Chime</strong><br>
-            • A pleasant, calming bell sound will play at prayer time<br>
-            • Click "Test Prayer Chime" to hear the sound<br>
-            • Works on ALL devices (phones, tablets, computers)<br>
-            • No external files needed - built into your browser
-        </div>
     </div>
     
     <div class="search-card">
@@ -501,16 +627,27 @@
             <button class="search-btn" id="searchBtn">🔍 Search in Quran</button>
         </div>
         
-        <div class="suggestion-chips" id="suggestionChips">
-            <span class="chip" onclick="searchWord('mercy')">🤲 Mercy</span>
-            <span class="chip" onclick="searchWord('justice')">⚖️ Justice</span>
-            <span class="chip" onclick="searchWord('woman')">👩 Woman</span>
-            <span class="chip" onclick="searchWord('peace')">🕊️ Peace</span>
-            <span class="chip" onclick="searchWord('love')">❤️ Love</span>
-            <span class="chip" onclick="searchWord('iron')">⚙️ Iron</span>
-            <span class="chip" onclick="searchWord('sun')">☀️ Sun</span>
-            <span class="chip" onclick="searchWord('water')">💧 Water</span>
+        <!-- SUGGESTED SEARCHES - Keep exploring -->
+        <div class="suggested-section">
+            <div class="suggested-title">🔥 Popular Searches (Click to explore)</div>
+            <div class="suggested-grid">
+                <span class="suggested-item" onclick="searchWord('mercy')">🤲 Mercy</span>
+                <span class="suggested-item" onclick="searchWord('justice')">⚖️ Justice</span>
+                <span class="suggested-item" onclick="searchWord('woman')">👩 Woman</span>
+                <span class="suggested-item" onclick="searchWord('peace')">🕊️ Peace</span>
+                <span class="suggested-item" onclick="searchWord('love')">❤️ Love</span>
+                <span class="suggested-item" onclick="searchWord('iron')">⚙️ Iron</span>
+                <span class="suggested-item" onclick="searchWord('sun')">☀️ Sun</span>
+                <span class="suggested-item" onclick="searchWord('water')">💧 Water</span>
+                <span class="suggested-item" onclick="searchWord('universe')">🌌 Universe</span>
+                <span class="suggested-item" onclick="searchWord('mountains')">⛰️ Mountains</span>
+                <span class="suggested-item" onclick="searchWord('forgiveness')">💝 Forgiveness</span>
+                <span class="suggested-item" onclick="searchWord('patience')">⏳ Patience</span>
+            </div>
         </div>
+        
+        <!-- SHARE BUTTON -->
+        <button class="share-btn" onclick="sharePage()">📤 Share This Page</button>
     </div>
     
     <div id="resultsContainer">
@@ -518,166 +655,215 @@
     </div>
     
     <div class="footer">
-        <p>🌟 Created by MPRIMO | Quran API | Prayer Times with Gentle Chime | Works on all devices</p>
+        <p>🌟 Created by MPRIMO | Quran API | Daily Verse | Challenges | Streak</p>
         <p>📞 Contact: ukdesigner62@gmail.com | WhatsApp: +447492166072</p>
     </div>
 </div>
 
 <script>
-    // ========== PRAYER CHIME - WORKS 100% ON ALL DEVICES ==========
+    // ========== ENGAGEMENT FEATURES ==========
     
-    let currentMode = 'quran';
-    let userLat = null;
-    let userLon = null;
-    let prayerCheckInterval = null;
+    // STREAK COUNTER (Keeps users coming back daily)
+    function updateStreak() {
+        const lastVisit = localStorage.getItem('lastVisitDate');
+        const today = new Date().toDateString();
+        let streak = parseInt(localStorage.getItem('streakCount')) || 0;
+        
+        if (lastVisit === today) {
+            // Already visited today
+            document.getElementById('streakCount').innerHTML = `${streak} days`;
+            document.getElementById('lastVisitMessage').innerHTML = `✅ Visited today! Come back tomorrow for +1 🔥`;
+        } else {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toDateString();
+            
+            if (lastVisit === yesterdayStr) {
+                streak++;
+                document.getElementById('streakCount').innerHTML = `${streak} days`;
+                document.getElementById('lastVisitMessage').innerHTML = `🔥 ${streak} day streak! Keep it up!`;
+            } else {
+                streak = 1;
+                document.getElementById('streakCount').innerHTML = `${streak} day`;
+                document.getElementById('lastVisitMessage').innerHTML = `🎉 New streak started! Visit daily to increase!`;
+            }
+            
+            localStorage.setItem('streakCount', streak);
+            localStorage.setItem('lastVisitDate', today);
+        }
+    }
+    
+    // RANDOM VERSE OF THE DAY
+    const versesOfDay = [
+        { arabic: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', english: 'In the name of Allah, the Most Gracious, the Most Merciful.', surah: 'Al-Fatiha 1:1' },
+        { arabic: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', english: 'All praise is due to Allah, Lord of the worlds.', surah: 'Al-Fatiha 1:2' },
+        { arabic: 'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', english: 'Indeed, Allah is with the patient.', surah: 'Al-Baqarah 2:153' },
+        { arabic: 'لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا', english: 'Allah does not burden a soul beyond that it can bear.', surah: 'Al-Baqarah 2:286' },
+        { arabic: 'وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ', english: 'Do not despair of the mercy of Allah.', surah: 'Yusuf 12:87' },
+        { arabic: 'إِنَّ اللَّهَ يُحِبُّ الْمُتَوَكِّلِينَ', english: 'Indeed, Allah loves those who put their trust in Him.', surah: 'Al-Imran 3:159' }
+    ];
+    
+    let currentVerse = null;
+    
+    function loadVerseOfDay() {
+        const dayIndex = Math.floor(new Date().getDate() % versesOfDay.length);
+        currentVerse = versesOfDay[dayIndex];
+        document.getElementById('verseArabic').innerHTML = currentVerse.arabic;
+        document.getElementById('verseEnglish').innerHTML = `${currentVerse.english} (${currentVerse.surah})`;
+    }
+    
+    function searchWordFromVerse() {
+        if (currentVerse) {
+            const searchTerm = currentVerse.english.split(' ')[Math.floor(Math.random() * 3)];
+            document.getElementById('searchInput').value = searchTerm;
+            performSearch();
+            showToast(`🔍 Searching for "${searchTerm}" from today's verse!`);
+        }
+    }
+    
+    // DAILY CHALLENGE (Interactive Quiz)
+    const challengeQuestions = [
+        { question: 'Which Surah is called "The Opening"?', options: ['Al-Ikhlas', 'Al-Fatiha', 'Al-Baqarah', 'An-Nas'], correct: 1, fact: 'Al-Fatiha is recited in every prayer!' },
+        { question: 'How many chapters (Surahs) are in the Quran?', options: ['99', '100', '114', '120'], correct: 2, fact: 'The Quran has 114 Surahs!' },
+        { question: 'Which word appears more often in the Quran: "Mercy" or "Justice"?', options: ['Mercy', 'Justice', 'Same', 'Neither'], correct: 0, fact: 'Mercy (Rahmah) appears over 100 times!' },
+        { question: 'The Quran mentions iron was "sent down" - from where?', options: ['Earth', 'Space/Supernova', 'Mountains', 'Oceans'], correct: 1, fact: 'Iron comes from supernova explosions!' }
+    ];
+    
+    let currentChallenge = null;
+    
+    function loadDailyChallenge() {
+        const dayIndex = Math.floor(new Date().getDate() % challengeQuestions.length);
+        currentChallenge = challengeQuestions[dayIndex];
+        document.getElementById('challengeQuestion').innerHTML = currentChallenge.question;
+        
+        const optionsHtml = currentChallenge.options.map((opt, idx) => 
+            `<div class="challenge-btn" onclick="checkChallengeAnswer(${idx})">${opt}</div>`
+        ).join('');
+        document.getElementById('challengeOptions').innerHTML = optionsHtml;
+        document.getElementById('challengeFeedback').innerHTML = '';
+    }
+    
+    function checkChallengeAnswer(selectedIdx) {
+        const isCorrect = selectedIdx === currentChallenge.correct;
+        const challengeCompleted = localStorage.getItem('challengeCompletedToday');
+        
+        if (challengeCompleted) {
+            document.getElementById('challengeFeedback').innerHTML = '✅ You already completed today\'s challenge! Come back tomorrow.';
+            document.getElementById('challengeFeedback').style.color = '#ffaa00';
+            return;
+        }
+        
+        if (isCorrect) {
+            let streak = parseInt(localStorage.getItem('streakCount')) || 0;
+            streak++;
+            localStorage.setItem('streakCount', streak);
+            localStorage.setItem('challengeCompletedToday', 'true');
+            document.getElementById('challengeFeedback').innerHTML = `🎉 CORRECT! +1 streak! ${currentChallenge.fact}`;
+            document.getElementById('challengeFeedback').style.color = '#00ff88';
+            updateStreak();
+        } else {
+            const correctAnswer = currentChallenge.options[currentChallenge.correct];
+            document.getElementById('challengeFeedback').innerHTML = `❌ Incorrect! The correct answer is "${correctAnswer}". ${currentChallenge.fact}`;
+            document.getElementById('challengeFeedback').style.color = '#ff8888';
+        }
+    }
+    
+    // SHARE FUNCTION
+    function sharePage() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Quran & Science - MPRIMO',
+                text: 'Discover scientific miracles in the Quran! Search any word and find amazing discoveries.',
+                url: window.location.href
+            }).catch(() => showToast('📤 Share cancelled'));
+        } else {
+            // Fallback: copy link
+            navigator.clipboard.writeText(window.location.href);
+            showToast('📋 Link copied! Share with friends.');
+        }
+    }
+    
+    // COUNTDOWN TIMER TO NEXT PRAYER
+    let countdownInterval = null;
+    let nextPrayerTime = null;
+    
+    function updateCountdown() {
+        if (!nextPrayerTime) return;
+        
+        const now = new Date();
+        const diff = nextPrayerTime - now;
+        
+        if (diff <= 0) {
+            document.getElementById('countdownHours').innerHTML = '00';
+            document.getElementById('countdownMinutes').innerHTML = '00';
+            document.getElementById('countdownSeconds').innerHTML = '00';
+            return;
+        }
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        document.getElementById('countdownHours').innerHTML = hours.toString().padStart(2, '0');
+        document.getElementById('countdownMinutes').innerHTML = minutes.toString().padStart(2, '0');
+        document.getElementById('countdownSeconds').innerHTML = seconds.toString().padStart(2, '0');
+    }
+    
+    // ========== PRAYER CHIME ==========
+    
     let chimeEnabled = true;
     let audioContext = null;
     
-    // Create a beautiful chime sound using Web Audio API
     function playChime() {
         try {
-            // Create audio context (needs user interaction first on some browsers)
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                // Resume in case it's suspended
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
                 }
             }
             
             const now = audioContext.currentTime;
-            
-            // First note (higher)
             const osc1 = audioContext.createOscillator();
             const gain1 = audioContext.createGain();
             osc1.connect(gain1);
             gain1.connect(audioContext.destination);
-            osc1.frequency.value = 880; // A5 note
+            osc1.frequency.value = 880;
             gain1.gain.value = 0.3;
             osc1.start();
             gain1.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
             osc1.stop(now + 1.2);
             
-            // Second note (lower - harmony)
             const osc2 = audioContext.createOscillator();
             const gain2 = audioContext.createGain();
             osc2.connect(gain2);
             gain2.connect(audioContext.destination);
-            osc2.frequency.value = 659.25; // E5 note
+            osc2.frequency.value = 659.25;
             gain2.gain.value = 0.25;
             osc2.start(now + 0.1);
             gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.3);
             osc2.stop(now + 1.3);
             
-            // Third note (lowest - warm tone)
-            const osc3 = audioContext.createOscillator();
-            const gain3 = audioContext.createGain();
-            osc3.connect(gain3);
-            gain3.connect(audioContext.destination);
-            osc3.frequency.value = 523.25; // C5 note
-            gain3.gain.value = 0.2;
-            osc3.start(now + 0.2);
-            gain3.gain.exponentialRampToValueAtTime(0.0001, now + 1.4);
-            osc3.stop(now + 1.4);
-            
-        } catch(e) {
-            console.log('Audio error:', e);
-            // Fallback: use simple beep
-            try {
-                const beep = new Audio();
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.frequency.value = 800;
-                gain.gain.value = 0.2;
-                osc.start();
-                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.8);
-                osc.stop(ctx.currentTime + 0.8);
-            } catch(e2) {}
-        }
-    }
-    
-    // Simple single chime (works everywhere)
-    function playSimpleChime() {
-        try {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioContext.state === 'suspended') {
-                    audioContext.resume();
-                }
-            }
-            
-            const osc = audioContext.createOscillator();
-            const gain = audioContext.createGain();
-            osc.connect(gain);
-            gain.connect(audioContext.destination);
-            osc.frequency.value = 698.46; // F5 - pleasant note
-            gain.gain.value = 0.25;
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.8);
-            osc.stop(audioContext.currentTime + 0.8);
-        } catch(e) {
-            console.log('Simple chime error:', e);
-        }
+        } catch(e) { console.log('Audio error:', e); }
     }
     
     function playPrayerChime(prayerName) {
         if (!chimeEnabled) return;
-        
         playChime();
-        
-        // Also show a visual notification
-        const displayDiv = document.getElementById('lastUpdateDisplay');
-        const toast = document.createElement('div');
-        toast.style.cssText = 'position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#00aa44; color:white; padding:12px 24px; border-radius:15px; z-index:9999; animation:fadeOut 3s ease; font-weight:bold; text-align:center;';
-        toast.innerHTML = `🕌 ${prayerName} Prayer Time 🕌<br>🎵 Chime played`;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-        
-        console.log(`🔔 Prayer chime played for ${prayerName}`);
+        showToast(`🕌 ${prayerName} Prayer Time 🕌`);
     }
     
     function testChime() {
         playChime();
-        const toast = document.createElement('div');
-        toast.style.cssText = 'position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#ff8800; color:white; padding:12px 24px; border-radius:15px; z-index:9999; animation:fadeOut 3s ease; font-weight:bold;';
-        toast.innerHTML = `🎵 Test Chime - You should hear a gentle sound! 🎵`;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    }
-    
-    // Load preference
-    function loadChimePreference() {
-        const saved = localStorage.getItem('prayerChimeEnabled');
-        if (saved !== null) {
-            chimeEnabled = saved === 'true';
-        } else {
-            chimeEnabled = true;
-        }
-        const toggle = document.getElementById('alertToggle');
-        const statusText = document.getElementById('alertStatusText');
-        if (toggle) {
-            toggle.checked = chimeEnabled;
-            statusText.innerHTML = chimeEnabled ? 'ON' : 'OFF';
-            statusText.className = chimeEnabled ? 'alert-status alert-on' : 'alert-status alert-off';
-        }
-    }
-    
-    function saveChimePreference() {
-        localStorage.setItem('prayerChimeEnabled', chimeEnabled);
+        showToast('🎵 Test chime played!');
     }
     
     function toggleChime() {
         chimeEnabled = !chimeEnabled;
-        saveChimePreference();
         const statusText = document.getElementById('alertStatusText');
         statusText.innerHTML = chimeEnabled ? 'ON' : 'OFF';
         statusText.className = chimeEnabled ? 'alert-status alert-on' : 'alert-status alert-off';
-        
-        const msg = chimeEnabled ? '🔔 Prayer Chime ENABLED' : '🔕 Prayer Chime DISABLED';
-        showToast(msg);
+        showToast(chimeEnabled ? '🔔 Prayer alerts ON' : '🔕 Prayer alerts OFF');
     }
     
     // ========== PRAYER TIMES ==========
@@ -685,36 +871,21 @@
     async function getPrayerTimes(lat, lon) {
         try {
             const date = new Date();
-            const year = date.getFullYear();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            
-            const url = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${lat}&longitude=${lon}&method=2`;
+            const url = `https://api.aladhan.com/v1/timings/${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}?latitude=${lat}&longitude=${lon}&method=2`;
             const response = await fetch(url);
             const data = await response.json();
             
             if (data && data.data && data.data.timings) {
                 const timings = data.data.timings;
-                
                 document.getElementById('fajr').innerHTML = timings.Fajr;
                 document.getElementById('dhuhr').innerHTML = timings.Dhuhr;
                 document.getElementById('asr').innerHTML = timings.Asr;
                 document.getElementById('maghrib').innerHTML = timings.Maghrib;
                 document.getElementById('isha').innerHTML = timings.Isha;
                 
-                const prayerTimes = {
-                    Fajr: timings.Fajr,
-                    Dhuhr: timings.Dhuhr,
-                    Asr: timings.Asr,
-                    Maghrib: timings.Maghrib,
-                    Isha: timings.Isha
-                };
-                
-                schedulePrayerChecks(prayerTimes);
-                
+                // Find next prayer
                 const now = new Date();
                 const currentTime = now.getHours() * 60 + now.getMinutes();
-                
                 const prayers = [
                     { name: 'Fajr', time: timings.Fajr },
                     { name: 'Dhuhr', time: timings.Dhuhr },
@@ -723,167 +894,62 @@
                     { name: 'Isha', time: timings.Isha }
                 ];
                 
-                let nextPrayer = null;
-                let minDiff = Infinity;
-                
                 for (const prayer of prayers) {
                     const [hours, minutes] = prayer.time.split(':').map(Number);
                     const prayerMinutes = hours * 60 + minutes;
-                    let diff = prayerMinutes - currentTime;
-                    if (diff < 0) diff += 24 * 60;
-                    if (diff < minDiff) {
-                        minDiff = diff;
-                        nextPrayer = prayer;
+                    if (prayerMinutes > currentTime) {
+                        nextPrayerTime = new Date();
+                        nextPrayerTime.setHours(hours, minutes, 0, 0);
+                        document.getElementById('nextPrayer').innerHTML = `⏰ Next Prayer: <strong>${prayer.name}</strong>`;
+                        if (countdownInterval) clearInterval(countdownInterval);
+                        countdownInterval = setInterval(updateCountdown, 1000);
+                        break;
                     }
-                }
-                
-                if (nextPrayer) {
-                    const remainingHours = Math.floor(minDiff / 60);
-                    const remainingMinutes = minDiff % 60;
-                    document.getElementById('nextPrayer').innerHTML = `⏰ Next Prayer: <strong>${nextPrayer.name}</strong> in ${remainingHours}h ${remainingMinutes}m`;
                 }
                 
                 try {
                     const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
                     const geoData = await geoRes.json();
-                    const city = geoData.address?.city || geoData.address?.town || geoData.address?.village || 'Your Location';
-                    const country = geoData.address?.country || '';
-                    document.getElementById('locationName').innerHTML = `📍 ${city}, ${country}`;
-                } catch(e) {
-                    document.getElementById('locationName').innerHTML = `📍 ${lat.toFixed(2)}, ${lon.toFixed(2)}`;
-                }
+                    const city = geoData.address?.city || geoData.address?.town || 'Your Location';
+                    document.getElementById('locationName').innerHTML = `📍 ${city}`;
+                } catch(e) {}
                 
                 return true;
             }
-        } catch(e) {
-            console.log('Prayer time error:', e);
-            document.getElementById('nextPrayer').innerHTML = '⚠️ Unable to fetch prayer times';
-        }
+        } catch(e) { console.log('Prayer time error:', e); }
         return false;
     }
     
-    function schedulePrayerChecks(prayerTimes) {
-        if (prayerCheckInterval) clearInterval(prayerCheckInterval);
-        
-        prayerCheckInterval = setInterval(() => {
-            const isEnabled = document.getElementById('alertToggle')?.checked;
-            if (!isEnabled) return;
-            
-            const now = new Date();
-            const currentTime = now.getHours() * 60 + now.getMinutes();
-            const currentSeconds = now.getSeconds();
-            
-            for (const [prayer, time] of Object.entries(prayerTimes)) {
-                const [hours, minutes] = time.split(':').map(Number);
-                const prayerMinutes = hours * 60 + minutes;
-                
-                if (currentTime === prayerMinutes && currentSeconds < 10) {
-                    playPrayerChime(prayer);
-                }
-            }
-        }, 5000);
-    }
+    // ========== QURAN SEARCH ==========
     
-    // ========== SCIENTIFIC MIRACLES DATABASE ==========
+    let currentMode = 'quran';
+    let currentAudio = null;
     
     const scienceDatabase = {
-        'baby': {
-            title: '🤰 Human Embryonic Development',
-            explanation: 'The Quran describes human creation in stages: Nutfah (drop) → Alaqah (clinging clot) → Mudghah (chewed lump) → bones → flesh.',
-            surah: 23,
-            verse: 12,
-            verses: ['Surah Al-Mu\'minun (23:12-14)']
-        },
-        'iron': {
-            title: '⚙️ Iron - Sent Down from Space',
-            explanation: 'The Quran states iron was "sent down". Modern astrophysics confirms iron comes from supernova explosions.',
-            surah: 57,
-            verse: 25,
-            verses: ['Surah Al-Hadid (57:25)']
-        },
-        'sun': {
-            title: '☀️ The Sun\'s Orbit',
-            explanation: 'The Quran states the sun runs to a fixed resting place. Modern science confirms the sun orbits the galactic center.',
-            surah: 36,
-            verse: 38,
-            verses: ['Surah Ya-Sin (36:38)']
-        },
-        'moon': {
-            title: '🌙 The Moon\'s Reflected Light',
-            explanation: 'The Quran distinguishes between the sun as a lamp and the moon as reflected light.',
-            surah: 71,
-            verse: 16,
-            verses: ['Surah Nuh (71:16)']
-        },
-        'water': {
-            title: '💧 The Water Cycle',
-            explanation: 'The Quran describes evaporation, clouds, rain, and springs - the complete water cycle.',
-            surah: 39,
-            verse: 21,
-            verses: ['Surah Az-Zumar (39:21)']
-        },
-        'mountains': {
-            title: '⛰️ Mountains as Pegs',
-            explanation: 'The Quran describes mountains as pegs stabilizing the earth\'s crust.',
-            surah: 78,
-            verse: 6,
-            verses: ['Surah An-Naba (78:6-7)']
-        },
-        'universe': {
-            title: '🌌 The Expanding Universe',
-            explanation: 'The Quran states "We are expanding it."',
-            surah: 51,
-            verse: 47,
-            verses: ['Surah Adh-Dhariyat (51:47)']
-        },
-        'big bang': {
-            title: '💥 The Big Bang',
-            explanation: 'The Quran describes the heavens and earth joined then separated.',
-            surah: 21,
-            verse: 30,
-            verses: ['Surah Al-Anbiya (21:30)']
-        }
+        'baby': { title: '👶 Embryonic Development', explanation: 'The Quran describes human creation in stages...', surah: 23, verse: 12 },
+        'iron': { title: '⚙️ Iron from Space', explanation: 'The Quran states iron was "sent down"...', surah: 57, verse: 25 },
+        'sun': { title: '☀️ Sun\'s Orbit', explanation: 'The Quran states the sun runs to a fixed resting place...', surah: 36, verse: 38 },
+        'moon': { title: '🌙 Moon\'s Light', explanation: 'The Quran distinguishes between sun as lamp and moon as reflected light...', surah: 71, verse: 16 },
+        'water': { title: '💧 Water Cycle', explanation: 'The Quran describes evaporation, clouds, rain...', surah: 39, verse: 21 },
+        'mountains': { title: '⛰️ Mountains as Pegs', explanation: 'The Quran describes mountains as pegs...', surah: 78, verse: 6 },
+        'universe': { title: '🌌 Expanding Universe', explanation: 'The Quran states "We are expanding it"...', surah: 51, verse: 47 }
     };
     
-    const QURAN_SEARCH_API = 'https://api.alquran.cloud/v1/search/';
+    const QURAN_API = 'https://api.alquran.cloud/v1/search/';
     const QURAN_AYAH_API = 'https://api.alquran.cloud/v1/ayah/';
-    
-    let currentAudio = null;
     
     function setMode(mode) {
         currentMode = mode;
         document.getElementById('modeQuranBtn').classList.toggle('active', mode === 'quran');
         document.getElementById('modeScienceBtn').classList.toggle('active', mode === 'science');
-        
-        const searchBtn = document.getElementById('searchBtn');
-        const searchInput = document.getElementById('searchInput');
-        
+        const btn = document.getElementById('searchBtn');
+        const input = document.getElementById('searchInput');
         if (mode === 'quran') {
-            searchBtn.innerHTML = '🔍 Search in Quran';
-            searchInput.placeholder = 'Type ANY word: mercy, justice, woman, iron, sun, moon, peace, love, water...';
-            document.getElementById('suggestionChips').innerHTML = `
-                <span class="chip" onclick="searchWord('mercy')">🤲 Mercy</span>
-                <span class="chip" onclick="searchWord('justice')">⚖️ Justice</span>
-                <span class="chip" onclick="searchWord('woman')">👩 Woman</span>
-                <span class="chip" onclick="searchWord('peace')">🕊️ Peace</span>
-                <span class="chip" onclick="searchWord('love')">❤️ Love</span>
-                <span class="chip" onclick="searchWord('iron')">⚙️ Iron</span>
-                <span class="chip" onclick="searchWord('sun')">☀️ Sun</span>
-                <span class="chip" onclick="searchWord('water')">💧 Water</span>
-            `;
+            btn.innerHTML = '🔍 Search in Quran';
+            input.placeholder = 'Type ANY word: mercy, justice, woman, iron, sun...';
         } else {
-            searchBtn.innerHTML = '🔬 Discover Scientific Miracle';
-            searchInput.placeholder = 'Search: baby, iron, sun, moon, water, mountains, universe...';
-            document.getElementById('suggestionChips').innerHTML = `
-                <span class="chip" onclick="searchWord('baby')">🤰 Baby/Embryo</span>
-                <span class="chip" onclick="searchWord('iron')">⚙️ Iron</span>
-                <span class="chip" onclick="searchWord('sun')">☀️ Sun</span>
-                <span class="chip" onclick="searchWord('moon')">🌙 Moon</span>
-                <span class="chip" onclick="searchWord('water')">💧 Water Cycle</span>
-                <span class="chip" onclick="searchWord('mountains')">⛰️ Mountains</span>
-                <span class="chip" onclick="searchWord('universe')">🌌 Universe</span>
-                <span class="chip" onclick="searchWord('big bang')">💥 Big Bang</span>
-            `;
+            btn.innerHTML = '🔬 Discover Scientific Miracle';
+            input.placeholder = 'Search: baby, iron, sun, moon, water, universe...';
         }
     }
     
@@ -894,21 +960,14 @@
     
     async function fetchAyahText(surah, verse) {
         try {
-            const response = await fetch(`${QURAN_AYAH_API}${surah}:${verse}/editions/ar.sahih,en.sahih`);
-            if (response.ok) {
-                const data = await response.json();
-                if (data && data.data) {
-                    const arabic = data.data.find(d => d.edition?.identifier === 'ar.sahih');
-                    const english = data.data.find(d => d.edition?.identifier === 'en.sahih');
-                    return {
-                        arabic: arabic?.text || '',
-                        english: english?.text || ''
-                    };
-                }
+            const res = await fetch(`${QURAN_AYAH_API}${surah}:${verse}/editions/ar.sahih,en.sahih`);
+            const data = await res.json();
+            if (data && data.data) {
+                const arabic = data.data.find(d => d.edition?.identifier === 'ar.sahih');
+                const english = data.data.find(d => d.edition?.identifier === 'en.sahih');
+                return { arabic: arabic?.text || '', english: english?.text || '' };
             }
-        } catch(e) {
-            console.log('Error:', e);
-        }
+        } catch(e) {}
         return null;
     }
     
@@ -917,162 +976,69 @@
     }
     
     function playAudio(surah, verse, button) {
-        const audioUrl = getAudioUrl(surah, verse);
-        
         if (currentAudio) {
             currentAudio.pause();
             currentAudio = null;
-            document.querySelectorAll('.play-btn').forEach(btn => {
-                btn.innerHTML = '🔊 Play';
-            });
+            document.querySelectorAll('.play-btn').forEach(btn => btn.innerHTML = '🔊 Play');
         }
-        
-        const audio = new Audio(audioUrl);
+        const audio = new Audio(getAudioUrl(surah, verse));
         currentAudio = audio;
-        
-        audio.onplay = () => {
-            button.innerHTML = '🎧 Playing...';
-        };
-        
-        audio.onended = () => {
-            button.innerHTML = '🔊 Play';
-            currentAudio = null;
-        };
-        
-        audio.onerror = () => {
-            button.innerHTML = '🔊 Play';
-        };
-        
-        audio.play().catch(e => console.log('Audio error:', e));
-    }
-    
-    async function searchQuranAnyWord(term) {
-        try {
-            const response = await fetch(QURAN_SEARCH_API + encodeURIComponent(term) + '/all/en');
-            if (response.ok) {
-                const data = await response.json();
-                if (data && data.data && data.data.matches) {
-                    return data.data.matches.slice(0, 8);
-                }
-            }
-        } catch(e) {
-            console.log('Search error:', e);
-        }
-        return [];
+        audio.onplay = () => button.innerHTML = '🎧 Playing...';
+        audio.onended = () => { button.innerHTML = '🔊 Play'; currentAudio = null; };
+        audio.onerror = () => button.innerHTML = '🔊 Play';
+        audio.play().catch(e => console.log('Error:', e));
     }
     
     async function performSearch() {
-        const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-        const resultsGrid = document.getElementById('resultsGrid');
-        
-        if (!searchTerm) {
-            resultsGrid.innerHTML = '<div class="no-results">✨ Enter a word to search the Quran or discover scientific miracles</div>';
-            return;
-        }
-        
-        resultsGrid.innerHTML = '<div class="loading">Searching...</div>';
+        const term = document.getElementById('searchInput').value.trim().toLowerCase();
+        const grid = document.getElementById('resultsGrid');
+        if (!term) { grid.innerHTML = '<div class="no-results">✨ Enter a word to search</div>'; return; }
+        grid.innerHTML = '<div class="loading">Searching...</div>';
         
         if (currentMode === 'quran') {
-            const verses = await searchQuranAnyWord(searchTerm);
-            displayQuranResults(searchTerm, verses);
-        } else {
-            let scienceMatch = null;
-            for (const key in scienceDatabase) {
-                if (searchTerm.includes(key) || key.includes(searchTerm)) {
-                    scienceMatch = scienceDatabase[key];
-                    break;
+            try {
+                const res = await fetch(QURAN_API + encodeURIComponent(term) + '/all/en');
+                const data = await res.json();
+                if (data && data.data && data.data.matches) {
+                    let html = '<div class="results-grid">';
+                    for (const verse of data.data.matches.slice(0, 8)) {
+                        html += `
+                            <div class="result-card">
+                                <div class="result-header"><span class="result-surah">📖 ${verse.surah.name} (${verse.surah.number}:${verse.numberInSurah})</span></div>
+                                <div class="result-body" style="padding:20px;">
+                                    <div class="arabic-text">${verse.text}</div>
+                                    <div class="english-text">${verse.translation || 'Translation available'}</div>
+                                    <div class="audio-player"><button class="play-btn" onclick="playAudio(${verse.surah.number}, ${verse.numberInSurah}, this)">🔊 Play Recitation</button></div>
+                                </div>
+                            </div>`;
+                    }
+                    html += '</div>';
+                    grid.innerHTML = html;
+                } else {
+                    grid.innerHTML = '<div class="no-results">📭 No verses found. Try: mercy, justice, love, peace, woman</div>';
                 }
+            } catch(e) { grid.innerHTML = '<div class="no-results">⚠️ Search error. Try again.</div>'; }
+        } else {
+            let match = null;
+            for (const key in scienceDatabase) {
+                if (term.includes(key) || key.includes(term)) { match = scienceDatabase[key]; break; }
             }
-            
-            if (scienceMatch) {
-                const quranData = await fetchAyahText(scienceMatch.surah, scienceMatch.verse);
-                displayScienceResult(scienceMatch, quranData);
-            } else {
-                resultsGrid.innerHTML = `
+            if (match) {
+                const quranData = await fetchAyahText(match.surah, match.verse);
+                grid.innerHTML = `
                     <div class="results-grid">
                         <div class="result-card">
-                            <div class="result-header"><span class="result-surah">🔍 SCIENTIFIC MIRACLES</span></div>
-                            <div class="result-body" style="padding: 20px;">
-                                <div class="science-box">
-                                    <div class="science-title">📚 Scientific Miracles</div>
-                                    <div>Try searching: baby, iron, sun, moon, water, mountains, universe</div>
-                                </div>
+                            <div class="result-header"><span class="result-surah">🔬 SCIENTIFIC MIRACLE</span></div>
+                            <div class="result-body" style="padding:20px;">
+                                <div class="science-box"><div class="science-title">${match.title}</div><div>${match.explanation}</div></div>
+                                ${quranData ? `<div style="margin-top:15px;"><div class="arabic-text">${quranData.arabic}</div><div class="english-text">${quranData.english}</div><div class="audio-player"><button class="play-btn" onclick="playAudio(${match.surah}, ${match.verse}, this)">🔊 Play Recitation</button></div></div>` : ''}
                             </div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
+            } else {
+                grid.innerHTML = `<div class="no-results">🔍 Try: baby, iron, sun, moon, water, mountains, universe, big bang</div>`;
             }
         }
-    }
-    
-    function displayQuranResults(searchTerm, verses) {
-        const resultsGrid = document.getElementById('resultsGrid');
-        
-        if (!verses || verses.length === 0) {
-            resultsGrid.innerHTML = `<div class="no-results">📭 No verses found containing "${escapeHtml(searchTerm)}"</div>`;
-            return;
-        }
-        
-        let html = '<div class="results-grid">';
-        for (const verse of verses) {
-            const surahNum = verse.surah?.number || '';
-            const ayahNum = verse.numberInSurah || '';
-            const surahName = verse.surah?.name || 'Quran';
-            const arabicText = verse.text || '';
-            const englishText = verse.translation || '';
-            
-            html += `
-                <div class="result-card">
-                    <div class="result-header">
-                        <span class="result-surah">📖 ${escapeHtml(surahName)} (${surahNum}:${ayahNum})</span>
-                    </div>
-                    <div class="result-body" style="padding: 20px;">
-                        <div class="arabic-text">${escapeHtml(arabicText)}</div>
-                        <div class="english-text">${escapeHtml(englishText)}</div>
-                        <div class="audio-player">
-                            <button class="play-btn" onclick="playAudio(${surahNum}, ${ayahNum}, this)">🔊 Play Recitation</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-        html += '</div>';
-        resultsGrid.innerHTML = html;
-    }
-    
-    function displayScienceResult(scienceMatch, quranData) {
-        const resultsGrid = document.getElementById('resultsGrid');
-        let html = '<div class="results-grid">';
-        
-        html += `
-            <div class="result-card">
-                <div class="result-header"><span class="result-surah">🔬 SCIENTIFIC MIRACLE</span></div>
-                <div class="result-body" style="padding: 20px;">
-                    <div class="science-box">
-                        <div class="science-title">${scienceMatch.title}</div>
-                        <div>${scienceMatch.explanation}</div>
-                    </div>
-        `;
-        
-        if (quranData && quranData.arabic) {
-            html += `
-                <div style="margin-top: 15px;">
-                    <strong>📖 Quran Verse</strong>
-                    <div class="arabic-text">${escapeHtml(quranData.arabic)}</div>
-                    <div class="english-text">${escapeHtml(quranData.english)}</div>
-                </div>
-            `;
-        }
-        
-        html += `</div></div></div>`;
-        resultsGrid.innerHTML = html;
-    }
-    
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
     }
     
     function showToast(msg) {
@@ -1083,48 +1049,38 @@
         setTimeout(() => toast.remove(), 3000);
     }
     
-    // Initialize audio context on first user interaction (required by browsers)
-    function initAudioOnFirstClick() {
-        if (!audioContext) {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-            showToast('🎵 Prayer chime ready! Toggle ON to hear at prayer times.');
-        }
-    }
-    
     // Event listeners
     document.getElementById('searchBtn').addEventListener('click', performSearch);
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') performSearch();
-    });
-    
+    document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') performSearch(); });
     document.getElementById('alertToggle').addEventListener('change', toggleChime);
     document.getElementById('testAlertBtn').addEventListener('click', testChime);
+    document.body.addEventListener('click', () => { if (audioContext && audioContext.state === 'suspended') audioContext.resume(); });
     
-    // Initialize audio on page click (required for browsers to allow sound)
-    document.body.addEventListener('click', initAudioOnFirstClick);
-    
+    // Initialize all engagement features
+    updateStreak();
+    loadVerseOfDay();
+    loadDailyChallenge();
     loadChimePreference();
     
-    // Auto-request location
+    // Auto-location for prayer times
     setTimeout(() => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(async (position) => {
-                userLat = position.coords.latitude;
-                userLon = position.coords.longitude;
-                await getPrayerTimes(userLat, userLon);
-            }, () => {
-                document.getElementById('nextPrayer').innerHTML = '⚠️ Allow location for prayer times';
-            });
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+                await getPrayerTimes(pos.coords.latitude, pos.coords.longitude);
+            }, () => { document.getElementById('nextPrayer').innerHTML = '⚠️ Allow location for prayer times'; });
         }
     }, 1000);
     
+    function loadChimePreference() {
+        const saved = localStorage.getItem('chimeEnabled');
+        if (saved !== null) chimeEnabled = saved === 'true';
+        document.getElementById('alertToggle').checked = chimeEnabled;
+        document.getElementById('alertStatusText').innerHTML = chimeEnabled ? 'ON' : 'OFF';
+        document.getElementById('alertStatusText').className = chimeEnabled ? 'alert-status alert-on' : 'alert-status alert-off';
+    }
+    
     // Welcome
-    setTimeout(() => {
-        showToast('🏆 MPRIMO Quran & Science | Tap Test Chime to hear the sound!');
-    }, 1500);
+    setTimeout(() => showToast('🏆 MPRIMO | Daily challenges, streak, and verse of the day!'), 2000);
 </script>
 
 <style>
