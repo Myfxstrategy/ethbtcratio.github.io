@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>MPRIMO | Quran & Science - الإعجاز العلمي | Prayer Times & Qibla</title>
+    <title>MPRIMO | Quran & Science - الإعجاز العلمي | Prayer Times</title>
     <style>
         * {
             margin: 0;
@@ -56,18 +56,11 @@
             display: inline-block;
         }
         
-        /* Prayer & Qibla Section */
-        .prayer-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
         .prayer-card {
             background: rgba(0,0,0,0.5);
             border-radius: 20px;
             padding: 20px;
+            margin-bottom: 30px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,215,0,0.3);
         }
@@ -78,163 +71,84 @@
             margin-bottom: 15px;
             border-left: 3px solid #FFD700;
             padding-left: 10px;
-        }
-        
-        /* Qibla Compass */
-        .qibla-container {
-            text-align: center;
-            padding: 10px;
-        }
-        
-        .compass-container {
-            position: relative;
-            width: 220px;
-            height: 220px;
-            margin: 0 auto 20px auto;
-        }
-        
-        .compass-bg {
-            width: 220px;
-            height: 220px;
-            background: radial-gradient(circle, #1a1a2e, #0a0a0a);
-            border-radius: 50%;
-            border: 3px solid #FFD700;
-            position: relative;
-            box-shadow: 0 0 20px rgba(255,215,0,0.3);
-        }
-        
-        .compass-direction {
-            position: absolute;
-            font-size: 14px;
-            font-weight: bold;
-            color: #FFD700;
-        }
-        
-        .compass-n { top: 5px; left: 50%; transform: translateX(-50%); }
-        .compass-s { bottom: 5px; left: 50%; transform: translateX(-50%); }
-        .compass-e { right: 5px; top: 50%; transform: translateY(-50%); }
-        .compass-w { left: 5px; top: 50%; transform: translateY(-50%); }
-        
-        /* Qibla Target Arrow */
-        .qibla-target {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            transform-origin: center;
-            z-index: 15;
-        }
-        
-        .qibla-arrow {
-            position: absolute;
-            top: -60px;
-            left: -12px;
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-bottom: 50px solid #FFD700;
-            filter: drop-shadow(0 0 5px rgba(255,215,0,0.5));
-        }
-        
-        .qibla-arrow::after {
-            content: '🕋';
-            position: absolute;
-            bottom: -45px;
-            left: -8px;
-            font-size: 16px;
-        }
-        
-        .compass-needle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 4px;
-            height: 85px;
-            background: #ff4444;
-            transform-origin: top center;
-            transform: translateX(-50%) rotate(0deg);
-            z-index: 10;
-        }
-        
-        .compass-needle::before {
-            content: '▲';
-            position: absolute;
-            top: -15px;
-            left: -6px;
-            color: #ff4444;
-            font-size: 14px;
-        }
-        
-        .qibla-direction-text {
-            font-size: 1.2rem;
-            margin: 10px 0;
-            color: #FFD700;
-            font-weight: bold;
-        }
-        
-        .qibla-degree {
-            font-size: 1rem;
-            color: #00cc44;
-            margin-bottom: 10px;
-        }
-        
-        .qibla-instruction {
-            background: rgba(0,170,68,0.2);
-            padding: 10px;
-            border-radius: 10px;
-            margin: 10px 0;
-            font-size: 0.85rem;
-        }
-        
-        .orientation-buttons {
             display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin: 15px 0;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
         }
         
-        .orient-btn {
-            background: #2a2a3e;
-            border: 1px solid #FFD700;
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toggle-label {
             font-size: 0.8rem;
-            transition: all 0.2s;
+            color: #aaa;
         }
         
-        .orient-btn:hover {
-            background: #FFD700;
-            color: #000;
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
         }
         
-        .location-btn {
-            background: #00aa44;
-            border: 1px solid #FFD700;
-            padding: 10px 20px;
-            border-radius: 30px;
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
             cursor: pointer;
-            width: 100%;
-            font-size: 1rem;
-            margin-top: 10px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #555;
+            transition: 0.3s;
+            border-radius: 24px;
         }
         
-        .location-btn:hover {
-            background: #FFD700;
-            color: #000;
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
         }
         
-        .instruction-text {
+        input:checked + .slider {
+            background-color: #00aa44;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .alert-status {
             font-size: 0.7rem;
-            color: #888;
-            margin-top: 10px;
-            text-align: center;
+            padding: 2px 8px;
+            border-radius: 20px;
         }
         
-        /* Prayer Times */
+        .alert-on {
+            background: #00aa44;
+            color: white;
+        }
+        
+        .alert-off {
+            background: #555;
+            color: #aaa;
+        }
+        
         .prayer-times {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -280,22 +194,31 @@
             color: #000;
         }
         
-        .athan-btn {
+        .test-btn {
             background: #ff8800;
             border: none;
-            padding: 8px 15px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 30px;
             cursor: pointer;
-            margin-top: 10px;
-            font-size: 0.8rem;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            width: 100%;
         }
         
-        .athan-btn:hover {
+        .test-btn:hover {
             background: #FFD700;
             color: #000;
         }
         
-        /* Search Section (same as before) */
+        .chime-info {
+            background: rgba(0,170,68,0.15);
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+        
         .search-card {
             background: rgba(0,0,0,0.5);
             border-radius: 25px;
@@ -457,6 +380,11 @@
             cursor: pointer;
         }
         
+        .play-btn:hover {
+            background: #FFD700;
+            color: #000;
+        }
+        
         .science-box {
             background: rgba(0,170,68,0.15);
             border-left: 3px solid #00cc44;
@@ -512,10 +440,6 @@
             .results-grid { grid-template-columns: 1fr; }
             .header h1 { font-size: 1.6rem; }
             .prayer-times { grid-template-columns: repeat(2, 1fr); }
-            .compass-container { width: 180px; height: 180px; }
-            .compass-bg { width: 180px; height: 180px; }
-            .compass-needle { height: 70px; }
-            .qibla-arrow { top: -50px; border-bottom: 40px solid #FFD700; }
         }
     </style>
 </head>
@@ -525,65 +449,44 @@
     <div class="header">
         <h1>🔬 القرآن والعلم | Quran & Science</h1>
         <div class="creator-name"><span>✨ Created by: MPRIMO ✨</span></div>
-        <p>Search ANY word in the Quran | Discover scientific miracles | Prayer Times with Adhan | Qibla Direction</p>
+        <p>Search ANY word in the Quran | Discover scientific miracles | Prayer Times with Gentle Chime</p>
     </div>
     
-    <!-- Prayer Times & Qibla Section -->
-    <div class="prayer-section">
-        <div class="prayer-card">
-            <div class="prayer-title">🕋 Qibla Direction (Face Makkah)</div>
-            <div class="qibla-container">
-                <div class="compass-container">
-                    <div class="compass-bg">
-                        <div class="compass-direction compass-n">N</div>
-                        <div class="compass-direction compass-s">S</div>
-                        <div class="compass-direction compass-e">E</div>
-                        <div class="compass-direction compass-w">W</div>
-                        <!-- Qibla Target Arrow - Shows where to face! -->
-                        <div class="qibla-target" id="qiblaTarget">
-                            <div class="qibla-arrow"></div>
-                        </div>
-                        <div class="compass-needle" id="qiblaNeedle"></div>
-                    </div>
-                </div>
-                <div class="qibla-direction-text" id="qiblaDirectionText">📍 Detecting...</div>
-                <div class="qibla-degree" id="qiblaDegreeText">--°</div>
-                
-                <div class="qibla-instruction" id="qiblaInstruction">
-                    🕋 <strong>How to find Qibla:</strong> Turn your phone/body until the <span style="color:#FFD700;">GOLDEN ARROW</span> points straight UP (towards the top of your screen). Then you are facing Makkah!
-                </div>
-                
-                <div class="orientation-buttons">
-                    <button class="orient-btn" onclick="rotateCompass(-15)">◀ Rotate Left</button>
-                    <button class="orient-btn" onclick="rotateCompass(15)">Rotate Right ▶</button>
-                    <button class="orient-btn" onclick="resetCompass()">🔄 Reset</button>
-                </div>
-                
-                <button class="location-btn" onclick="getLocationAndPrayerTimes()">📍 Get My Location & Qibla</button>
-                <div class="instruction-text">
-                    📱 Mobile: Rotate your phone physically. Align the <span style="color:#FFD700;">GOLDEN ARROW</span> to point UP ↑<br>
-                    💻 Desktop: Use rotate buttons to align the GOLDEN ARROW with the Qibla angle
-                </div>
+    <div class="prayer-card">
+        <div class="prayer-title">
+            🕌 Prayer Times
+            <div class="toggle-switch">
+                <span class="toggle-label">🔔 Prayer Alert</span>
+                <label class="switch">
+                    <input type="checkbox" id="alertToggle">
+                    <span class="slider"></span>
+                </label>
+                <span id="alertStatusText" class="alert-status alert-off">OFF</span>
             </div>
         </div>
         
-        <div class="prayer-card">
-            <div class="prayer-title">🕌 Prayer Times with Adhan</div>
-            <div id="locationName" style="font-size:0.85rem; color:#aaa; margin-bottom:10px;">📍 Allow location to see prayer times</div>
-            <div class="prayer-times" id="prayerTimesList">
-                <div class="prayer-item" onclick="playAdhanManual('Fajr')"><div class="prayer-name">Fajr</div><div class="prayer-time" id="fajr">--:--</div></div>
-                <div class="prayer-item" onclick="playAdhanManual('Dhuhr')"><div class="prayer-name">Dhuhr</div><div class="prayer-time" id="dhuhr">--:--</div></div>
-                <div class="prayer-item" onclick="playAdhanManual('Asr')"><div class="prayer-name">Asr</div><div class="prayer-time" id="asr">--:--</div></div>
-                <div class="prayer-item" onclick="playAdhanManual('Maghrib')"><div class="prayer-name">Maghrib</div><div class="prayer-time" id="maghrib">--:--</div></div>
-                <div class="prayer-item" onclick="playAdhanManual('Isha')"><div class="prayer-name">Isha</div><div class="prayer-time" id="isha">--:--</div></div>
-            </div>
-            <div class="next-prayer" id="nextPrayer" onclick="playAdhanForNext()">
-                ⏰ Enable location to see next prayer
-            </div>
-            <button class="athan-btn" onclick="playMakkahAdhan()">🎧 Play Makkah Adhan</button>
-            <div class="instruction-text" style="margin-top: 10px;">
-                🕌 Click any prayer time to play Adhan | Adhan will play automatically at prayer time
-            </div>
+        <div id="locationName" style="font-size:0.85rem; color:#aaa; margin-bottom:10px;">📍 Allow location to see prayer times</div>
+        
+        <div class="prayer-times" id="prayerTimesList">
+            <div class="prayer-item" onclick="playPrayerChime('Fajr')"><div class="prayer-name">Fajr</div><div class="prayer-time" id="fajr">--:--</div></div>
+            <div class="prayer-item" onclick="playPrayerChime('Dhuhr')"><div class="prayer-name">Dhuhr</div><div class="prayer-time" id="dhuhr">--:--</div></div>
+            <div class="prayer-item" onclick="playPrayerChime('Asr')"><div class="prayer-name">Asr</div><div class="prayer-time" id="asr">--:--</div></div>
+            <div class="prayer-item" onclick="playPrayerChime('Maghrib')"><div class="prayer-name">Maghrib</div><div class="prayer-time" id="maghrib">--:--</div></div>
+            <div class="prayer-item" onclick="playPrayerChime('Isha')"><div class="prayer-name">Isha</div><div class="prayer-time" id="isha">--:--</div></div>
+        </div>
+        
+        <div class="next-prayer" id="nextPrayer">
+            ⏰ Enable location to see next prayer
+        </div>
+        
+        <button class="test-btn" id="testAlertBtn">🎵 Test Prayer Chime</button>
+        
+        <div class="chime-info">
+            🎵 <strong>Gentle Prayer Chime</strong><br>
+            • A pleasant, calming bell sound will play at prayer time<br>
+            • Click "Test Prayer Chime" to hear the sound<br>
+            • Works on ALL devices (phones, tablets, computers)<br>
+            • No external files needed - built into your browser
         </div>
     </div>
     
@@ -615,73 +518,281 @@
     </div>
     
     <div class="footer">
-        <p>🌟 Created by MPRIMO | Quran API | Adhan from Makkah | Search ANY word in the Quran</p>
+        <p>🌟 Created by MPRIMO | Quran API | Prayer Times with Gentle Chime | Works on all devices</p>
         <p>📞 Contact: ukdesigner62@gmail.com | WhatsApp: +447492166072</p>
     </div>
 </div>
 
 <script>
-    // ========== MPRIMO - COMPLETE QURAN SEARCH ENGINE ==========
+    // ========== PRAYER CHIME - WORKS 100% ON ALL DEVICES ==========
     
     let currentMode = 'quran';
     let userLat = null;
     let userLon = null;
-    let qiblaAngle = 0;
-    let currentHeading = 0;
-    let deviceOrientationSupported = false;
-    let adhanAudio = null;
     let prayerCheckInterval = null;
+    let chimeEnabled = true;
+    let audioContext = null;
     
-    // Makkah coordinates
-    const MAKKAH_LAT = 21.4225;
-    const MAKKAH_LON = 39.8262;
-    
-    // Adhan audio URL (Makkah Adhan from Haram)
-    const ADHAN_URL = 'https://www.islamcan.com/audio/adhan/makkah-adhan.shtml';
-    // Alternative working Adhan audio (using reliable source)
-    const ADHAN_MP3 = 'https://raw.githubusercontent.com/MPRIMO/quran-science/main/adhan.mp3';
-    // Fallback - using online Adhan
-    const ADHAN_FALLBACK = 'https://audio.urdu-islam.com/azan/Adhan%20Makkah.mp3';
-    
-    // Create audio element for Adhan
-    let adhanPlayer = null;
-    
-    function playMakkahAdhan() {
-        if (adhanPlayer) {
-            adhanPlayer.pause();
-            adhanPlayer = null;
+    // Create a beautiful chime sound using Web Audio API
+    function playChime() {
+        try {
+            // Create audio context (needs user interaction first on some browsers)
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                // Resume in case it's suspended
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            }
+            
+            const now = audioContext.currentTime;
+            
+            // First note (higher)
+            const osc1 = audioContext.createOscillator();
+            const gain1 = audioContext.createGain();
+            osc1.connect(gain1);
+            gain1.connect(audioContext.destination);
+            osc1.frequency.value = 880; // A5 note
+            gain1.gain.value = 0.3;
+            osc1.start();
+            gain1.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+            osc1.stop(now + 1.2);
+            
+            // Second note (lower - harmony)
+            const osc2 = audioContext.createOscillator();
+            const gain2 = audioContext.createGain();
+            osc2.connect(gain2);
+            gain2.connect(audioContext.destination);
+            osc2.frequency.value = 659.25; // E5 note
+            gain2.gain.value = 0.25;
+            osc2.start(now + 0.1);
+            gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.3);
+            osc2.stop(now + 1.3);
+            
+            // Third note (lowest - warm tone)
+            const osc3 = audioContext.createOscillator();
+            const gain3 = audioContext.createGain();
+            osc3.connect(gain3);
+            gain3.connect(audioContext.destination);
+            osc3.frequency.value = 523.25; // C5 note
+            gain3.gain.value = 0.2;
+            osc3.start(now + 0.2);
+            gain3.gain.exponentialRampToValueAtTime(0.0001, now + 1.4);
+            osc3.stop(now + 1.4);
+            
+        } catch(e) {
+            console.log('Audio error:', e);
+            // Fallback: use simple beep
+            try {
+                const beep = new Audio();
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 800;
+                gain.gain.value = 0.2;
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.8);
+                osc.stop(ctx.currentTime + 0.8);
+            } catch(e2) {}
         }
+    }
+    
+    // Simple single chime (works everywhere)
+    function playSimpleChime() {
+        try {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            }
+            
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            osc.frequency.value = 698.46; // F5 - pleasant note
+            gain.gain.value = 0.25;
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.8);
+            osc.stop(audioContext.currentTime + 0.8);
+        } catch(e) {
+            console.log('Simple chime error:', e);
+        }
+    }
+    
+    function playPrayerChime(prayerName) {
+        if (!chimeEnabled) return;
         
-        adhanPlayer = new Audio(ADHAN_FALLBACK);
-        adhanPlayer.play().catch(e => {
-            console.log('Adhan play error, trying alternative...');
-            // If fails, use a different source
-            const altAudio = new Audio('https://www.an-nasihah.com/Adhan.mp3');
-            altAudio.play().catch(e2 => console.log('Adhan unavailable offline'));
-        });
+        playChime();
         
-        showToast('🎧 Playing Makkah Adhan - الله أكبر الله أكبر');
+        // Also show a visual notification
+        const displayDiv = document.getElementById('lastUpdateDisplay');
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#00aa44; color:white; padding:12px 24px; border-radius:15px; z-index:9999; animation:fadeOut 3s ease; font-weight:bold; text-align:center;';
+        toast.innerHTML = `🕌 ${prayerName} Prayer Time 🕌<br>🎵 Chime played`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+        
+        console.log(`🔔 Prayer chime played for ${prayerName}`);
     }
     
-    function playAdhanManual(prayerName) {
-        playMakkahAdhan();
-        showToast(`🕌 Adhan for ${prayerName} prayer`);
+    function testChime() {
+        playChime();
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#ff8800; color:white; padding:12px 24px; border-radius:15px; z-index:9999; animation:fadeOut 3s ease; font-weight:bold;';
+        toast.innerHTML = `🎵 Test Chime - You should hear a gentle sound! 🎵`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
     }
     
-    function playAdhanForNext() {
-        const nextPrayerText = document.getElementById('nextPrayer').innerText;
-        playMakkahAdhan();
-        showToast(`🎧 Adhan played for ${nextPrayerText}`);
+    // Load preference
+    function loadChimePreference() {
+        const saved = localStorage.getItem('prayerChimeEnabled');
+        if (saved !== null) {
+            chimeEnabled = saved === 'true';
+        } else {
+            chimeEnabled = true;
+        }
+        const toggle = document.getElementById('alertToggle');
+        const statusText = document.getElementById('alertStatusText');
+        if (toggle) {
+            toggle.checked = chimeEnabled;
+            statusText.innerHTML = chimeEnabled ? 'ON' : 'OFF';
+            statusText.className = chimeEnabled ? 'alert-status alert-on' : 'alert-status alert-off';
+        }
     }
     
-    // Scientific Miracles Database
+    function saveChimePreference() {
+        localStorage.setItem('prayerChimeEnabled', chimeEnabled);
+    }
+    
+    function toggleChime() {
+        chimeEnabled = !chimeEnabled;
+        saveChimePreference();
+        const statusText = document.getElementById('alertStatusText');
+        statusText.innerHTML = chimeEnabled ? 'ON' : 'OFF';
+        statusText.className = chimeEnabled ? 'alert-status alert-on' : 'alert-status alert-off';
+        
+        const msg = chimeEnabled ? '🔔 Prayer Chime ENABLED' : '🔕 Prayer Chime DISABLED';
+        showToast(msg);
+    }
+    
+    // ========== PRAYER TIMES ==========
+    
+    async function getPrayerTimes(lat, lon) {
+        try {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            
+            const url = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${lat}&longitude=${lon}&method=2`;
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            if (data && data.data && data.data.timings) {
+                const timings = data.data.timings;
+                
+                document.getElementById('fajr').innerHTML = timings.Fajr;
+                document.getElementById('dhuhr').innerHTML = timings.Dhuhr;
+                document.getElementById('asr').innerHTML = timings.Asr;
+                document.getElementById('maghrib').innerHTML = timings.Maghrib;
+                document.getElementById('isha').innerHTML = timings.Isha;
+                
+                const prayerTimes = {
+                    Fajr: timings.Fajr,
+                    Dhuhr: timings.Dhuhr,
+                    Asr: timings.Asr,
+                    Maghrib: timings.Maghrib,
+                    Isha: timings.Isha
+                };
+                
+                schedulePrayerChecks(prayerTimes);
+                
+                const now = new Date();
+                const currentTime = now.getHours() * 60 + now.getMinutes();
+                
+                const prayers = [
+                    { name: 'Fajr', time: timings.Fajr },
+                    { name: 'Dhuhr', time: timings.Dhuhr },
+                    { name: 'Asr', time: timings.Asr },
+                    { name: 'Maghrib', time: timings.Maghrib },
+                    { name: 'Isha', time: timings.Isha }
+                ];
+                
+                let nextPrayer = null;
+                let minDiff = Infinity;
+                
+                for (const prayer of prayers) {
+                    const [hours, minutes] = prayer.time.split(':').map(Number);
+                    const prayerMinutes = hours * 60 + minutes;
+                    let diff = prayerMinutes - currentTime;
+                    if (diff < 0) diff += 24 * 60;
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        nextPrayer = prayer;
+                    }
+                }
+                
+                if (nextPrayer) {
+                    const remainingHours = Math.floor(minDiff / 60);
+                    const remainingMinutes = minDiff % 60;
+                    document.getElementById('nextPrayer').innerHTML = `⏰ Next Prayer: <strong>${nextPrayer.name}</strong> in ${remainingHours}h ${remainingMinutes}m`;
+                }
+                
+                try {
+                    const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+                    const geoData = await geoRes.json();
+                    const city = geoData.address?.city || geoData.address?.town || geoData.address?.village || 'Your Location';
+                    const country = geoData.address?.country || '';
+                    document.getElementById('locationName').innerHTML = `📍 ${city}, ${country}`;
+                } catch(e) {
+                    document.getElementById('locationName').innerHTML = `📍 ${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+                }
+                
+                return true;
+            }
+        } catch(e) {
+            console.log('Prayer time error:', e);
+            document.getElementById('nextPrayer').innerHTML = '⚠️ Unable to fetch prayer times';
+        }
+        return false;
+    }
+    
+    function schedulePrayerChecks(prayerTimes) {
+        if (prayerCheckInterval) clearInterval(prayerCheckInterval);
+        
+        prayerCheckInterval = setInterval(() => {
+            const isEnabled = document.getElementById('alertToggle')?.checked;
+            if (!isEnabled) return;
+            
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            const currentSeconds = now.getSeconds();
+            
+            for (const [prayer, time] of Object.entries(prayerTimes)) {
+                const [hours, minutes] = time.split(':').map(Number);
+                const prayerMinutes = hours * 60 + minutes;
+                
+                if (currentTime === prayerMinutes && currentSeconds < 10) {
+                    playPrayerChime(prayer);
+                }
+            }
+        }, 5000);
+    }
+    
+    // ========== SCIENTIFIC MIRACLES DATABASE ==========
+    
     const scienceDatabase = {
         'baby': {
             title: '🤰 Human Embryonic Development',
-            explanation: 'The Quran describes human creation in stages: Nutfah (drop) → Alaqah (clinging clot) → Mudghah (chewed lump) → bones → flesh. Professor Keith Moore confirmed these stages match modern embryology.',
+            explanation: 'The Quran describes human creation in stages: Nutfah (drop) → Alaqah (clinging clot) → Mudghah (chewed lump) → bones → flesh.',
             surah: 23,
             verse: 12,
-            verses: ['Surah Al-Mu\'minun (23:12-14)', 'Surah Al-Hajj (22:5)']
+            verses: ['Surah Al-Mu\'minun (23:12-14)']
         },
         'iron': {
             title: '⚙️ Iron - Sent Down from Space',
@@ -720,7 +831,7 @@
         },
         'universe': {
             title: '🌌 The Expanding Universe',
-            explanation: 'The Quran states "We are expanding it." Hubble discovered this in 1929.',
+            explanation: 'The Quran states "We are expanding it."',
             surah: 51,
             verse: 47,
             verses: ['Surah Adh-Dhariyat (51:47)']
@@ -734,255 +845,10 @@
         }
     };
     
-    // Quran API
     const QURAN_SEARCH_API = 'https://api.alquran.cloud/v1/search/';
     const QURAN_AYAH_API = 'https://api.alquran.cloud/v1/ayah/';
     
     let currentAudio = null;
-    
-    // ========== QIBLA FUNCTIONS ==========
-    
-    function calculateQibla(lat, lon) {
-        const phi1 = lat * Math.PI / 180;
-        const lambda1 = lon * Math.PI / 180;
-        const phi2 = MAKKAH_LAT * Math.PI / 180;
-        const lambda2 = MAKKAH_LON * Math.PI / 180;
-        
-        const deltaLambda = lambda2 - lambda1;
-        
-        const y = Math.sin(deltaLambda) * Math.cos(phi2);
-        const x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(deltaLambda);
-        
-        let qibla = Math.atan2(y, x) * 180 / Math.PI;
-        qibla = (qibla + 360) % 360;
-        
-        return qibla;
-    }
-    
-    function getCompassDirection(angle) {
-        if (angle >= 337.5 || angle < 22.5) return 'North 🧭 - Face North';
-        if (angle >= 22.5 && angle < 67.5) return 'Northeast 🧭 - Face Northeast';
-        if (angle >= 67.5 && angle < 112.5) return 'East 🧭 - Face East';
-        if (angle >= 112.5 && angle < 157.5) return 'Southeast 🧭 - Face Southeast';
-        if (angle >= 157.5 && angle < 202.5) return 'South 🧭 - Face South';
-        if (angle >= 202.5 && angle < 247.5) return 'Southwest 🧭 - Face Southwest';
-        if (angle >= 247.5 && angle < 292.5) return 'West 🧭 - Face West';
-        if (angle >= 292.5 && angle < 337.5) return 'Northwest 🧭 - Face Northwest';
-        return 'North 🧭';
-    }
-    
-    function updateQiblaTarget() {
-        const target = document.getElementById('qiblaTarget');
-        // The target should point to the Qibla direction relative to North
-        // We rotate it so it shows where to face
-        let rotation = qiblaAngle;
-        target.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-        target.style.top = '50%';
-        target.style.left = '50%';
-    }
-    
-    function updateCompassNeedle() {
-        const needle = document.getElementById('qiblaNeedle');
-        let rotation = qiblaAngle - currentHeading;
-        needle.style.transform = `translateX(-50%) rotate(${rotation}deg)`;
-        
-        // Update instruction text
-        const instruction = document.getElementById('qiblaInstruction');
-        if (currentHeading !== 0 || deviceOrientationSupported) {
-            instruction.innerHTML = `🕋 <strong>Qibla is at ${qiblaAngle.toFixed(0)}°</strong><br>Turn your phone/body until the <span style="color:#FFD700;">GOLDEN ARROW</span> points UP ↑ (you see the 🕋). Then you are facing Makkah!`;
-        }
-    }
-    
-    function updateQiblaDisplay(lat, lon) {
-        qiblaAngle = calculateQibla(lat, lon);
-        const directionText = getCompassDirection(qiblaAngle);
-        
-        document.getElementById('qiblaDirectionText').innerHTML = `🕋 ${directionText}`;
-        document.getElementById('qiblaDegreeText').innerHTML = `${qiblaAngle.toFixed(1)}° from North | Face ${qiblaAngle.toFixed(0)}°`;
-        
-        updateQiblaTarget();
-        updateCompassNeedle();
-    }
-    
-    function rotateCompass(degrees) {
-        currentHeading = (currentHeading + degrees + 360) % 360;
-        updateCompassNeedle();
-        showToast(`🧭 Compass rotated to ${currentHeading.toFixed(0)}°`);
-    }
-    
-    function resetCompass() {
-        currentHeading = 0;
-        updateCompassNeedle();
-        showToast('🧭 Compass reset - Align golden arrow to the Qibla angle');
-    }
-    
-    function initDeviceOrientation() {
-        if (window.DeviceOrientationEvent) {
-            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                document.body.addEventListener('click', function requestOrientation() {
-                    DeviceOrientationEvent.requestPermission()
-                        .then(response => {
-                            if (response === 'granted') {
-                                window.addEventListener('deviceorientation', handleOrientation);
-                                deviceOrientationSupported = true;
-                                showToast('🧭 Device orientation active! Rotate your phone to see Qibla.');
-                            }
-                        })
-                        .catch(console.error);
-                    document.body.removeEventListener('click', requestOrientation);
-                });
-            } else {
-                window.addEventListener('deviceorientation', handleOrientation);
-                deviceOrientationSupported = true;
-            }
-        }
-    }
-    
-    function handleOrientation(event) {
-        if (event.webkitCompassHeading !== undefined) {
-            currentHeading = event.webkitCompassHeading;
-        } else if (event.alpha !== null) {
-            currentHeading = 360 - event.alpha;
-        }
-        updateCompassNeedle();
-    }
-    
-    function showToast(msg) {
-        const toast = document.createElement('div');
-        toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#00aa44; color:white; padding:10px 20px; border-radius:10px; z-index:9999; animation:fadeOut 3s ease; white-space:nowrap;';
-        toast.innerHTML = msg;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    }
-    
-    // ========== PRAYER TIMES ==========
-    
-    async function getPrayerTimes(lat, lon) {
-        try {
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            
-            const url = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${lat}&longitude=${lon}&method=2`;
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            if (data && data.data && data.data.timings) {
-                const timings = data.data.timings;
-                
-                document.getElementById('fajr').innerHTML = timings.Fajr;
-                document.getElementById('dhuhr').innerHTML = timings.Dhuhr;
-                document.getElementById('asr').innerHTML = timings.Asr;
-                document.getElementById('maghrib').innerHTML = timings.Maghrib;
-                document.getElementById('isha').innerHTML = timings.Isha;
-                
-                // Store prayer times for Adhan
-                const prayerTimes = {
-                    Fajr: timings.Fajr,
-                    Dhuhr: timings.Dhuhr,
-                    Asr: timings.Asr,
-                    Maghrib: timings.Maghrib,
-                    Isha: timings.Isha
-                };
-                
-                // Check and schedule Adhan
-                scheduleAdhan(prayerTimes);
-                
-                const now = new Date();
-                const currentTime = now.getHours() * 60 + now.getMinutes();
-                
-                const prayers = [
-                    { name: 'Fajr', time: timings.Fajr },
-                    { name: 'Dhuhr', time: timings.Dhuhr },
-                    { name: 'Asr', time: timings.Asr },
-                    { name: 'Maghrib', time: timings.Maghrib },
-                    { name: 'Isha', time: timings.Isha }
-                ];
-                
-                let nextPrayer = null;
-                let minDiff = Infinity;
-                
-                for (const prayer of prayers) {
-                    const [hours, minutes] = prayer.time.split(':').map(Number);
-                    const prayerMinutes = hours * 60 + minutes;
-                    let diff = prayerMinutes - currentTime;
-                    if (diff < 0) diff += 24 * 60;
-                    if (diff < minDiff) {
-                        minDiff = diff;
-                        nextPrayer = prayer;
-                    }
-                }
-                
-                if (nextPrayer) {
-                    const remainingHours = Math.floor(minDiff / 60);
-                    const remainingMinutes = minDiff % 60;
-                    document.getElementById('nextPrayer').innerHTML = `⏰ Next Prayer: <strong>${nextPrayer.name}</strong> in ${remainingHours}h ${remainingMinutes}m 🔔 Click to play Adhan`;
-                }
-                
-                return true;
-            }
-        } catch(e) {
-            console.log('Prayer time error:', e);
-        }
-        return false;
-    }
-    
-    function scheduleAdhan(prayerTimes) {
-        // Clear previous interval
-        if (prayerCheckInterval) clearInterval(prayerCheckInterval);
-        
-        // Check every minute if it's time for Adhan
-        prayerCheckInterval = setInterval(() => {
-            const now = new Date();
-            const currentTime = now.getHours() * 60 + now.getMinutes();
-            const currentSeconds = now.getSeconds();
-            
-            for (const [prayer, time] of Object.entries(prayerTimes)) {
-                const [hours, minutes] = time.split(':').map(Number);
-                const prayerMinutes = hours * 60 + minutes;
-                
-                // Play Adhan within the first 30 seconds of the prayer time
-                if (currentTime === prayerMinutes && currentSeconds < 30) {
-                    playMakkahAdhan();
-                    showToast(`🕌 Adhan for ${prayer} prayer - وقت الصلاة`);
-                }
-            }
-        }, 10000); // Check every 10 seconds
-    }
-    
-    async function getLocationAndPrayerTimes() {
-        if (navigator.geolocation) {
-            showToast('📍 Getting your location...');
-            navigator.geolocation.getCurrentPosition(async (position) => {
-                userLat = position.coords.latitude;
-                userLon = position.coords.longitude;
-                
-                try {
-                    const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLat}&lon=${userLon}`);
-                    const geoData = await geoRes.json();
-                    const city = geoData.address?.city || geoData.address?.town || geoData.address?.village || 'Your Location';
-                    const country = geoData.address?.country || '';
-                    document.getElementById('locationName').innerHTML = `📍 ${city}, ${country}`;
-                } catch(e) {
-                    document.getElementById('locationName').innerHTML = `📍 ${userLat.toFixed(2)}, ${userLon.toFixed(2)}`;
-                }
-                
-                updateQiblaDisplay(userLat, userLon);
-                await getPrayerTimes(userLat, userLon);
-                
-                showToast('✅ Location detected! Qibla and prayer times updated. Adhan will play at prayer times.');
-                
-            }, (error) => {
-                console.error('Geolocation error:', error);
-                showToast('⚠️ Please enable location access for Qibla and prayer times.');
-            });
-        } else {
-            showToast('⚠️ Geolocation is not supported');
-        }
-    }
-    
-    // ========== QURAN SEARCH FUNCTIONS ==========
     
     function setMode(mode) {
         currentMode = mode;
@@ -1041,7 +907,7 @@
                 }
             }
         } catch(e) {
-            console.log('Error fetching ayah:', e);
+            console.log('Error:', e);
         }
         return null;
     }
@@ -1128,8 +994,8 @@
                             <div class="result-header"><span class="result-surah">🔍 SCIENTIFIC MIRACLES</span></div>
                             <div class="result-body" style="padding: 20px;">
                                 <div class="science-box">
-                                    <div class="science-title">📚 No direct match for "${escapeHtml(searchTerm)}"</div>
-                                    <div>Try searching: baby, iron, sun, moon, water, mountains, universe, big bang</div>
+                                    <div class="science-title">📚 Scientific Miracles</div>
+                                    <div>Try searching: baby, iron, sun, moon, water, mountains, universe</div>
                                 </div>
                             </div>
                         </div>
@@ -1143,16 +1009,11 @@
         const resultsGrid = document.getElementById('resultsGrid');
         
         if (!verses || verses.length === 0) {
-            resultsGrid.innerHTML = `
-                <div class="no-results">
-                    📭 No verses found containing "${escapeHtml(searchTerm)}"<br>
-                    <span style="font-size:0.8rem;">Try: mercy, justice, peace, love, woman, iron, sun, water, mountains</span>
-                </div>`;
+            resultsGrid.innerHTML = `<div class="no-results">📭 No verses found containing "${escapeHtml(searchTerm)}"</div>`;
             return;
         }
         
         let html = '<div class="results-grid">';
-        
         for (const verse of verses) {
             const surahNum = verse.surah?.number || '';
             const ayahNum = verse.numberInSurah || '';
@@ -1164,34 +1025,28 @@
                 <div class="result-card">
                     <div class="result-header">
                         <span class="result-surah">📖 ${escapeHtml(surahName)} (${surahNum}:${ayahNum})</span>
-                        <span>🔍 Contains "${escapeHtml(searchTerm)}"</span>
                     </div>
                     <div class="result-body" style="padding: 20px;">
                         <div class="arabic-text">${escapeHtml(arabicText)}</div>
                         <div class="english-text">${escapeHtml(englishText)}</div>
                         <div class="audio-player">
                             <button class="play-btn" onclick="playAudio(${surahNum}, ${ayahNum}, this)">🔊 Play Recitation</button>
-                            <span style="font-size:0.7rem; color:#aaa;">🎙️ Sheikh Sudais</span>
                         </div>
                     </div>
                 </div>
             `;
         }
-        
         html += '</div>';
         resultsGrid.innerHTML = html;
     }
     
     function displayScienceResult(scienceMatch, quranData) {
         const resultsGrid = document.getElementById('resultsGrid');
-        
         let html = '<div class="results-grid">';
         
         html += `
             <div class="result-card">
-                <div class="result-header">
-                    <span class="result-surah">🔬 SCIENTIFIC MIRACLE</span>
-                </div>
+                <div class="result-header"><span class="result-surah">🔬 SCIENTIFIC MIRACLE</span></div>
                 <div class="result-body" style="padding: 20px;">
                     <div class="science-box">
                         <div class="science-title">${scienceMatch.title}</div>
@@ -1202,33 +1057,14 @@
         if (quranData && quranData.arabic) {
             html += `
                 <div style="margin-top: 15px;">
-                    <strong>📖 Quran Verse (${scienceMatch.surah}:${scienceMatch.verse})</strong>
+                    <strong>📖 Quran Verse</strong>
                     <div class="arabic-text">${escapeHtml(quranData.arabic)}</div>
                     <div class="english-text">${escapeHtml(quranData.english)}</div>
-                    <div class="audio-player">
-                        <button class="play-btn" onclick="playAudio(${scienceMatch.surah}, ${scienceMatch.verse}, this)">🔊 Play Recitation</button>
-                    </div>
                 </div>
             `;
         }
         
-        html += `<div style="margin-top: 15px;"><strong>📖 Related Verses:</strong><br>${scienceMatch.verses.map(v => `• ${v}`).join('<br>')}</div>`;
-        html += `</div></div>`;
-        
-        html += `
-            <div class="result-card">
-                <div class="result-header"><span class="result-surah">📚 MORE SCIENTIFIC MIRACLES</span></div>
-                <div class="result-body" style="padding: 20px;">
-                    <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 10px;">
-                        ${Object.keys(scienceDatabase).filter(k => k !== Object.keys(scienceMatch)[0]).map(key => 
-                            `<div onclick="searchWord('${key}')" style="color:#FFD700; cursor:pointer; padding:5px; background:rgba(0,0,0,0.3); border-radius:8px;">🔬 ${scienceDatabase[key].title}</div>`
-                        ).join('')}
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        html += '</div>';
+        html += `</div></div></div>`;
         resultsGrid.innerHTML = html;
     }
     
@@ -1239,8 +1075,24 @@
         return div.innerHTML;
     }
     
-    // Initialize
-    initDeviceOrientation();
+    function showToast(msg) {
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#00aa44; color:white; padding:10px 20px; border-radius:10px; z-index:9999; animation:fadeOut 3s ease; white-space:nowrap;';
+        toast.innerHTML = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    // Initialize audio context on first user interaction (required by browsers)
+    function initAudioOnFirstClick() {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            showToast('🎵 Prayer chime ready! Toggle ON to hear at prayer times.');
+        }
+    }
     
     // Event listeners
     document.getElementById('searchBtn').addEventListener('click', performSearch);
@@ -1248,15 +1100,31 @@
         if (e.key === 'Enter') performSearch();
     });
     
-    // Auto-request location on load
-    setTimeout(() => {
-        getLocationAndPrayerTimes();
-    }, 500);
+    document.getElementById('alertToggle').addEventListener('change', toggleChime);
+    document.getElementById('testAlertBtn').addEventListener('click', testChime);
     
-    // Welcome message
+    // Initialize audio on page click (required for browsers to allow sound)
+    document.body.addEventListener('click', initAudioOnFirstClick);
+    
+    loadChimePreference();
+    
+    // Auto-request location
     setTimeout(() => {
-        showToast('🏆 MPRIMO Quran & Science | Adhan will play at prayer times | Qibla Golden Arrow shows direction 🕋');
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                userLat = position.coords.latitude;
+                userLon = position.coords.longitude;
+                await getPrayerTimes(userLat, userLon);
+            }, () => {
+                document.getElementById('nextPrayer').innerHTML = '⚠️ Allow location for prayer times';
+            });
+        }
     }, 1000);
+    
+    // Welcome
+    setTimeout(() => {
+        showToast('🏆 MPRIMO Quran & Science | Tap Test Chime to hear the sound!');
+    }, 1500);
 </script>
 
 <style>
