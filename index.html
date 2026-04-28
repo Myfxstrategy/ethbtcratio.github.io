@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MPRIMO | Quran & Science - الإعجاز العلمي</title>
+    <title>MPRIMO | Quran & Science - الإعجاز العلمي | Prayer Times & Qibla</title>
     <style>
         * {
             margin: 0;
@@ -59,6 +59,129 @@
         .header p {
             color: #aaa;
             margin-top: 10px;
+        }
+        
+        /* Prayer & Qibla Section */
+        .prayer-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .prayer-card {
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+        
+        .prayer-title {
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-left: 3px solid #FFD700;
+            padding-left: 10px;
+        }
+        
+        .qibla-container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .qibla-direction {
+            font-size: 3rem;
+            margin: 10px 0;
+        }
+        
+        .qibla-degree {
+            font-size: 1.5rem;
+            color: #00cc44;
+        }
+        
+        .compass {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .compass-circle {
+            width: 150px;
+            height: 150px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            border: 2px solid #FFD700;
+            position: relative;
+        }
+        
+        .compass-needle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 60px;
+            background: #ff4444;
+            transform-origin: top center;
+            transform: translateX(-50%) rotate(0deg);
+        }
+        
+        .compass-needle::after {
+            content: 'N';
+            position: absolute;
+            top: -20px;
+            left: -8px;
+            color: #fff;
+            font-size: 12px;
+        }
+        
+        .prayer-times {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .prayer-item {
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .prayer-name {
+            font-size: 0.8rem;
+            color: #FFD700;
+        }
+        
+        .prayer-time {
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: monospace;
+        }
+        
+        .next-prayer {
+            background: #00aa44;
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .location-btn {
+            background: #2a2a3e;
+            border: 1px solid #FFD700;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        .location-btn:hover {
+            background: #FFD700;
+            color: #000;
         }
         
         .search-card {
@@ -301,6 +424,7 @@
             .results-grid { grid-template-columns: 1fr; }
             .header h1 { font-size: 1.6rem; }
             .arabic-text { font-size: 1rem; }
+            .prayer-times { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -311,6 +435,37 @@
         <h1>🔬 القرآن والعلم | Quran & Science</h1>
         <div class="creator-name"><span>✨ Created by: MPRIMO ✨</span></div>
         <p>Search ANY word in the Quran | Discover scientific miracles | Listen with audio</p>
+    </div>
+    
+    <!-- Prayer Times & Qibla Section -->
+    <div class="prayer-section">
+        <div class="prayer-card">
+            <div class="prayer-title">🕋 Qibla Direction (Makkah)</div>
+            <div class="qibla-container">
+                <div class="compass">
+                    <div class="compass-circle"></div>
+                    <div class="compass-needle" id="qiblaNeedle"></div>
+                </div>
+                <div class="qibla-direction" id="qiblaDirection">📍 Detecting...</div>
+                <div class="qibla-degree" id="qiblaDegree">--°</div>
+                <button class="location-btn" onclick="getLocationAndPrayerTimes()">📍 Get My Location</button>
+            </div>
+        </div>
+        
+        <div class="prayer-card">
+            <div class="prayer-title">🕌 Prayer Times</div>
+            <div id="locationName" style="font-size:0.85rem; color:#aaa; margin-bottom:10px;">📍 Allow location to see prayer times</div>
+            <div class="prayer-times" id="prayerTimesList">
+                <div class="prayer-item"><div class="prayer-name">Fajr</div><div class="prayer-time" id="fajr">--:--</div></div>
+                <div class="prayer-item"><div class="prayer-name">Dhuhr</div><div class="prayer-time" id="dhuhr">--:--</div></div>
+                <div class="prayer-item"><div class="prayer-name">Asr</div><div class="prayer-time" id="asr">--:--</div></div>
+                <div class="prayer-item"><div class="prayer-name">Maghrib</div><div class="prayer-time" id="maghrib">--:--</div></div>
+                <div class="prayer-item"><div class="prayer-name">Isha</div><div class="prayer-time" id="isha">--:--</div></div>
+            </div>
+            <div class="next-prayer" id="nextPrayer">
+                ⏰ Enable location to see next prayer
+            </div>
+        </div>
     </div>
     
     <div class="search-card">
@@ -350,6 +505,13 @@
     // ========== MPRIMO - COMPLETE QURAN SEARCH ENGINE ==========
     
     let currentMode = 'quran';
+    let userLat = null;
+    let userLon = null;
+    let qiblaAngle = 0;
+    
+    // Makkah coordinates
+    const MAKKAH_LAT = 21.4225;
+    const MAKKAH_LON = 39.8262;
     
     // Scientific Miracles Database
     const scienceDatabase = {
@@ -423,6 +585,151 @@
     const QURAN_AYAH_API = 'https://api.alquran.cloud/v1/ayah/';
     
     let currentAudio = null;
+    
+    // ========== QIBLA & PRAYER TIME FUNCTIONS ==========
+    
+    function calculateQibla(lat, lon) {
+        // Calculate direction to Makkah
+        const phi1 = lat * Math.PI / 180;
+        const lambda1 = lon * Math.PI / 180;
+        const phi2 = MAKKAH_LAT * Math.PI / 180;
+        const lambda2 = MAKKAH_LON * Math.PI / 180;
+        
+        const deltaLambda = lambda2 - lambda1;
+        
+        const y = Math.sin(deltaLambda) * Math.cos(phi2);
+        const x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(deltaLambda);
+        
+        let qibla = Math.atan2(y, x) * 180 / Math.PI;
+        qibla = (qibla + 360) % 360;
+        
+        return qibla;
+    }
+    
+    function getCompassDirection(angle) {
+        if (angle >= 337.5 || angle < 22.5) return '⬆️ North';
+        if (angle >= 22.5 && angle < 67.5) return '↗️ Northeast';
+        if (angle >= 67.5 && angle < 112.5) return '➡️ East';
+        if (angle >= 112.5 && angle < 157.5) return '↘️ Southeast';
+        if (angle >= 157.5 && angle < 202.5) return '⬇️ South';
+        if (angle >= 202.5 && angle < 247.5) return '↙️ Southwest';
+        if (angle >= 247.5 && angle < 292.5) return '⬅️ West';
+        if (angle >= 292.5 && angle < 337.5) return '↖️ Northwest';
+        return '⬆️ North';
+    }
+    
+    function updateQiblaDisplay(lat, lon) {
+        qiblaAngle = calculateQibla(lat, lon);
+        const direction = getCompassDirection(qiblaAngle);
+        
+        document.getElementById('qiblaDirection').innerHTML = `Makkah: ${direction}`;
+        document.getElementById('qiblaDegree').innerHTML = `${qiblaAngle.toFixed(1)}° clockwise from North`;
+        
+        // Rotate the compass needle
+        const needle = document.getElementById('qiblaNeedle');
+        needle.style.transform = `translateX(-50%) rotate(${qiblaAngle}deg)`;
+    }
+    
+    async function getPrayerTimes(lat, lon) {
+        try {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            
+            // Using Aladhan API for prayer times (free, reliable)
+            const url = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${lat}&longitude=${lon}&method=2`;
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            if (data && data.data && data.data.timings) {
+                const timings = data.data.timings;
+                
+                document.getElementById('fajr').innerHTML = timings.Fajr;
+                document.getElementById('dhuhr').innerHTML = timings.Dhuhr;
+                document.getElementById('asr').innerHTML = timings.Asr;
+                document.getElementById('maghrib').innerHTML = timings.Maghrib;
+                document.getElementById('isha').innerHTML = timings.Isha;
+                
+                // Calculate next prayer
+                const now = new Date();
+                const currentTime = now.getHours() * 60 + now.getMinutes();
+                
+                const prayers = [
+                    { name: 'Fajr', time: timings.Fajr },
+                    { name: 'Dhuhr', time: timings.Dhuhr },
+                    { name: 'Asr', time: timings.Asr },
+                    { name: 'Maghrib', time: timings.Maghrib },
+                    { name: 'Isha', time: timings.Isha }
+                ];
+                
+                let nextPrayer = null;
+                let minDiff = Infinity;
+                
+                for (const prayer of prayers) {
+                    const [hours, minutes] = prayer.time.split(':').map(Number);
+                    const prayerMinutes = hours * 60 + minutes;
+                    let diff = prayerMinutes - currentTime;
+                    if (diff < 0) diff += 24 * 60;
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        nextPrayer = prayer;
+                    }
+                }
+                
+                if (nextPrayer) {
+                    const remainingHours = Math.floor(minDiff / 60);
+                    const remainingMinutes = minDiff % 60;
+                    document.getElementById('nextPrayer').innerHTML = `⏰ Next Prayer: <strong>${nextPrayer.name}</strong> in ${remainingHours}h ${remainingMinutes}m`;
+                }
+                
+                return true;
+            }
+        } catch(e) {
+            console.log('Prayer time error:', e);
+            document.getElementById('nextPrayer').innerHTML = '⚠️ Unable to fetch prayer times';
+        }
+        return false;
+    }
+    
+    async function getLocationAndPrayerTimes() {
+        if (navigator.geolocation) {
+            document.getElementById('nextPrayer').innerHTML = '📍 Getting your location...';
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                userLat = position.coords.latitude;
+                userLon = position.coords.longitude;
+                
+                // Get city name from coordinates
+                try {
+                    const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLat}&lon=${userLon}`);
+                    const geoData = await geoRes.json();
+                    const city = geoData.address?.city || geoData.address?.town || geoData.address?.village || 'Your Location';
+                    const country = geoData.address?.country || '';
+                    document.getElementById('locationName').innerHTML = `📍 ${city}, ${country}`;
+                } catch(e) {
+                    document.getElementById('locationName').innerHTML = `📍 ${userLat.toFixed(2)}, ${userLon.toFixed(2)}`;
+                }
+                
+                updateQiblaDisplay(userLat, userLon);
+                await getPrayerTimes(userLat, userLon);
+                
+                // Auto-refresh prayer times every minute
+                if (window.prayerInterval) clearInterval(window.prayerInterval);
+                window.prayerInterval = setInterval(() => {
+                    if (userLat && userLon) getPrayerTimes(userLat, userLon);
+                }, 60000);
+                
+            }, (error) => {
+                console.error('Geolocation error:', error);
+                document.getElementById('nextPrayer').innerHTML = '⚠️ Please enable location access to see prayer times and Qibla direction.';
+                document.getElementById('qiblaDirection').innerHTML = '📍 Enable location';
+            });
+        } else {
+            document.getElementById('nextPrayer').innerHTML = '⚠️ Geolocation is not supported by your browser';
+        }
+    }
+    
+    // ========== QURAN SEARCH FUNCTIONS ==========
     
     function setMode(mode) {
         currentMode = mode;
@@ -547,11 +854,9 @@
         resultsGrid.innerHTML = '<div class="loading">Searching...</div>';
         
         if (currentMode === 'quran') {
-            // QURAN MODE: Search any word in the entire Quran
             const verses = await searchQuranAnyWord(searchTerm);
             displayQuranResults(searchTerm, verses);
         } else {
-            // SCIENCE MODE: Show scientific miracle
             let scienceMatch = null;
             for (const key in scienceDatabase) {
                 if (searchTerm.includes(key) || key.includes(searchTerm)) {
@@ -573,7 +878,6 @@
                 const quranData = await fetchAyahText(scienceMatch.surah, scienceMatch.verse);
                 displayScienceResult(scienceMatch, quranData);
             } else {
-                // Show scientific miracles list if no match
                 resultsGrid.innerHTML = `
                     <div class="results-grid">
                         <div class="result-card">
@@ -700,11 +1004,16 @@
         if (e.key === 'Enter') performSearch();
     });
     
+    // Auto-request location on load
+    setTimeout(() => {
+        getLocationAndPrayerTimes();
+    }, 500);
+    
     // Welcome message
     setTimeout(() => {
         const welcome = document.createElement('div');
         welcome.style.cssText = 'position:fixed; bottom:20px; right:20px; background:#00aa44; color:white; padding:12px 20px; border-radius:10px; z-index:9999; animation:fadeOut 4s ease;';
-        welcome.innerHTML = '🏆 MPRIMO Quran & Science Engine | Search ANY word in the Quran!';
+        welcome.innerHTML = '🏆 MPRIMO | Quran & Science + Prayer Times + Qibla 🕋';
         document.body.appendChild(welcome);
         setTimeout(() => welcome.remove(), 4000);
     }, 1000);
