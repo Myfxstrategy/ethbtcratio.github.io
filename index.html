@@ -116,7 +116,6 @@
       opacity: 0.85;
     }
 
-    /* New sections */
     .commands-grid, .steps-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -239,6 +238,61 @@
       padding: 2rem;
       color: #aaa;
     }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .pricing-card {
+      background: rgba(0,0,0,0.3);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(0, 212, 255, 0.2);
+    }
+    .pricing-card h3 {
+      font-size: 1.8rem;
+      color: #ffd700;
+    }
+    .pricing-card .price {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    .pricing-card ul {
+      text-align: left;
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .pricing-card ul li {
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .pricing-card ul li:before {
+      content: "✅ ";
+      color: #00ffaa;
+    }
+    .pricing-card .buy-btn {
+      display: inline-block;
+      background: #ffd700;
+      color: #0a0f1e;
+      font-weight: bold;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      margin-top: 0.5rem;
+      transition: 0.2s;
+    }
+    .pricing-card .buy-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    }
+    .highlight {
+      color: #00d4ff;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -277,7 +331,7 @@
     </div>
   </div>
 
-  <!-- ========== NEW SECTION 1: TELEGRAM COMMANDS ========== -->
+  <!-- ========== SECTION 1: TELEGRAM COMMANDS ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>🤖 HOW TO USE THE TELEGRAM BOT (COMMANDS)</h2>
     <div class="commands-grid">
@@ -291,7 +345,7 @@
     <p style="margin-top: 1rem; font-size: 0.9rem;">💡 <strong>Pro tip:</strong> After adding your coins, use <span class="cmd">/portfolio</span> daily to see your real profit/loss – no need to open exchange apps.</p>
   </div>
 
-  <!-- ========== NEW SECTION 2: HOW TO PRACTICE PORTFOLIO ========== -->
+  <!-- ========== SECTION 2: PORTFOLIO STEP BY STEP ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>📈 PORTFOLIO TRACKING – STEP BY STEP</h2>
     <div class="steps-grid">
@@ -305,7 +359,7 @@
     <p style="margin-top: 1rem; font-size: 0.9rem;">🎯 This simulates your real investment – perfect for paper trading or real tracking.</p>
   </div>
 
-  <!-- ========== NEW SECTION 3: BENEFITS SCENARIO ========== -->
+  <!-- ========== SECTION 3: BENEFITS SCENARIO ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>💎 HOW YOU BENEFIT FROM ALPHA SNIPER</h2>
     <div class="scenario">
@@ -323,7 +377,7 @@
     <p style="margin-top: 1rem;">👉 The result: <strong>Less confusion, more confidence, reduced risk of emotional trading.</strong></p>
   </div>
 
-  <!-- ========== NEW SECTION 4: NEW USER SCENARIO (NO KNOWLEDGE) ========== -->
+  <!-- ========== SECTION 4: NEW USER PLAN ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>🧭 NEW USER? HERE IS YOUR 3‑DAY PLAN</h2>
     <div class="steps-grid">
@@ -335,6 +389,50 @@
     <div class="scenario" style="margin-top: 0.5rem;">
       💡 <strong>Why this works:</strong> Most beginners lose money because they jump into random coins. Alpha Sniper replaces guesswork with data and a proven strategy. You will see the trend, not the noise.
     </div>
+  </div>
+
+  <!-- ========== NEW SECTION: PURCHASE / UPGRADE ========== -->
+  <div class="glass card" style="margin-bottom: 2rem;">
+    <h2>💳 GET FULL ACCESS – 7 OR 30 DAYS</h2>
+    <p style="margin-bottom: 1rem;">
+      Your <strong>7‑day free trial</strong> gives you a taste. After that, upgrade to continue using all features. 
+      Payment is handled automatically via the Telegram bot – you pay with <span class="highlight">XRP</span> (or your chosen crypto) and your access is extended instantly.
+    </p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>7 Days</h3>
+        <div class="price">$5.50</div>
+        <ul>
+          <li>Full market radar (live top gainers/losers)</li>
+          <li>Unlimited portfolio tracking</li>
+          <li>Copy‑trading signals & Bitget bot link</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" class="buy-btn" onclick="alert('Type /buy in Telegram to purchase.')">Buy Now</a>
+      </div>
+      <div class="pricing-card">
+        <h3>30 Days</h3>
+        <div class="price">$22.00</div>
+        <ul>
+          <li>Everything in 7‑day plan</li>
+          <li>30 days of uninterrupted access</li>
+          <li>Best value – save 33%</li>
+          <li>Auto‑extend after payment</li>
+        </ul>
+        <a href="#" class="buy-btn" onclick="alert('Type /buy in Telegram to purchase.')">Buy Now</a>
+      </div>
+    </div>
+    <div style="background: rgba(0, 212, 255, 0.1); border-radius: 1rem; padding: 1rem; margin-top: 1rem;">
+      <p style="margin: 0; font-size: 0.95rem;">
+        <strong>🔹 How to buy:</strong> Open the Alpha Sniper bot on Telegram → type <span class="cmd">/buy</span> → choose your plan → pay with XRP (or the configured crypto) → your access is extended automatically.
+      </p>
+      <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.8;">
+        💡 No manual approvals – the bot detects your payment and updates your expiry instantly.
+      </p>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.85rem; color: #aaa;">
+      After your 7‑day trial ends, you will be prompted to upgrade. You can also upgrade at any time during the trial – the extra days will be added on top.
+    </p>
   </div>
 
   <!-- Market grid (unchanged) -->
@@ -363,6 +461,7 @@
       📲 CLAIM 7‑DAY TRIAL → ASK ON WHATSAPP
     </a>
     <p style="margin-top: 1rem; font-size: 0.85rem;">📞 Just say "I want my 7‑day trial" – no payment, no strings attached.</p>
+    <p style="margin-top: 0.8rem; font-size: 0.85rem; opacity: 0.8;">Already have access? Upgrade via <span class="cmd">/buy</span> in Telegram.</p>
   </div>
   <footer>
     🚀 Live market data from Binance | Not financial advice | Crypto is volatile – invest what you can lose
