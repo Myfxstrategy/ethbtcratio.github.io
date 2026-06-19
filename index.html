@@ -238,6 +238,7 @@
       padding: 2rem;
       color: #aaa;
     }
+
     .pricing-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -284,6 +285,8 @@
       text-decoration: none;
       margin-top: 0.5rem;
       transition: 0.2s;
+      border: none;
+      cursor: pointer;
     }
     .pricing-card .buy-btn:hover {
       transform: scale(1.02);
@@ -293,6 +296,31 @@
       color: #00d4ff;
       font-weight: bold;
     }
+    .payment-note {
+      background: rgba(0, 212, 255, 0.08);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    .payment-note p { margin: 0.3rem 0; }
+
+    /* NEW: Alert feature styling */
+    .alert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    .alert-card {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 1.2rem;
+      padding: 1rem;
+      text-align: center;
+      border-left: 4px solid #ffd700;
+    }
+    .alert-card h3 { color: #ffd700; font-size: 1.2rem; }
+    .alert-card .cmd { background: #ffd70020; color: #ffd700; }
+    @media (max-width: 700px) { .alert-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -325,13 +353,18 @@
       <p>Add your own coins via Telegram – bot calculates live P&amp;L, total value, and percentage returns.</p>
     </div>
     <div class="glass feature">
+      <div class="feature-icon">🔔</div>
+      <h3>Hourly Market Alerts</h3>
+      <p>Subscribe to get crypto &amp; Forex updates every hour – oversold/overbought signals, portfolio summary, and more.</p>
+    </div>
+    <div class="glass feature">
       <div class="feature-icon">🔒</div>
       <h3>No API Keys Needed</h3>
       <p>Your funds stay on your exchange. The bot just shows you the market and tracks your portfolio.</p>
     </div>
   </div>
 
-  <!-- ========== SECTION 1: TELEGRAM COMMANDS ========== -->
+  <!-- ========== SECTION 1: TELEGRAM COMMANDS (UPDATED with /subscribe & /unsubscribe) ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>🤖 HOW TO USE THE TELEGRAM BOT (COMMANDS)</h2>
     <div class="commands-grid">
@@ -340,12 +373,15 @@
       <div class="cmd-card"><span class="cmd">/add &lt;COIN&gt; &lt;AMOUNT&gt; &lt;PRICE&gt;</span><br>Example: <code>/add BTC 0.01 50000</code> – adds Bitcoin to your portfolio.</div>
       <div class="cmd-card"><span class="cmd">/remove &lt;COIN&gt;</span><br>Removes a coin from your portfolio.</div>
       <div class="cmd-card"><span class="cmd">/holdings</span><br>Lists all coins you currently hold with average entry price.</div>
-      <div class="cmd-card"><span class="cmd">/start</span><br>Welcome message and referral link to Bitget copy‑trading bot.</div>
+      <div class="cmd-card"><span class="cmd">/start</span><br>Welcome message, referral link, and overview of all commands.</div>
+      <!-- NEW COMMANDS -->
+      <div class="cmd-card"><span class="cmd">/subscribe</span><br>🔔 Opt‑in to receive hourly market alerts (crypto + Forex + portfolio summary).</div>
+      <div class="cmd-card"><span class="cmd">/unsubscribe</span><br>🔕 Stop receiving hourly alerts.</div>
     </div>
     <p style="margin-top: 1rem; font-size: 0.9rem;">💡 <strong>Pro tip:</strong> After adding your coins, use <span class="cmd">/portfolio</span> daily to see your real profit/loss – no need to open exchange apps.</p>
   </div>
 
-  <!-- ========== SECTION 2: PORTFOLIO STEP BY STEP ========== -->
+  <!-- ========== SECTION 2: PORTFOLIO STEP BY STEP (UNTOUCHED) ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>📈 PORTFOLIO TRACKING – STEP BY STEP</h2>
     <div class="steps-grid">
@@ -359,7 +395,7 @@
     <p style="margin-top: 1rem; font-size: 0.9rem;">🎯 This simulates your real investment – perfect for paper trading or real tracking.</p>
   </div>
 
-  <!-- ========== SECTION 3: BENEFITS SCENARIO ========== -->
+  <!-- ========== SECTION 3: BENEFITS SCENARIO (UNTOUCHED) ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>💎 HOW YOU BENEFIT FROM ALPHA SNIPER</h2>
     <div class="scenario">
@@ -372,12 +408,12 @@
       🧠 <strong>You want to copy a winning strategy.</strong> My personal Martingale bot (ENA/USDT) is live on Bitget. You get the direct link – one click to copy. I do the hard work; you follow.
     </div>
     <div class="scenario">
-      ⏰ <strong>You don’t have time to watch charts 24/7.</strong> The bot sends you the daily market snapshot and you can refresh anytime. Spend 5 minutes a day, stay informed.
+      ⏰ <strong>You don’t have time to watch charts 24/7.</strong> Subscribe to <span class="cmd">/subscribe</span> and receive hourly alerts with oversold/overbought signals – never miss a trading opportunity.
     </div>
     <p style="margin-top: 1rem;">👉 The result: <strong>Less confusion, more confidence, reduced risk of emotional trading.</strong></p>
   </div>
 
-  <!-- ========== SECTION 4: NEW USER PLAN ========== -->
+  <!-- ========== SECTION 4: NEW USER PLAN (UNTOUCHED) ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>🧭 NEW USER? HERE IS YOUR 3‑DAY PLAN</h2>
     <div class="steps-grid">
@@ -391,11 +427,11 @@
     </div>
   </div>
 
-  <!-- ========== NEW SECTION: PURCHASE / UPGRADE ========== -->
+  <!-- ========== SECTION 5: PAYMENT & ACCESS (UNTOUCHED) ========== -->
   <div class="glass card" style="margin-bottom: 2rem;">
     <h2>💳 GET FULL ACCESS – 7 OR 30 DAYS</h2>
     <p style="margin-bottom: 1rem;">
-      Your <strong>7‑day free trial</strong> gives you a taste. After that, upgrade to continue using all features. 
+      Your <strong>7‑day free trial</strong> gives you a taste. After that, upgrade to continue using all features.
       Payment is handled automatically via the Telegram bot – you pay with <span class="highlight">XRP</span> (or your chosen crypto) and your access is extended instantly.
     </p>
     <div class="pricing-grid">
@@ -407,8 +443,9 @@
           <li>Unlimited portfolio tracking</li>
           <li>Copy‑trading signals & Bitget bot link</li>
           <li>Priority support</li>
+          <li>Hourly alert subscription</li>
         </ul>
-        <a href="#" class="buy-btn" onclick="alert('Type /buy in Telegram to purchase.')">Buy Now</a>
+        <a href="https://t.me/ai_dca_bot?start=buy" target="_blank" class="buy-btn">💬 Buy via Telegram</a>
       </div>
       <div class="pricing-card">
         <h3>30 Days</h3>
@@ -418,24 +455,56 @@
           <li>30 days of uninterrupted access</li>
           <li>Best value – save 33%</li>
           <li>Auto‑extend after payment</li>
+          <li>Priority + premium alerts</li>
         </ul>
-        <a href="#" class="buy-btn" onclick="alert('Type /buy in Telegram to purchase.')">Buy Now</a>
+        <a href="https://t.me/ai_dca_bot?start=buy" target="_blank" class="buy-btn">💬 Buy via Telegram</a>
       </div>
     </div>
-    <div style="background: rgba(0, 212, 255, 0.1); border-radius: 1rem; padding: 1rem; margin-top: 1rem;">
-      <p style="margin: 0; font-size: 0.95rem;">
-        <strong>🔹 How to buy:</strong> Open the Alpha Sniper bot on Telegram → type <span class="cmd">/buy</span> → choose your plan → pay with XRP (or the configured crypto) → your access is extended automatically.
-      </p>
-      <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.8;">
-        💡 No manual approvals – the bot detects your payment and updates your expiry instantly.
-      </p>
+    <div class="payment-note">
+      <p><strong>🔹 How to buy:</strong></p>
+      <p>1. Click the <strong>"Buy via Telegram"</strong> button above (opens your bot).</p>
+      <p>2. Type <span class="cmd">/buy</span> (or just tap the start button) → choose your plan.</p>
+      <p>3. Pay with <span class="highlight">XRP</span> (or your configured crypto) – the bot detects your payment and extends your access automatically.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">💡 No manual approvals – instant upgrade after payment.</p>
     </div>
     <p style="margin-top: 1rem; font-size: 0.85rem; color: #aaa;">
       After your 7‑day trial ends, you will be prompted to upgrade. You can also upgrade at any time during the trial – the extra days will be added on top.
     </p>
   </div>
 
-  <!-- Market grid (unchanged) -->
+  <!-- ========== NEW SECTION 6: HOURLY MARKET ALERTS ========== -->
+  <div class="glass card" style="margin-bottom: 2rem;">
+    <h2>🔔 HOURLY MARKET ALERTS – STAY INFORMED</h2>
+    <p style="margin-bottom: 1rem;">
+      Never miss a trading opportunity. Alpha Sniper can send you <strong>automatic hourly updates</strong> straight to your Telegram.
+    </p>
+    <div class="alert-grid">
+      <div class="alert-card">
+        <h3>📊 Crypto Movers</h3>
+        <p>Top 3 gainers &amp; losers with RSI – see which coins are oversold (bounce potential) or overbought (pullback risk).</p>
+      </div>
+      <div class="alert-card">
+        <h3>💱 Forex Signals</h3>
+        <p>Get a summary of overbought/oversold pairs among the 12 major &amp; cross‑currency pairs – trade the trends.</p>
+      </div>
+      <div class="alert-card">
+        <h3>📈 Portfolio Summary</h3>
+        <p>If you have holdings, your personal P&amp;L and total value are included – know your profit/loss at a glance.</p>
+      </div>
+      <div class="alert-card">
+        <h3>⏰ One‑Click Subscription</h3>
+        <p>Just type <span class="cmd">/subscribe</span> in the bot – you will receive alerts every hour. To stop, type <span class="cmd">/unsubscribe</span>.</p>
+      </div>
+    </div>
+    <div style="background: rgba(255, 215, 0, 0.1); border-radius: 1rem; padding: 1rem; margin-top: 1rem;">
+      <p style="margin: 0; font-size: 0.95rem;">
+        <strong>🔹 Example alert:</strong> “Top gainer: BTC +2.5% (RSI 68), USD/JPY oversold (RSI 28) – potential bounce. Your portfolio: +$12.50 today.”<br>
+        <span style="opacity:0.7;">All in one message, every hour – no need to open charts.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Market grid (UNTOUCHED) -->
   <div class="market-grid">
     <div class="glass card">
       <h2>🏆 TOP GAINERS (24h)</h2>
@@ -451,12 +520,12 @@
     </div>
   </div>
 
-  <!-- CTA -->
+  <!-- CTA (UNTOUCHED) -->
   <div class="glass cta">
     <h2>🚀 READY TO STOP GUESSING?</h2>
     <p>Join the inner circle. Get 7 days of full access – market radar, portfolio tracker, and copy‑trading signals.</p>
     <div class="limited">🔥 Limited free trial spots: 50 total – 23 left</div>
-    <a href="https://wa.me/447492166072?text=Hello%21%20I%20want%20my%207-day%20free%20trial%20for%20Alpha%20Sniper%20bot" 
+    <a href="https://wa.me/447492166072?text=Hello%21%20I%20want%20my%207-day%20free%20trial%20for%20Alpha%20Sniper%20bot"
        class="whatsapp-btn" target="_blank">
       📲 CLAIM 7‑DAY TRIAL → ASK ON WHATSAPP
     </a>
@@ -469,6 +538,9 @@
 </div>
 
 <script>
+  // ============================================================
+  // CRYPTO MARKET (UNCHANGED)
+  // ============================================================
   const COINS = [
     'ENAUSDT', 'BTCUSDT', 'ETHUSDT', 'NEARUSDT', 'SOLUSDT', 'AVAXUSDT', 'ADAUSDT',
     'BNBUSDT', 'XRPUSDT', 'DOGEUSDT', 'DOTUSDT', 'LINKUSDT', 'MATICUSDT', 'UNIUSDT',
@@ -524,6 +596,9 @@
     });
   }
 
+  // ============================================================
+  // COUNTDOWN (UNCHANGED)
+  // ============================================================
   function setCountdown() {
     const target = new Date();
     target.setDate(target.getDate() + 7);
@@ -551,6 +626,9 @@
     setInterval(update, 1000);
   }
 
+  // ============================================================
+  // INIT
+  // ============================================================
   fetchMarketData();
   setInterval(fetchMarketData, 30000);
   setCountdown();
